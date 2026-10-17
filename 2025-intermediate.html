@@ -643,11 +643,37 @@
     <button class="btn-submit" onclick="showNext('section-r6', 'section-q7')">大問 Ⅶ へ進む</button>
   </div>
 
-  <!-- ==================== 大問 Ⅶ ==================== -->
+<!-- ==================== 大問 Ⅶ ==================== -->
   <div id="section-q7" class="card" style="display:none;">
     <h2>大問 Ⅶ (配点: 各1点 / 5点満点)</h2>
-    <p style="margin-bottom:16px; color:#666;">歴代オープニング曲の空欄①〜⑤に適する曲名を答えなさい。</p>
+    <p style="margin-bottom:12px; color:#666;">以下の表は、テレビアニメ『ドラえもん』の歴代オープニング曲 (1973〜2024年) とその歌手を示している。表中の空欄①〜⑤に適する曲名をそれぞれ答えなさい。</p>
 
+    <!-- 歴代オープニング曲の表 -->
+    <div style="overflow-x: auto; margin-bottom: 20px;">
+      <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem; text-align: left;">
+        <thead>
+          <tr style="background-color: var(--main-color); color: #fff;">
+            <th style="padding: 8px; border: 1px solid #ccc;">年</th>
+            <th style="padding: 8px; border: 1px solid #ccc;">曲名</th>
+            <th style="padding: 8px; border: 1px solid #ccc;">歌手</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td style="padding: 6px; border: 1px solid #ccc;">1973年</td><td style="padding: 6px; border: 1px solid #ccc;">ドラえもん</td><td style="padding: 6px; border: 1px solid #ccc;">内藤はるみと劇団NLT</td></tr>
+          <tr style="background-color: #f9f9f9;"><td style="padding: 6px; border: 1px solid #ccc;">79年</td><td style="padding: 6px; border: 1px solid #ccc; font-weight: bold; color: var(--main-color);">①</td><td style="padding: 6px; border: 1px solid #ccc;">大杉久美子</td></tr>
+          <tr><td style="padding: 6px; border: 1px solid #ccc;">79年</td><td style="padding: 6px; border: 1px solid #ccc;">ぼくドラえもん</td><td style="padding: 6px; border: 1px solid #ccc;">大山のぶ代、こおろぎ'73</td></tr>
+          <tr style="background-color: #f9f9f9;"><td style="padding: 6px; border: 1px solid #ccc;">92年</td><td style="padding: 6px; border: 1px solid #ccc; font-weight: bold; color: var(--main-color);">②</td><td style="padding: 6px; border: 1px solid #ccc;">山野さと子</td></tr>
+          <tr><td style="padding: 6px; border: 1px solid #ccc;">2003年</td><td style="padding: 6px; border: 1px solid #ccc; font-weight: bold; color: var(--main-color);">③</td><td style="padding: 6px; border: 1px solid #ccc;">渡辺美里</td></tr>
+          <tr style="background-color: #f9f9f9;"><td style="padding: 6px; border: 1px solid #ccc;">04年</td><td style="padding: 6px; border: 1px solid #ccc; font-weight: bold; color: var(--main-color);">④</td><td style="padding: 6px; border: 1px solid #ccc;">AJI</td></tr>
+          <tr><td style="padding: 6px; border: 1px solid #ccc;">05年</td><td style="padding: 6px; border: 1px solid #ccc; font-weight: bold; color: var(--main-color);">⑤</td><td style="padding: 6px; border: 1px solid #ccc;">女子十二楽坊(演奏)</td></tr>
+          <tr style="background-color: #f9f9f9;"><td style="padding: 6px; border: 1px solid #ccc;">05年</td><td style="padding: 6px; border: 1px solid #ccc;">ハグしちゃお</td><td style="padding: 6px; border: 1px solid #ccc;">夏川りみ</td></tr>
+          <tr><td style="padding: 6px; border: 1px solid #ccc;">07年</td><td style="padding: 6px; border: 1px solid #ccc;">夢をかなえてドラえもん</td><td style="padding: 6px; border: 1px solid #ccc;">mao</td></tr>
+          <tr style="background-color: #f9f9f9;"><td style="padding: 6px; border: 1px solid #ccc;">19年</td><td style="padding: 6px; border: 1px solid #ccc;">ドラえもん</td><td style="padding: 6px; border: 1px solid #ccc;">星野源</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 入力項目 -->
     <div class="question-block">
       <div class="q-title">① 79年（大杉久美子）の曲名</div>
       <input type="text" id="q7_1" class="text-input" placeholder="ここに入力してください">
