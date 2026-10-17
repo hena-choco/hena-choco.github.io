@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ドラえもん検定 2022年度 中級</title>
   <style>
-    :root { --main:#6b9dff; --bg:#f4f7f9; --card:#fff; --text:#333; --accent:#ffd43b; }
+    :root { --main:#6B9DFF; --bg:#f4f7f9; --card:#fff; --text:#333; --accent:#FFD43B; }
     * { box-sizing:border-box; margin:0; padding:0; }
     body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif; background:var(--bg); color:var(--text); line-height:1.65; padding:20px 12px; }
     .container { max-width:680px; margin:auto; }
@@ -13,28 +13,30 @@
     h1 { font-size:1.35rem; }
     .card { background:var(--card); border-radius:12px; padding:20px; box-shadow:0 2px 8px #0000000d; margin-bottom:18px; }
     h2 { font-size:1.12rem; margin-bottom:12px; }
-    .intro { margin-bottom:14px; }
     .question-block { margin-bottom:20px; padding-bottom:14px; border-bottom:1px dashed #e5e5e5; }
     .question-block:last-child { border-bottom:0; }
     .q-title { font-weight:700; margin-bottom:8px; }
-    .choices { display:grid; gap:7px; margin-top:8px; }
-    .choice { display:flex; gap:9px; align-items:flex-start; padding:8px 10px; background:#f9fbfd; border:1px solid #e5edf8; border-radius:8px; cursor:pointer; }
-    .choice input { margin-top:5px; accent-color:var(--main); }
+    .options-grid { display:flex; gap:10px; margin-top:8px; }
+    .opt-btn { flex:1; padding:12px; border:2px solid var(--main); background:var(--card); color:var(--main); font-size:1.1rem; font-weight:bold; border-radius:8px; cursor:pointer; transition:all .2s; }
+    .opt-btn.selected, .opt-btn-v.selected { background:var(--main); color:var(--card); }
+    .options-vertical { display:flex; flex-direction:column; gap:8px; margin-top:8px; }
+    .opt-btn-v { text-align:left; padding:12px 16px; border:2px solid var(--main); background:var(--card); color:var(--text); font-size:1rem; border-radius:8px; cursor:pointer; }
     .text-input { width:100%; padding:11px; font-size:1rem; border:2px solid var(--main); border-radius:8px; margin-top:5px; }
     .points { color:#666; font-size:.86rem; font-weight:400; }
-    .btn { width:100%; padding:13px; background:var(--main); color:white; border:0; border-radius:8px; font-size:1rem; font-weight:700; cursor:pointer; margin-top:9px; }
-    .btn:hover { filter:brightness(.94); }
-    .btn-back { background:#687789; }
-    .result-item { margin:10px 0; padding:12px; border-radius:8px; background:#f4f7f9; border-left:5px solid #aaa; }
-    .result-correct { border-left-color:#20a464; }
-    .result-wrong { border-left-color:#e25252; }
-    .badge { display:inline-block; font-weight:700; margin-bottom:4px; }
+    .btn { display:block; width:100%; padding:16px; background:var(--main); color:var(--card); border:0; border-radius:8px; font-size:1.1rem; font-weight:bold; cursor:pointer; margin-top:10px; text-align:center; text-decoration:none; }
+    .btn:hover { background:var(--text); }
+    .btn-back { background:var(--main); }
+    .result-item { padding:12px; border-radius:8px; margin:10px 0; font-size:.95rem; border:2px solid var(--main); }
+    .result-correct { background:var(--main); color:var(--card); border-color:var(--main); }
+    .result-wrong { background:var(--card); color:var(--main); border-color:var(--main); }
+    .result-wrong .badge { background:var(--main); color:var(--card); }
+    .result-wrong strong, .result-wrong div { color:var(--text); }
+    .badge { display:inline-block; padding:2px 8px; border-radius:4px; font-weight:700; font-size:.8rem; margin-bottom:4px; background:rgba(255,255,255,.3); color:var(--card); }
     .answer-key { margin-top:5px; color:#444; }
     .self-check { margin-top:9px; padding:8px; background:white; border-radius:6px; }
-    .score-banner { text-align:center; background:#edf4ff; color:#244b87; padding:18px; border-radius:10px; font-size:1.25rem; font-weight:700; margin:12px 0 18px; }
-    .summary-title { background:#eaf1fb; padding:9px 11px; border-radius:7px; margin:16px 0 8px; font-weight:700; }
+    .score-banner { text-align:center; background:var(--main); color:var(--card); padding:20px; border-radius:12px; font-size:1.4rem; font-weight:700; margin:12px 0 18px; }
+    .summary-title { border-bottom:2px solid var(--main); padding:0 0 4px; margin:20px 0 10px; font-weight:700; }
     .muted { color:#666; font-size:.9rem; }
-    .name-input { width:100%; padding:10px; border:1px solid #b9c8dd; border-radius:7px; margin-top:5px; font-size:1rem; }
     [hidden] { display:none !important; }
     @media (max-width:480px) { body { padding:12px 8px; } .card { padding:16px; } }
   </style>
@@ -42,12 +44,6 @@
 <body>
 <main class="container">
   <header><h1>ドラえもん検定 2022年度 中級</h1></header>
-  <section id="intro" class="card">
-    <h2>受験者情報</h2>
-    <label>名前（任意）<input id="name" class="name-input" type="text" placeholder="名前を入力"></label>
-    <p class="intro muted" style="margin-top:12px">各セクションの回答後に採点結果を確認できます。記述問題は模範解答を見て自己採点してください。合計100点です。</p>
-    <button class="btn" onclick="startQuiz()">Ⅰから始める</button>
-  </section>
   <div id="quiz"></div>
 </main>
 <script>
@@ -110,7 +106,6 @@ const sections = [
 const state = sections.map(s => ({answers:{}, checks:{}, score:0, graded:false}));
 let active = 0;
 const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-function startQuiz() { document.getElementById('intro').hidden = true; active = 0; renderQuestion(0); }
 function renderQuestion(index) {
   active=index;
   document.querySelectorAll('.screen').forEach(e=>e.remove());
@@ -120,18 +115,17 @@ function renderQuestion(index) {
   s.fields.forEach((f,i)=>{
     const block=document.createElement('div'); block.className='question-block';
     let control='';
-    if(f.type==='choice') control=`<div class="choices">${f.options.map((o,j)=>`<label class="choice"><input type="radio" name="f${index}_${i}" value="${j}" ${state[index].answers[i]===j?'checked':''}> <span>${esc(o)}</span></label>`).join('')}</div>`;
+    if(f.type==='choice') { const grid=f.options.length===2; control=`<div class="${grid?'options-grid':'options-vertical'}">${f.options.map((o,j)=>`<button type="button" class="${grid?'opt-btn':'opt-btn-v'} ${state[index].answers[i]===j?'selected':''}" data-choice="${i}" data-value="${j}">${grid?esc(o):`${j+1}. ${esc(o)}`}</button>`).join('')}</div>`; }
     else control=`<input class="text-input" type="text" data-answer="${i}" value="${esc(state[index].answers[i]||'')}" placeholder="回答を入力">`;
     block.innerHTML=`<div class="q-title">${esc(f.q)} <span class="points">（${f.pts}点）</span></div>${control}`; card.appendChild(block);
   });
   const btn=document.createElement('button'); btn.className='btn'; btn.textContent=index===4?'Ⅴを回答して採点結果へ':'回答を採点する'; btn.onclick=()=>submitSection(index); card.appendChild(btn);
   host.appendChild(card);
-  card.querySelectorAll('input[type=radio]').forEach(el=>el.addEventListener('change',()=>{state[index].answers[Number(el.name.split('_')[1])]=Number(el.value)}));
+  card.querySelectorAll('[data-choice]').forEach(el=>el.addEventListener('click',()=>{const field=Number(el.dataset.choice);state[index].answers[field]=Number(el.dataset.value);el.parentElement.querySelectorAll('button').forEach(button=>button.classList.toggle('selected',button===el));}));
   card.querySelectorAll('[data-answer]').forEach(el=>el.addEventListener('input',()=>{state[index].answers[Number(el.dataset.answer)]=el.value}));
 }
 function submitSection(index) {
   const s=sections[index], st=state[index]; let auto=0;
-  document.querySelectorAll('.screen input[type=radio]:checked').forEach(el=>{st.answers[Number(el.name.split('_')[1])]=Number(el.value)});
   document.querySelectorAll('.screen [data-answer]').forEach(el=>{st.answers[Number(el.dataset.answer)]=el.value});
   s.fields.forEach((f,i)=>{if(f.type==='choice' && st.answers[i]===f.key) auto+=f.pts;});
   st.score=auto; st.graded=true; renderResult(index);
@@ -155,13 +149,15 @@ function renderResult(index) {
   });
   const selfPoints=s.fields.reduce((n,f,i)=>n+(f.type!=='choice'&&st.checks[i]?f.pts:0),0);
   card.insertAdjacentHTML('beforeend',`<div class="score-banner">このセクション：<span id="section-score">${st.score+selfPoints}</span> / ${s.max} 点</div>`);
-  if(index>0){const back=document.createElement('button');back.className='btn btn-back';back.textContent=`${index===4?'Ⅴ':'このセクション'}の回答に戻る`;back.onclick=()=>renderQuestion(index);card.appendChild(back)}
+  const back=document.createElement('button');back.className='btn btn-back';back.textContent=`${['Ⅰ','Ⅱ','Ⅲ','Ⅳ','Ⅴ'][index]}の回答に戻る`;back.onclick=()=>renderQuestion(index);card.appendChild(back);
   const next=document.createElement('button');next.className='btn';next.textContent=index===sections.length-1?'最終結果を見る':`${sections[index+1].title}へ進む`;next.onclick=()=>index===sections.length-1?renderFinal():renderQuestion(index+1);card.appendChild(next);
+  const list=document.createElement('a');list.className='btn';list.href='https://hena-choco.github.io';list.textContent='問題一覧へ戻る';card.appendChild(list);
   document.getElementById('quiz').appendChild(card);
 }
 function normalize(s){return String(s||'').toLowerCase().replace(/[\s　。、,，.]/g,'').replace(/[Ａ-Ｚａ-ｚ０-９]/g,c=>String.fromCharCode(c.charCodeAt(0)-0xfee0));}
 function updateSelfScore(index){const st=state[index], self=sections[index].fields.reduce((n,f,i)=>n+(f.type!=='choice'&&st.checks[i]?f.pts:0),0);document.getElementById('section-score').textContent=st.score+self;}
-function renderFinal(){document.querySelectorAll('.screen').forEach(e=>e.remove()); const total=state.reduce((n,st)=>n+st.score,0)+sections.reduce((n,s,i)=>n+s.fields.reduce((m,f,j)=>m+(f.type!=='choice'&&state[i].checks[j]?f.pts:0),0),0); const card=document.createElement('section');card.className='card screen';card.innerHTML=`<h2>最終結果</h2><div class="score-banner">${esc(document.getElementById('name').value||'受験者')}さん<br>総合得点：${total} / 100 点</div><div id="summary"></div>`; const summary=card.querySelector('#summary'); sections.forEach((s,i)=>{const subtotal=state[i].score+s.fields.reduce((n,f,j)=>n+(f.type!=='choice'&&state[i].checks[j]?f.pts:0),0);const title=document.createElement('div');title.className='summary-title';title.textContent=`${s.title}：${subtotal} / ${s.max}点`;summary.appendChild(title); s.fields.forEach((f,j)=>{const p=document.createElement('p');p.className='muted';const a=state[i].answers[j];p.textContent=`${f.q} — ${f.type==='choice'?(a===undefined?'未選択':f.options[a]):(a||'未入力')}`;summary.appendChild(p)});}); if(state[4].graded){const back=document.createElement('button');back.className='btn btn-back';back.textContent='Ⅴの採点結果に戻る';back.onclick=()=>renderResult(4);card.appendChild(back)} document.getElementById('quiz').appendChild(card);}
+function renderFinal(){document.querySelectorAll('.screen').forEach(e=>e.remove()); const total=state.reduce((n,st)=>n+st.score,0)+sections.reduce((n,s,i)=>n+s.fields.reduce((m,f,j)=>m+(f.type!=='choice'&&state[i].checks[j]?f.pts:0),0),0); const card=document.createElement('section');card.className='card screen';card.innerHTML=`<h2>最終結果</h2><div class="score-banner">総合得点：${total} / 100 点</div><div id="summary"></div>`; const summary=card.querySelector('#summary'); sections.forEach((s,i)=>{const subtotal=state[i].score+s.fields.reduce((n,f,j)=>n+(f.type!=='choice'&&state[i].checks[j]?f.pts:0),0);const title=document.createElement('div');title.className='summary-title';title.textContent=`${s.title}：${subtotal} / ${s.max}点`;summary.appendChild(title); s.fields.forEach((f,j)=>{const p=document.createElement('p');p.className='muted';const a=state[i].answers[j];p.textContent=`${f.q} — ${f.type==='choice'?(a===undefined?'未選択':f.options[a]):(a||'未入力')}`;summary.appendChild(p)});}); if(state[4].graded){const back=document.createElement('button');back.className='btn btn-back';back.textContent='Ⅴの採点結果に戻る';back.onclick=()=>renderResult(4);card.appendChild(back)} const list=document.createElement('a');list.className='btn';list.href='https://hena-choco.github.io';list.textContent='問題一覧へ戻る';card.appendChild(list); document.getElementById('quiz').appendChild(card);}
+renderQuestion(0);
 </script>
 </body>
 </html>
