@@ -69,7 +69,7 @@
       margin-bottom: 10px;
     }
 
-    /* まるばつ・選択肢ボタン */
+    /* ボタン群 */
     .options-grid {
       display: flex;
       gap: 10px;
@@ -117,7 +117,7 @@
       color: #FFFFFF;
     }
 
-    /* みんはや風 1文字入力マス */
+    /* 1文字入力マス */
     .char-inputs {
       display: flex;
       gap: 6px;
@@ -142,7 +142,6 @@
       background: #fff;
     }
 
-    /* ドロップダウン選択（大問3用） */
     select.tool-select {
       width: 100%;
       padding: 12px;
@@ -154,7 +153,6 @@
       background-color: #fff;
     }
 
-    /* アクションボタン */
     .btn-submit {
       width: 100%;
       padding: 16px;
@@ -168,11 +166,20 @@
       margin-top: 10px;
     }
 
-    /* 採点画面表示 */
+    /* 結果表示パーツ */
+    .result-section-title {
+      font-size: 1.1rem;
+      font-weight: bold;
+      margin: 20px 0 10px;
+      padding-bottom: 4px;
+      border-bottom: 2px solid var(--main-color);
+    }
+
     .result-item {
       padding: 12px;
       border-radius: 8px;
       margin-bottom: 12px;
+      font-size: 0.95rem;
     }
 
     .result-correct {
@@ -191,7 +198,7 @@
       padding: 2px 8px;
       border-radius: 4px;
       color: #fff;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       margin-bottom: 4px;
     }
 
@@ -205,6 +212,7 @@
       font-weight: bold;
       margin-bottom: 20px;
       border-radius: 12px;
+      border: 2px solid transparent;
     }
 
     .nav-btn {
@@ -216,7 +224,7 @@
       text-decoration: none;
       font-weight: bold;
       border-radius: 8px;
-      margin-top: 16px;
+      margin-top: 24px;
     }
 
     .tool-list-box {
@@ -237,7 +245,7 @@
 
   <!-- ==================== 大問 1 問題 ==================== -->
   <div id="section-q1" class="card">
-    <h2>大問 1 (各4点)</h2>
+    <h2>大問 1 (配点: 各6点 / 30点満点)</h2>
     <p style="margin-bottom:16px; color:#666;">文が正しければ○を、正しくなければ×を選びましょう。</p>
 
     <div class="question-block">
@@ -285,14 +293,14 @@
 
   <!-- ==================== 大問 1 結果 ==================== -->
   <div id="section-r1" class="card" style="display:none;">
-    <h2>大問 1 の採点結果</h2>
+    <h2>大問 1 採点結果</h2>
     <div id="r1-details" style="margin-top:16px;"></div>
     <button class="btn-submit" onclick="showNext('section-r1', 'section-q2')">大問 2 へ進む</button>
   </div>
 
   <!-- ==================== 大問 2 問題 ==================== -->
   <div id="section-q2" class="card" style="display:none;">
-    <h2>大問 2 (各4点)</h2>
+    <h2>大問 2 (配点: 各6点 / 30点満点)</h2>
     <p style="margin-bottom:16px; color:#666;">正しい答えを一つ選びましょう。</p>
 
     <div class="question-block">
@@ -350,15 +358,15 @@
 
   <!-- ==================== 大問 2 結果 ==================== -->
   <div id="section-r2" class="card" style="display:none;">
-    <h2>大問 2 の採点結果</h2>
+    <h2>大問 2 採点結果</h2>
     <div id="r2-details" style="margin-top:16px;"></div>
     <button class="btn-submit" onclick="showNext('section-r2', 'section-q3')">大問 3 へ進む</button>
   </div>
 
   <!-- ==================== 大問 3 問題 ==================== -->
   <div id="section-q3" class="card" style="display:none;">
-    <h2>大問 3 (各4点)</h2>
-    <p style="margin-bottom:12px; color:#666;">叶えたいことにもっともよくあてはまる道具をリストから選びましょう。</p>
+    <h2>大問 3 (配点: 各6点 / 30点満点)</h2>
+    <p style="margin-bottom:12px; color:#666;">叶えたいことにもっともよくあてはまるひみつ道具の名前を「ひみつ道具リスト」から選びましょう。</p>
 
     <div class="tool-list-box">
       <strong>【ひみつ道具リスト】</strong><br>
@@ -440,19 +448,18 @@
 
   <!-- ==================== 大問 3 結果 ==================== -->
   <div id="section-r3" class="card" style="display:none;">
-    <h2>大問 3 の採点結果</h2>
+    <h2>大問 3 採点結果</h2>
     <div id="r3-details" style="margin-top:16px;"></div>
     <button class="btn-submit" onclick="showNext('section-r3', 'section-q4')">大問 4 へ進む</button>
   </div>
 
   <!-- ==================== 大問 4 問題 ==================== -->
   <div id="section-q4" class="card" style="display:none;">
-    <h2>大問 4 (各4点)</h2>
-    <p style="margin-bottom:16px; color:#666;">問題の答えをみんはや方式（指定文字数）で入力しましょう。</p>
+    <h2>大問 4 (配点: 各6点 / 30点満点)</h2>
+    <p style="margin-bottom:16px; color:#666;">問題の答えを指定された文字数の各マスに入力しましょう。</p>
 
-    <!-- (1) ぽけっと (5文字) -->
     <div class="question-block">
-      <div class="q-title">(1) ドラえもんは普段、ひみつ道具をどこから出すでしょう。（ひらがな5文字）</div>
+      <div class="q-title">(1) ドラえもんは普段、ひみつ道具をどこから出すでしょう。（5文字）</div>
       <div class="char-inputs" data-q="q4_1" data-len="5">
         <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
         <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
@@ -462,35 +469,31 @@
       </div>
     </div>
 
-    <!-- (2) のび (2文字) -->
     <div class="question-block">
-      <div class="q-title">(2) のび太の苗字は何でしょう。（ひらがな2文字）</div>
+      <div class="q-title">(2) のび太の苗字は何でしょう。（2文字）</div>
       <div class="char-inputs" data-q="q4_2" data-len="2">
         <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
         <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
       </div>
     </div>
 
-    <!-- (3) 0 (1文字) -->
     <div class="question-block">
-      <div class="q-title">(3) のび太がテストで5回に1回とる点数は何点でしょう。（数字1文字）</div>
+      <div class="q-title">(3) のび太がテストで5回に1回とる点数は何点でしょう。（1文字）</div>
       <div class="char-inputs" data-q="q4_3" data-len="1">
         <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
       </div>
     </div>
 
-    <!-- (4) ねこ (2文字) -->
     <div class="question-block">
-      <div class="q-title">(4) スネ夫のペット“チルチル”は何の生き物でしょう。（ひらがな2文字）</div>
+      <div class="q-title">(4) スネ夫のペット“チルチル”は何の生き物でしょう。（2文字）</div>
       <div class="char-inputs" data-q="q4_4" data-len="2">
         <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
         <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
       </div>
     </div>
 
-    <!-- (5) たけこぷたー (6文字) -->
     <div class="question-block">
-      <div class="q-title">(5) “ヘリトンボ”という体につけて空を飛べるひみつ道具は何でしょう。（ひらがな6文字）</div>
+      <div class="q-title">(5) “ヘリトンボ”という体につけて空を飛べるひみつ道具は何でしょう。（6文字）</div>
       <div class="char-inputs" data-q="q4_5" data-len="6">
         <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
         <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
@@ -506,20 +509,23 @@
 
   <!-- ==================== 最終 合否判定 画面 ==================== -->
   <div id="section-final" class="card" style="display:none;">
+    <h2>最終結果</h2>
     <div id="final-banner" class="score-banner"></div>
-    <h3>分野別正解数</h3>
-    <div id="final-summary" style="margin: 16px 0;"></div>
+
+    <div class="result-section-title">分野別成績・回答結果一覧</div>
+    <div id="final-summary-list"></div>
+
     <a href="index.html" class="nav-btn">トップ一覧へ戻る</a>
   </div>
 
 </div>
 
 <script>
-  // 解答データ保持
+  // ユーザーの回答記録と得点管理
   const userAnswers = {};
-  let totalScore = 0;
+  const sectionScores = { sec1: 0, sec2: 0, sec3: 0, sec4: 0 };
+  const sectionHTML = { sec1: '', sec2: '', sec3: '', sec4: '' };
 
-  // ボタン選択用の汎用処理
   function selectQ(key, val, el) {
     userAnswers[key] = val;
     const parent = el.parentElement;
@@ -528,7 +534,6 @@
     el.classList.add('selected');
   }
 
-  // 1文字入力時の自動フォーカス遷移＆文字変換
   function focusNext(el) {
     if (el.value.length >= 1) {
       let next = el.nextElementSibling;
@@ -538,14 +543,12 @@
     }
   }
 
-  // セクションの表示切り替え
   function showNext(hideId, showId) {
     document.getElementById(hideId).style.display = 'none';
     document.getElementById(showId).style.display = 'block';
     window.scrollTo(0, 0);
   }
 
-  // 文字正規化（全角英数➔半角、カタカナ➔ひらがな）
   function normalizeText(str) {
     if (!str) return '';
     return str
@@ -554,8 +557,16 @@
       .trim().toLowerCase();
   }
 
-  // ------------ 大問 1 採点 ------------
+  // 大問1 採点
+  const q1Text = [
+    "(1) ドラえもんは22世紀から来た。",
+    "(2) のび太はドラえもんと一緒に住んでいる。",
+    "(3) しずかちゃんはジャイアンの歌を聴くことが好きである。",
+    "(4) ジャイアンの家はお店をやっている。",
+    "(5) スネ夫のパパはテレビ局の社長と友だちである。"
+  ];
   const ans1 = { q1_1: '○', q1_2: '○', q1_3: '×', q1_4: '○', q1_5: '○' };
+
   function gradeQ1() {
     let score = 0;
     let html = '';
@@ -564,19 +575,28 @@
       const user = userAnswers[key] || '未回答';
       const correct = ans1[key];
       const isCorrect = (user === correct);
-      if (isCorrect) score += 4;
+      if (isCorrect) score += 6;
 
       html += `<div class="result-item ${isCorrect ? 'result-correct' : 'result-incorrect'}">
-        <span class="res-badge ${isCorrect ? 'bg-pass' : 'bg-fail'}">${isCorrect ? '正解 (+4点)' : '不正解'}</span>
-        <div><strong>(${i}) あなたの回答:</strong> ${user} / <strong>正解:</strong> ${correct}</div>
+        <span class="res-badge ${isCorrect ? 'bg-pass' : 'bg-fail'}">${isCorrect ? '正解 (+6点)' : '不正解'}</span>
+        <div><strong>問${i}:</strong> ${q1Text[i-1]}</div>
+        <div>あなたの回答: ${user} / 正解: ${correct}</div>
       </div>`;
     }
-    totalScore += score;
+    sectionScores.sec1 = score;
+    sectionHTML.sec1 = html;
     document.getElementById('r1-details').innerHTML = html;
     showNext('section-q1', 'section-r1');
   }
 
-  // ------------ 大問 2 採点 ------------
+  // 大問2 採点
+  const q2Text = [
+    "(1) ドラえもんが大好きなものは何でしょう。",
+    "(2) この中で、一番お金持ちなのは誰でしょう。",
+    "(3) のび太たちがよく遊ぶ空き地に置かれている物は何でしょう。",
+    "(4) のび太のクラスメイトで、勉強もスポーツも得意なのは誰でしょう。",
+    "(5) 「心の中 いつもいつもえがいている」から始まる歌は何でしょう。"
+  ];
   const ans2 = { q2_1: '3', q2_2: '4', q2_3: '1', q2_4: '4', q2_5: '1' };
   const labels2 = {
     q2_1: ['1. 寒さ', '2. ネズミ', '3. どら焼き', '4. ハムスター'],
@@ -594,23 +614,32 @@
       const userVal = userAnswers[key];
       const correctVal = ans2[key];
       const isCorrect = (userVal === correctVal);
-      if (isCorrect) score += 4;
+      if (isCorrect) score += 6;
 
       const userText = userVal ? labels2[key][parseInt(userVal)-1] : '未回答';
       const correctText = labels2[key][parseInt(correctVal)-1];
 
       html += `<div class="result-item ${isCorrect ? 'result-correct' : 'result-incorrect'}">
-        <span class="res-badge ${isCorrect ? 'bg-pass' : 'bg-fail'}">${isCorrect ? '正解 (+4点)' : '不正解'}</span>
-        <div><strong>(${i}) あなたの回答:</strong> ${userText}</div>
-        <div><strong>正解:</strong> ${correctText}</div>
+        <span class="res-badge ${isCorrect ? 'bg-pass' : 'bg-fail'}">${isCorrect ? '正解 (+6点)' : '不正解'}</span>
+        <div><strong>問${i}:</strong> ${q2Text[i-1]}</div>
+        <div>あなたの回答: ${userText}</div>
+        <div>正解: ${correctText}</div>
       </div>`;
     }
-    totalScore += score;
+    sectionScores.sec2 = score;
+    sectionHTML.sec2 = html;
     document.getElementById('r2-details').innerHTML = html;
     showNext('section-q2', 'section-r2');
   }
 
-  // ------------ 大問 3 採点 ------------
+  // 大問3 採点
+  const q3Text = [
+    "(1) 好きな衣装に着替えたい。",
+    "(2) 家の中で釣りをしたい。",
+    "(3) 過去をすぐに直したい。",
+    "(4) 恐竜に会いに行きたい。",
+    "(5) 何も勉強せずにテストで良い点を取りたい。"
+  ];
   const ans3 = {
     q3_1: 'きせかえカメラ',
     q3_2: 'おざしきつりぼり',
@@ -627,19 +656,28 @@
       const user = document.getElementById(key).value || '未選択';
       const correct = ans3[key];
       const isCorrect = (user === correct);
-      if (isCorrect) score += 4;
+      if (isCorrect) score += 6;
 
       html += `<div class="result-item ${isCorrect ? 'result-correct' : 'result-incorrect'}">
-        <span class="res-badge ${isCorrect ? 'bg-pass' : 'bg-fail'}">${isCorrect ? '正解 (+4点)' : '不正解'}</span>
-        <div><strong>(${i}) あなたの回答:</strong> ${user} / <strong>正解:</strong> ${correct}</div>
+        <span class="res-badge ${isCorrect ? 'bg-pass' : 'bg-fail'}">${isCorrect ? '正解 (+6点)' : '不正解'}</span>
+        <div><strong>問${i}:</strong> ${q3Text[i-1]}</div>
+        <div>あなたの回答: ${user} / 正解: ${correct}</div>
       </div>`;
     }
-    totalScore += score;
+    sectionScores.sec3 = score;
+    sectionHTML.sec3 = html;
     document.getElementById('r3-details').innerHTML = html;
     showNext('section-q3', 'section-r3');
   }
 
-  // ------------ 大問 4 採点 ＆ 最終結果 ------------
+  // 大問4 採点 ＆ 最終集計
+  const q4Text = [
+    "(1) ドラえもんは普段、ひみつ道具をどこから出すでしょう。",
+    "(2) のび太の苗字は何でしょう。",
+    "(3) のび太がテストで5回に1回とる点数は何点でしょう。",
+    "(4) スネ夫のペット“チルチル”は何の生き物でしょう。",
+    "(5) “ヘリトンボ”という体につけて空を飛べるひみつ道具は何でしょう。"
+  ];
   const ans4 = {
     q4_1: ['ぽけっと', 'ポケット'],
     q4_2: ['のび', '野比'],
@@ -661,21 +699,36 @@
       const normUser = normalizeText(userStr);
       const isCorrect = ans4[key].some(ans => normalizeText(ans) === normUser);
 
-      if (isCorrect) score += 4;
+      if (isCorrect) score += 6;
 
       html += `<div class="result-item ${isCorrect ? 'result-correct' : 'result-incorrect'}">
-        <span class="res-badge ${isCorrect ? 'bg-pass' : 'bg-fail'}">${isCorrect ? '正解 (+4点)' : '不正解'}</span>
-        <div><strong>(${i}) あなたの回答:</strong> ${userStr || '未入力'} / <strong>模範解答:</strong> ${ans4[key][0]}</div>
+        <span class="res-badge ${isCorrect ? 'bg-pass' : 'bg-fail'}">${isCorrect ? '正解 (+6点)' : '不正解'}</span>
+        <div><strong>問${i}:</strong> ${q4Text[i-1]}</div>
+        <div>あなたの回答: ${userStr || '未入力'} / 模範解答: ${ans4[key][0]}</div>
       </div>`;
     }
-    totalScore += score;
+    sectionScores.sec4 = score;
+    sectionHTML.sec4 = html;
 
-    // 最終表示
+    // 総合スコア算出
+    const totalScore = sectionScores.sec1 + sectionScores.sec2 + sectionScores.sec3 + sectionScores.sec4;
     const isPass = totalScore >= 80;
+
     const banner = document.getElementById('final-banner');
     banner.style.backgroundColor = isPass ? '#e8f5e9' : '#ffebee';
     banner.style.color = isPass ? 'var(--correct-color)' : 'var(--incorrect-color)';
-    banner.innerHTML = `<div>総得点: ${totalScore} / 120 点</div><div style="font-size:1.8rem; margin-top:8px;">${isPass ? '🎉 合格 🎉' : '❌ 不合格 ❌'}</div><div style="font-size:0.85rem; font-weight:normal; color:#666; margin-top:4px;">(合格基準点: 80点)</div>`;
+    banner.style.borderColor = isPass ? 'var(--correct-color)' : 'var(--incorrect-color)';
+    banner.innerHTML = `<div>総合得点: ${totalScore} / 120 点</div><div style="font-size:1.6rem; margin-top:8px;">${isPass ? '合格' : '不合格'}</div><div style="font-size:0.85rem; font-weight:normal; color:#666; margin-top:4px;">(合格基準点: 80点)</div>`;
+
+    // 最終画面に全問題の正解・不正解をまとめて表示
+    let summaryHTML = '';
+
+    summaryHTML += `<div class="result-section-title">大問1 正解数: ${sectionScores.sec1 / 6} / 5問 (${sectionScores.sec1} / 30点)</div>` + sectionHTML.sec1;
+    summaryHTML += `<div class="result-section-title">大問2 正解数: ${sectionScores.sec2 / 6} / 5問 (${sectionScores.sec2} / 30点)</div>` + sectionHTML.sec2;
+    summaryHTML += `<div class="result-section-title">大問3 正解数: ${sectionScores.sec3 / 6} / 5問 (${sectionScores.sec3} / 30点)</div>` + sectionHTML.sec3;
+    summaryHTML += `<div class="result-section-title">大問4 正解数: ${sectionScores.sec4 / 6} / 5問 (${sectionScores.sec4} / 30点)</div>` + sectionHTML.sec4;
+
+    document.getElementById('final-summary-list').innerHTML = summaryHTML;
 
     showNext('section-q4', 'section-final');
   }
