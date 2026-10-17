@@ -310,11 +310,11 @@
     </div>
 
     <div class="question-block">
-      <div class="q-title">問5. 下線部④について、ドラえもんはネコ型ロボットではあるが耳がない。その理由を、解答用紙の「～から」に続くよう9字以内で答えよ。（「から」は字数に含まない）。映画『2112年 ドラえもん誕生』の理由は不正解。(3点)</div>
+      <div class="q-title">問5. 下線部④について、ドラえもんはネコ型ロボットではあるが耳がない。その理由を、解答用紙の「〜から」に続くよう9字以内で答えよ。（「から」は字数に含まない）。映画『2112年 ドラえもん誕生』の理由は不正解。(3点)</div>
       <input type="text" id="q1_5" class="text-input" placeholder="例: ネズミにかじられた">
     </div>
 
-    <button class="btn-submit" onclick="gradeQ1()">Ⅰを採点する</button>
+    <button class="btn-submit" onclick="gradeQ1()">Ⅰを採点してⅡへ</button>
   </div>
 
   <div id="section-r1" class="card" style="display:none;">
@@ -368,7 +368,7 @@
       </div>
     </div>
 
-    <button class="btn-submit" onclick=“gradeQ2()">Ⅱを採点する</button>
+    <button class="btn-submit" onclick="gradeQ2()">Ⅱを採点してⅢへ</button>
   </div>
 
   <div id="section-r2" class="card" style="display:none;">
@@ -482,7 +482,7 @@
       </div>
     </div>
 
-    <button class="btn-submit" onclick="gradeQ3()">Ⅲを採点する</button>
+    <button class="btn-submit" onclick="gradeQ3()">Ⅲを採点してⅣへ</button>
   </div>
 
   <div id="section-r3" class="card" style="display:none;">
@@ -522,7 +522,7 @@
       <input type="text" id="q4_5_user" class="text-input" placeholder="あなたの回答を入力">
     </div>
 
-    <button class="btn-submit" onclick="gradeQ4()">Ⅳを採点する</button>
+    <button class="btn-submit" onclick="gradeQ4()">Ⅳを採点してⅤへ</button>
   </div>
 
   <div id="section-r4" class="card" style="display:none;">
@@ -566,7 +566,7 @@
       <input type="text" id="q5_6" class="text-input" placeholder="ここに入力">
     </div>
 
-    <button class="btn-submit" onclick="gradeQ5()">Ⅴを採点する</button>
+    <button class="btn-submit" onclick="gradeQ5()">Ⅴを採点してⅥへ</button>
   </div>
 
   <div id="section-r5" class="card" style="display:none;">
@@ -662,7 +662,7 @@
 
   <!-- ==================== Ⅶ 大問 7 ==================== -->
   <div id="section-q7" class="card" style="display:none;">
-    <h2>Ⅶ 以下は、ひみつ道具「物体変換銃」を使用している場面である。下の画像を確認し、空欄①～④に適する台詞をそれぞれ答えよ。（各2点 / 8点満点）</h2>
+    <h2>Ⅶ 以下は、ひみつ道具「物体変換銃」を使用している場面である。下の画像を確認し、空欄①〜④に適する台詞をそれぞれ答えよ。（各2点 / 8点満点）</h2>
     
     <div class="image-container">
       <img src="2024-intermediateVII.webp" alt="物体変換銃のシーン">
@@ -738,7 +738,7 @@
       .toLowerCase()
       .replace(/[Ａ-Ｚａ-ｚ０-９]/g, s => String.fromCharCode(s.charCodeAt(0) - 0xFEE0))
       .replace(/[\u30a1-\u30f6]/g, s => String.fromCharCode(s.charCodeAt(0) - 0x60))
-      .replace(/[\s ー～・点]/g, '');
+      .replace(/[\s ー〜・点]/g, '');
   }
 
   // ------------ Ⅰ 採点 ------------
