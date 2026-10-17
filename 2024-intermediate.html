@@ -310,17 +310,18 @@
     </div>
 
     <div class="question-block">
-      <div class="q-title">問5. 下線部④について、ドラえもんはネコ型ロボットではあるが耳がない。その理由を、解答用紙の「〜から」に続くよう9字以内で答えよ。（「から」は字数に含まない）。映画『2112年 ドラえもん誕生』の理由は不正解。(3点)</div>
+      <div class="q-title">問5. 下線部④について、ドラえもんはネコ型ロボットではあるが耳がない。その理由を、解答用紙の「～から」に続くよう9字以内で答えよ。（「から」は字数に含まない）。映画『2112年 ドラえもん誕生』の理由は不正解。(3点)</div>
       <input type="text" id="q1_5" class="text-input" placeholder="例: ネズミにかじられた">
     </div>
 
-    <button class="btn-submit" onclick="gradeQ1()">Ⅰを採点してⅡへ</button>
+    <button class="btn-submit" onclick="gradeQ1()">Ⅰを採点する</button>
   </div>
 
   <div id="section-r1" class="card" style="display:none;">
     <h2>Ⅰ 採点結果</h2>
     <div id="r1-details" style="margin-top:16px;"></div>
     <button class="btn-submit" onclick="showNext('section-r1', 'section-q2')">Ⅱへ進む</button>
+    <button class="btn-submit" onclick="showNext('section-r1', 'section-q1')">Ⅰの回答に戻る</button>
   </div>
 
   <!-- ==================== Ⅱ 大問 2 ==================== -->
@@ -367,13 +368,14 @@
       </div>
     </div>
 
-    <button class="btn-submit" onclick="gradeQ2()">Ⅱを採点してⅢへ</button>
+    <button class="btn-submit" onclick=“gradeQ2()">Ⅱを採点する</button>
   </div>
 
   <div id="section-r2" class="card" style="display:none;">
     <h2>Ⅱ 採点結果</h2>
     <div id="r2-details" style="margin-top:16px;"></div>
     <button class="btn-submit" onclick="showNext('section-r2', 'section-q3')">Ⅲへ進む</button>
+    <button class="btn-submit" onclick="showNext('section-r2', 'section-q2')">Ⅱの回答に戻る</button>
   </div>
 
   <!-- ==================== Ⅲ 大問 3 ==================== -->
@@ -480,13 +482,14 @@
       </div>
     </div>
 
-    <button class="btn-submit" onclick="gradeQ3()">Ⅲを採点してⅣへ</button>
+    <button class="btn-submit" onclick="gradeQ3()">Ⅲを採点する</button>
   </div>
 
   <div id="section-r3" class="card" style="display:none;">
     <h2>Ⅲ 採点結果</h2>
     <div id="r3-details" style="margin-top:16px;"></div>
     <button class="btn-submit" onclick="showNext('section-r3', 'section-q4')">Ⅳへ進む</button>
+    <button class="btn-submit" onclick="showNext('section-r3', 'section-q3')">Ⅲの回答に戻る</button>
   </div>
 
   <!-- ==================== Ⅳ 大問 4 ==================== -->
@@ -519,13 +522,14 @@
       <input type="text" id="q4_5_user" class="text-input" placeholder="あなたの回答を入力">
     </div>
 
-    <button class="btn-submit" onclick="gradeQ4()">Ⅳを採点してⅤへ</button>
+    <button class="btn-submit" onclick="gradeQ4()">Ⅳを採点する</button>
   </div>
 
   <div id="section-r4" class="card" style="display:none;">
     <h2>Ⅳ 採点結果</h2>
     <div id="r4-details" style="margin-top:16px;"></div>
     <button class="btn-submit" onclick="showNext('section-r4', 'section-q5')">Ⅴへ進む</button>
+    <button class="btn-submit" onclick="showNext('section-r4', 'section-q4')">Ⅳの回答に戻る</button>
   </div>
 
   <!-- ==================== Ⅴ 大問 5 ==================== -->
@@ -562,13 +566,14 @@
       <input type="text" id="q5_6" class="text-input" placeholder="ここに入力">
     </div>
 
-    <button class="btn-submit" onclick="gradeQ5()">Ⅴを採点してⅥへ</button>
+    <button class="btn-submit" onclick="gradeQ5()">Ⅴを採点する</button>
   </div>
 
   <div id="section-r5" class="card" style="display:none;">
     <h2>Ⅴ 採点結果</h2>
     <div id="r5-details" style="margin-top:16px;"></div>
     <button class="btn-submit" onclick="showNext('section-r5', 'section-q6')">Ⅵへ進む</button>
+    <button class="btn-submit" onclick="showNext('section-r5', 'section-q5')">Ⅴの回答に戻る</button>
   </div>
 
   <!-- ==================== Ⅵ 大問 6 ==================== -->
@@ -645,18 +650,19 @@
       </div>
     </div>
 
-    <button class="btn-submit" onclick="gradeQ6()">Ⅵを採点してⅦへ</button>
+    <button class="btn-submit" onclick="gradeQ6()">Ⅵを採点する</button>
   </div>
 
   <div id="section-r6" class="card" style="display:none;">
     <h2>Ⅵ 採点結果</h2>
     <div id="r6-details" style="margin-top:16px;"></div>
     <button class="btn-submit" onclick="showNext('section-r6', 'section-q7')">Ⅶへ進む</button>
+    <button class="btn-submit" onclick="showNext('section-r6', 'section-q6')">Ⅵの回答に戻る</button>
   </div>
 
   <!-- ==================== Ⅶ 大問 7 ==================== -->
   <div id="section-q7" class="card" style="display:none;">
-    <h2>Ⅶ 以下は、ひみつ道具「物体変換銃」を使用している場面である。下の画像を確認し、空欄①〜④に適する台詞をそれぞれ答えよ。（各2点 / 8点満点）</h2>
+    <h2>Ⅶ 以下は、ひみつ道具「物体変換銃」を使用している場面である。下の画像を確認し、空欄①～④に適する台詞をそれぞれ答えよ。（各2点 / 8点満点）</h2>
     
     <div class="image-container">
       <img src="2024-intermediateVII.webp" alt="物体変換銃のシーン">
@@ -683,7 +689,14 @@
       <input type="text" id="q7_4" class="text-input" placeholder="ここに入力">
     </div>
 
-    <button class="btn-submit" onclick="gradeQ7()">最終結果を見る</button>
+    <button class="btn-submit" onclick="gradeQ7()">Ⅶを採点する</button>
+  </div>
+
+  <div id="section-r7" class="card" style="display:none;">
+    <h2>Ⅶ 採点結果</h2>
+    <div id="r7-details" style="margin-top:16px;"></div>
+    <button class="btn-submit" onclick="showNext('section-r7', 'section-final')">最終結果を見る</button>
+    <button class="btn-submit" onclick="showNext('section-r7', 'section-q7')">Ⅶの回答に戻る</button>
   </div>
 
   <!-- ==================== 最終 合否判定 画面 ==================== -->
@@ -695,6 +708,7 @@
     <div id="final-summary-list"></div>
 
     <a href="index.html" class="nav-btn">トップ一覧へ戻る</a>
+    <button class="btn-submit" onclick="showNext('section-final', 'section-q7')">Ⅶの回答に戻る</button>
   </div>
 
 </div>
@@ -724,7 +738,7 @@
       .toLowerCase()
       .replace(/[Ａ-Ｚａ-ｚ０-９]/g, s => String.fromCharCode(s.charCodeAt(0) - 0xFEE0))
       .replace(/[\u30a1-\u30f6]/g, s => String.fromCharCode(s.charCodeAt(0) - 0x60))
-      .replace(/[\s ー〜・点]/g, '');
+      .replace(/[\s ー～・点]/g, '');
   }
 
   // ------------ Ⅰ 採点 ------------
@@ -879,6 +893,10 @@
   function gradeQ4() {
     let score = 0;
     let html = '';
+    const previousChecks = Array.from({ length: 5 }, (_, i) => {
+      const checkbox = document.getElementById(`q4_${i + 1}_check`);
+      return checkbox ? checkbox.checked : false;
+    });
 
     for (let i = 1; i <= 5; i++) {
       const userText = document.getElementById(`q4_${i}_user`).value || '未記入';
@@ -888,12 +906,14 @@
         <div class="self-eval-box">
           <div class="self-eval-title">【模範解答】</div>
           <div class="self-eval-answer">${q4Answers[i-1]}</div>
-          <label style="font-size:0.9rem; font-weight:bold; cursor:pointer;"><input type="checkbox" id="q4_${i}_check" style="transform:scale(1.2); margin-right:6px;" onchange="updateQ4Score()"> 正解したらチェック (3点)</label>
+          <label style="font-size:0.9rem; font-weight:bold; cursor:pointer;"><input type="checkbox" id="q4_${i}_check" style="transform:scale(1.2); margin-right:6px;" ${previousChecks[i - 1] ? 'checked' : ''} onchange="updateQ4Score()"> 正解したらチェック (3点)</label>
         </div>
       </div>`;
     }
 
-    html += `<div id="q4-current-score" style="font-weight:bold; font-size:1.1rem; text-align:center; margin-top:16px; color:var(--main-color);">現在の自己採点小計: 0 / 15点</div>`;
+    score = previousChecks.filter(Boolean).length * 3;
+    sectionScores.sec4 = score;
+    html += `<div id="q4-current-score" style="font-weight:bold; font-size:1.1rem; text-align:center; margin-top:16px; color:var(--main-color);">現在の自己採点小計: ${score} / 15点</div>`;
 
     document.getElementById('r4-details').innerHTML = html;
     showNext('section-q4', 'section-r4');
@@ -989,7 +1009,7 @@
     sectionScores.sec6 = Math.round(score);
     sectionHTML.sec6 = html;
     document.getElementById('r6-details').innerHTML = html;
-    showNext('section-q6', 'section-q7');
+    showNext('section-q6', 'section-r6');
   }
 
   // ------------ Ⅶ 採点 ------------
@@ -1012,11 +1032,12 @@
       html += `<div class="result-item ${isCorrect && user.length > 0 ? 'result-correct' : 'result-incorrect'}">
         <span class="res-badge">${isCorrect && user.length > 0 ? '正解 (+2点)' : '不正解'}</span>
         <div><strong>空欄(${i})</strong></div>
-        <div>あなたの回答: ${document.getElementById(key).value || '未入力'}</div>
+        <div>あなたの回答: ${document.getElementById(key).value || '未入力'} / 正解: ${correct}</div>
       </div>`;
     }
     sectionScores.sec7 = score;
     sectionHTML.sec7 = html;
+    document.getElementById('r7-details').innerHTML = html;
 
     const totalScore = sectionScores.sec1 + sectionScores.sec2 + sectionScores.sec3 + sectionScores.sec4 + sectionScores.sec5 + sectionScores.sec6 + sectionScores.sec7;
     const isPass = totalScore >= 60;
@@ -1039,7 +1060,7 @@
     summaryHTML += `<div class="result-section-title">Ⅶ 物体変換銃 得点: ${sectionScores.sec7} / 8点</div>` + sectionHTML.sec7;
 
     document.getElementById('final-summary-list').innerHTML = summaryHTML;
-    showNext('section-q7', 'section-final');
+    showNext('section-q7', 'section-r7');
   }
 </script>
 
