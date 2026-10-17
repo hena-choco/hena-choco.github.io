@@ -74,7 +74,7 @@ const sections=[
 {q:'問6. ⑤に関連して、「ココロチョコ」で、しずかが同チョコを食べなかった理由を答えよ。',manual:true,fields:[{answer:'大勢が同じことを考えることは気持ち悪いため。',pts:3}]},
 {q:'問7. ⑥に関連して、「のび太もたまには考える」では『(★)、なんにもいわなかったな……。』というセリフが登場する。★に入る言葉を答えよ。',fields:[{answer:'ドラえもん',pts:3}]}
 ]},
-{title:'Ⅵ 図の隠された部分',max:12,media:'2023-advancedVI.jpg',items:[{q:'Ⅵ 下図の隠された部分の全文を書け。',manual:true,fields:[{answer:'カー',pts:12}]}]}
+{title:'Ⅵ 図の隠された部分',max:12,media:'2023-advancedVI.png',items:[{q:'Ⅵ 下図の隠された部分の全文を書け。',manual:true,fields:[{answer:'カー',pts:12}]}]}
 ];
 const state=sections.map(()=>({answers:{},choices:{},manual:{},score:0}));
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
