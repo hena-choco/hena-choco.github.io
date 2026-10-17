@@ -78,7 +78,24 @@
       margin-bottom: 10px;
     }
 
-    /* ボタン群 */
+    /* 自由入力テキストボックス */
+    .text-input {
+      width: 100%;
+      padding: 12px;
+      font-size: 1.05rem;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      outline: none;
+      background-color: #fafafa;
+      transition: border-color 0.2s, background-color 0.2s;
+    }
+
+    .text-input:focus {
+      border-color: var(--main-color);
+      background-color: #fff;
+    }
+
+    /* 選択肢ボタン群 */
     .options-grid {
       display: flex;
       gap: 10px;
@@ -124,31 +141,6 @@
     .opt-btn-v.selected {
       background-color: var(--main-color);
       color: #FFFFFF;
-    }
-
-    /* 1文字入力マス */
-    .char-inputs {
-      display: flex;
-      gap: 6px;
-      margin-top: 10px;
-      flex-wrap: wrap;
-    }
-
-    .char-box {
-      width: 38px;
-      height: 44px;
-      text-align: center;
-      font-size: 1.2rem;
-      font-weight: bold;
-      border: 2px solid #ccc;
-      border-radius: 6px;
-      outline: none;
-      background: #fafafa;
-    }
-
-    .char-box:focus {
-      border-color: var(--main-color);
-      background: #fff;
     }
 
     select.v-select {
@@ -252,63 +244,33 @@
     </div>
 
     <div class="question-block">
-      <div class="q-title">問1. 下線部①について、しずかの名字は何か。（4文字）</div>
-      <div class="char-inputs" data-q="q1_1">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-      </div>
+      <div class="q-title">問1. 下線部①について、しずかの名字は何か。（漢字またはひらがな）</div>
+      <input type="text" id="q1_1" class="text-input" placeholder="ここに入力してください">
     </div>
 
     <div class="question-block">
-      <div class="q-title">問2. 下線部②について、未来が変わるまでの、のび太の妻となるはずだった人物は誰か。（4文字）</div>
-      <div class="char-inputs" data-q="q1_2">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-      </div>
+      <div class="q-title">問2. 下線部②について、未来が変わるまでの、のび太の妻となるはずだった人物は誰か。</div>
+      <input type="text" id="q1_2" class="text-input" placeholder="ここに入力してください">
     </div>
 
     <div class="question-block">
-      <div class="q-title">問3. 下線部③について、「アンケーター」によればチーズケーキは好きな食べ物第2位である。第1位は何か。（4文字）</div>
-      <div class="char-inputs" data-q="q1_3">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-      </div>
+      <div class="q-title">問3. 下線部③について、「アンケーター」によればチーズケーキは好きな食べ物第2位である。第1位は何か。</div>
+      <input type="text" id="q1_3" class="text-input" placeholder="ここに入力してください">
     </div>
 
     <div class="question-block">
-      <div class="q-title">問4. 下線部④について、のび太にしずかのバイオリンの巧拙を評した言葉。「（5文字）の歌といい勝負だよ」の5文字。（5文字）</div>
-      <div class="char-inputs" data-q="q1_4">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-      </div>
+      <div class="q-title">問4. 下線部④について、「（5文字）の歌といい勝負だよ」の5文字に当てはまる人物名は何か。</div>
+      <input type="text" id="q1_4" class="text-input" placeholder="ここに入力してください">
     </div>
 
     <div class="question-block">
-      <div class="q-title">問5. 下線部⑤について、スネ夫がクラブの幹部にもなっている女性アイドルは誰か。名字は不要。（3文字）</div>
-      <div class="char-inputs" data-q="q1_5">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-      </div>
+      <div class="q-title">問5. 下線部⑤について、スネ夫がクラブの幹部にもなっている女性アイドルは誰か。（名字は不要）</div>
+      <input type="text" id="q1_5" class="text-input" placeholder="ここに入力してください">
     </div>
 
     <div class="question-block">
-      <div class="q-title">問6. 下線部⑥について、スネ夫の趣味の師匠的存在である大学生の従兄の名前は何か。（4文字）</div>
-      <div class="char-inputs" data-q="q1_6">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-      </div>
+      <div class="q-title">問6. 下線部⑥について、スネ夫の趣味の師匠的存在である大学生の従兄の名前は何か。</div>
+      <input type="text" id="q1_6" class="text-input" placeholder="ここに入力してください">
     </div>
 
     <button class="btn-submit" onclick="gradeQ1()">採点して次へ</button>
@@ -462,66 +424,26 @@
   <!-- ==================== 大問 Ⅳ 問題 ==================== -->
   <div id="section-q4" class="card" style="display:none;">
     <h2>大問 Ⅳ (配点: 各4点 / 16点満点)</h2>
-    <p style="margin-bottom:16px; color:#666;">ひみつ道具の説明文から、正しいひみつ道具の名前を指定された文字数で入力しなさい。</p>
+    <p style="margin-bottom:16px; color:#666;">ひみつ道具の説明文から、正しいひみつ道具の名前を入力しなさい。</p>
 
     <div class="question-block">
-      <div class="q-title">問1. このテーブルかけに、食べたい物を言うと、なんでも出てくる。（9文字）</div>
-      <div class="char-inputs" data-q="q4_1">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-      </div>
+      <div class="q-title">問1. このテーブルかけに、食べたい物を言うと、なんでも出てくる。（9文字程度）</div>
+      <input type="text" id="q4_1" class="text-input" placeholder="ここに入力してください">
     </div>
 
     <div class="question-block">
-      <div class="q-title">問2. 過去や未来を見ることができるテレビ。（6文字）</div>
-      <div class="char-inputs" data-q="q4_2">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-      </div>
+      <div class="q-title">問2. 過去や未来を見ることができるテレビ。（6文字程度）</div>
+      <input type="text" id="q4_2" class="text-input" placeholder="ここに入力してください">
     </div>
 
     <div class="question-block">
-      <div class="q-title">問3. このライトの光を浴びせると、どんなものでも小さくなる。（7文字）</div>
-      <div class="char-inputs" data-q="q4_4" data-len="7">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-      </div>
+      <div class="q-title">問3. このライトの光を浴びせると、どんなものでも小さくなる。（7文字程度）</div>
+      <input type="text" id="q4_3" class="text-input" placeholder="ここに入力してください">
     </div>
 
     <div class="question-block">
-      <div class="q-title">問4. どんな動物でも、これを食べさせると、言うことをきくようになる。（14文字）</div>
-      <div class="char-inputs" data-q="q4_4">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-      </div>
+      <div class="q-title">問4. どんな動物でも、これを食べさせると、言うことをきくようになる。（14文字程度）</div>
+      <input type="text" id="q4_4" class="text-input" placeholder="ここに入力してください">
     </div>
 
     <button class="btn-submit" onclick="gradeQ4()">採点して次へ</button>
@@ -548,9 +470,7 @@
       ⑩おっこちて ⑪【ひげをつけたら ドラえもん】
     </div>
 
-    <div id="v-inputs-container">
-      <!-- 順番ごとのセレクトボックス生成領域 -->
-    </div>
+    <div id="v-inputs-container"></div>
 
     <button class="btn-submit" onclick="gradeQ5()">最終結果を見る</button>
   </div>
@@ -569,7 +489,6 @@
 </div>
 
 <script>
-  // 選択肢と回答の保持
   const userAnswers = {};
   const sectionScores = { sec1: 0, sec2: 0, sec3: 0, sec4: 0, sec5: 0 };
   const sectionHTML = { sec1: '', sec2: '', sec3: '', sec4: '', sec5: '' };
@@ -586,7 +505,6 @@
     { id: '10', text: '⑩ おっこちて' }
   ];
 
-  // 初期化時に大問5の入力欄を動的生成
   window.onload = function() {
     let vHtml = '';
     vHtml += `<div style="margin-bottom:8px; font-weight:bold;">1番目: ① まるかいてちょん (固定)</div>`;
@@ -611,37 +529,30 @@
     el.classList.add('selected');
   }
 
-  function focusNext(el) {
-    if (el.value.length >= 1) {
-      let next = el.nextElementSibling;
-      if (next && next.classList.contains('char-box')) {
-        next.focus();
-      }
-    }
-  }
-
   function showNext(hideId, showId) {
     document.getElementById(hideId).style.display = 'none';
     document.getElementById(showId).style.display = 'block';
     window.scrollTo(0, 0);
   }
 
+  // 表記揺れを強力に吸収する正規化関数
   function normalizeText(str) {
     if (!str) return '';
     return str
-      .replace(/[Ａ-Ｚａ-ｚ０-９]/g, s => String.fromCharCode(s.charCodeAt(0) - 0xFEE0))
-      .replace(/[\u30a1-\u30f6]/g, s => String.fromCharCode(s.charCodeAt(0) - 0x60))
-      .trim().toLowerCase();
+      .toLowerCase()
+      .replace(/[Ａ-Ｚａ-ｚ０-９]/g, s => String.fromCharCode(s.charCodeAt(0) - 0xFEE0)) // 全角英数を半角に
+      .replace(/[\u30a1-\u30f6]/g, s => String.fromCharCode(s.charCodeAt(0) - 0x60)) // カタカナをひらがなに
+      .replace(/[\s ー〜・]/g, ''); // スペース、長音、中黒などを除去
   }
 
   // ------------ 大問 Ⅰ 採点 ------------
   const q1Text = [
-    "問1. しずかの名字（4文字）",
-    "問2. 未来が変わるまでののび太の妻（4文字）",
-    "問3. しずかちゃんの好きな食べ物第1位（4文字）",
+    "問1. しずかの名字",
+    "問2. 未来が変わるまでののび太の妻",
+    "問3. しずかちゃんの好きな食べ物第1位",
     "問4. しずかのバイオリンの評「（5文字）の歌といい勝負だよ」",
-    "問5. スネ夫がファンクラブ幹部のアイドル名字以外（3文字）",
-    "問6. スネ夫の従兄の名前（4文字）"
+    "問5. スネ夫がファンクラブ幹部のアイドル名字以外",
+    "問6. スネ夫の従兄の名前"
   ];
   const ans1 = {
     q1_1: ['みなもと', '源'],
@@ -657,13 +568,10 @@
     let html = '';
     for (let i = 1; i <= 6; i++) {
       const key = `q1_${i}`;
-      const inputs = document.querySelectorAll(`[data-q="${key}"] input`);
-      let userStr = '';
-      inputs.forEach(inp => userStr += inp.value);
-
+      const userStr = document.getElementById(key).value;
       const normUser = normalizeText(userStr);
+      
       const isCorrect = ans1[key].some(ans => normalizeText(ans) === normUser);
-
       if (isCorrect) score += 4;
 
       html += `<div class="result-item ${isCorrect ? 'result-correct' : 'result-incorrect'}">
@@ -758,10 +666,10 @@
 
   // ------------ 大問 Ⅳ 採点 ------------
   const q4Text = [
-    "問1. 食べたい物を言うと出てくるテーブルかけ（9文字）",
-    "問2. 過去や未来を見ることができるテレビ（6文字）",
-    "問3. 光を浴びせると小さくなるライト（7文字）",
-    "問4. どんな動物でも言うことをきくきびだんご（14文字）"
+    "問1. 食べたい物を言うと出てくるテーブルかけ",
+    "問2. 過去や未来を見ることができるテレビ",
+    "問3. 光を浴びせると小さくなるライト",
+    "問4. どんな動物でも言うことをきくきびだんご"
   ];
   const ans4 = {
     q4_1: ['ぐるめてーぶるかけ', 'グルメテーブルかけ'],
@@ -775,13 +683,10 @@
     let html = '';
     for (let i = 1; i <= 4; i++) {
       const key = `q4_${i}`;
-      const inputs = document.querySelectorAll(`[data-q="${key}"] input`);
-      let userStr = '';
-      inputs.forEach(inp => userStr += inp.value);
-
+      const userStr = document.getElementById(key).value;
       const normUser = normalizeText(userStr);
-      const isCorrect = ans4[key].some(ans => normalizeText(ans) === normUser);
 
+      const isCorrect = ans4[key].some(ans => normalizeText(ans) === normUser);
       if (isCorrect) score += 4;
 
       html += `<div class="result-item ${isCorrect ? 'result-correct' : 'result-incorrect'}">
@@ -793,7 +698,7 @@
     sectionScores.sec4 = score;
     sectionHTML.sec4 = html;
     document.getElementById('r4-details').innerHTML = html;
-    showNext('section-q4', 'section-r4');
+    showNext('section-q4', 'section-q5');
   }
 
   // ------------ 大問 Ⅴ 採点 ＆ 最終集計 ------------
@@ -824,7 +729,6 @@
     sectionScores.sec5 = score;
     sectionHTML.sec5 = html;
 
-    // 総得点算出
     const totalScore = sectionScores.sec1 + sectionScores.sec2 + sectionScores.sec3 + sectionScores.sec4 + sectionScores.sec5;
     const isPass = totalScore >= 60;
 
