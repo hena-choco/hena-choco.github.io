@@ -69,6 +69,23 @@
       margin-bottom: 10px;
     }
 
+    /* 自由入力テキストボックス */
+    .text-input {
+      width: 100%;
+      padding: 12px;
+      font-size: 1.05rem;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      outline: none;
+      background-color: #fafafa;
+      transition: border-color 0.2s, background-color 0.2s;
+    }
+
+    .text-input:focus {
+      border-color: var(--main-color);
+      background-color: #fff;
+    }
+
     /* ボタン群 */
     .options-grid {
       display: flex;
@@ -115,31 +132,6 @@
     .opt-btn-v.selected {
       background-color: var(--main-color);
       color: #FFFFFF;
-    }
-
-    /* 1文字入力マス */
-    .char-inputs {
-      display: flex;
-      gap: 6px;
-      margin-top: 10px;
-      flex-wrap: wrap;
-    }
-
-    .char-box {
-      width: 42px;
-      height: 48px;
-      text-align: center;
-      font-size: 1.3rem;
-      font-weight: bold;
-      border: 2px solid #ccc;
-      border-radius: 6px;
-      outline: none;
-      background: #fafafa;
-    }
-
-    .char-box:focus {
-      border-color: var(--main-color);
-      background: #fff;
     }
 
     select.tool-select {
@@ -456,52 +448,31 @@
   <!-- ==================== 大問 4 問題 ==================== -->
   <div id="section-q4" class="card" style="display:none;">
     <h2>大問 4 (配点: 各6点 / 30点満点)</h2>
-    <p style="margin-bottom:16px; color:#666;">問題の答えを指定された文字数の各マスに入力しましょう。</p>
+    <p style="margin-bottom:16px; color:#666;">問題の答えを入力しましょう。</p>
 
     <div class="question-block">
-      <div class="q-title">(1) ドラえもんは普段、ひみつ道具をどこから出すでしょう。（5文字）</div>
-      <div class="char-inputs" data-q="q4_1" data-len="5">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-      </div>
+      <div class="q-title">(1) ドラえもんは普段、ひみつ道具をどこから出すでしょう。（5文字程度）</div>
+      <input type="text" id="q4_1" class="text-input" placeholder="ここに入力してください">
     </div>
 
     <div class="question-block">
-      <div class="q-title">(2) のび太の苗字は何でしょう。（2文字）</div>
-      <div class="char-inputs" data-q="q4_2" data-len="2">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-      </div>
+      <div class="q-title">(2) のび太の苗字は何でしょう。（2文字程度）</div>
+      <input type="text" id="q4_2" class="text-input" placeholder="ここに入力してください">
     </div>
 
     <div class="question-block">
-      <div class="q-title">(3) のび太がテストで5回に1回とる点数は何点でしょう。（1文字）</div>
-      <div class="char-inputs" data-q="q4_3" data-len="1">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-      </div>
+      <div class="q-title">(3) のび太がテストで5回に1回とる点数は何点でしょう。（1文字程度）</div>
+      <input type="text" id="q4_3" class="text-input" placeholder="ここに入力してください">
     </div>
 
     <div class="question-block">
-      <div class="q-title">(4) スネ夫のペット“チルチル”は何の生き物でしょう。（2文字）</div>
-      <div class="char-inputs" data-q="q4_4" data-len="2">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-      </div>
+      <div class="q-title">(4) スネ夫のペット“チルチル”は何の生き物でしょう。（2文字程度）</div>
+      <input type="text" id="q4_4" class="text-input" placeholder="ここに入力してください">
     </div>
 
     <div class="question-block">
-      <div class="q-title">(5) “ヘリトンボ”という体につけて空を飛べるひみつ道具は何でしょう。（6文字）</div>
-      <div class="char-inputs" data-q="q4_5" data-len="6">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-        <input type="text" class="char-box" maxlength="1" oninput="focusNext(this)">
-      </div>
+      <div class="q-title">(5) “ヘリトンボ”という体につけて空を飛べるひみつ道具は何でしょう。（6文字程度）</div>
+      <input type="text" id="q4_5" class="text-input" placeholder="ここに入力してください">
     </div>
 
     <button class="btn-submit" onclick="gradeQ4()">最終結果を見る</button>
@@ -521,7 +492,6 @@
 </div>
 
 <script>
-  // ユーザーの回答記録と得点管理
   const userAnswers = {};
   const sectionScores = { sec1: 0, sec2: 0, sec3: 0, sec4: 0 };
   const sectionHTML = { sec1: '', sec2: '', sec3: '', sec4: '' };
@@ -534,30 +504,23 @@
     el.classList.add('selected');
   }
 
-  function focusNext(el) {
-    if (el.value.length >= 1) {
-      let next = el.nextElementSibling;
-      if (next && next.classList.contains('char-box')) {
-        next.focus();
-      }
-    }
-  }
-
   function showNext(hideId, showId) {
     document.getElementById(hideId).style.display = 'none';
     document.getElementById(showId).style.display = 'block';
     window.scrollTo(0, 0);
   }
 
+  // 表記揺れを強力に吸収する正規化関数
   function normalizeText(str) {
     if (!str) return '';
     return str
-      .replace(/[Ａ-Ｚａ-ｚ０-９]/g, s => String.fromCharCode(s.charCodeAt(0) - 0xFEE0))
-      .replace(/[\u30a1-\u30f6]/g, s => String.fromCharCode(s.charCodeAt(0) - 0x60))
-      .trim().toLowerCase();
+      .toLowerCase()
+      .replace(/[Ａ-Ｚａ-ｚ０-９]/g, s => String.fromCharCode(s.charCodeAt(0) - 0xFEE0)) // 全角英数を半角に
+      .replace(/[\u30a1-\u30f6]/g, s => String.fromCharCode(s.charCodeAt(0) - 0x60)) // カタカナをひらがなに
+      .replace(/[\s ー〜・点]/g, ''); // スペース、伸ばし棒、中黒、「点」などを除去
   }
 
-  // 大問1 採点
+  // ------------ 大問 1 採点 ------------
   const q1Text = [
     "(1) ドラえもんは22世紀から来た。",
     "(2) のび太はドラえもんと一緒に住んでいる。",
@@ -589,7 +552,7 @@
     showNext('section-q1', 'section-r1');
   }
 
-  // 大問2 採点
+  // ------------ 大問 2 採点 ------------
   const q2Text = [
     "(1) ドラえもんが大好きなものは何でしょう。",
     "(2) この中で、一番お金持ちなのは誰でしょう。",
@@ -632,7 +595,7 @@
     showNext('section-q2', 'section-r2');
   }
 
-  // 大問3 採点
+  // ------------ 大問 3 採点 ------------
   const q3Text = [
     "(1) 好きな衣装に着替えたい。",
     "(2) 家の中で釣りをしたい。",
@@ -667,10 +630,10 @@
     sectionScores.sec3 = score;
     sectionHTML.sec3 = html;
     document.getElementById('r3-details').innerHTML = html;
-    showNext('section-q3', 'section-r3');
+    showNext('section-q3', 'section-q4');
   }
 
-  // 大問4 採点 ＆ 最終集計
+  // ------------ 大問 4 採点 ＆ 最終集計 ------------
   const q4Text = [
     "(1) ドラえもんは普段、ひみつ道具をどこから出すでしょう。",
     "(2) のび太の苗字は何でしょう。",
@@ -679,10 +642,10 @@
     "(5) “ヘリトンボ”という体につけて空を飛べるひみつ道具は何でしょう。"
   ];
   const ans4 = {
-    q4_1: ['ぽけっと', 'ポケット'],
+    q4_1: ['ぽけっと', 'ポケット', '四次元ポケット', 'よじげんぽけっと'],
     q4_2: ['のび', '野比'],
-    q4_3: ['0', '０'],
-    q4_4: ['ねこ', 'ネコ'],
+    q4_3: ['0', '０', 'ぜろ', 'ゼロ'],
+    q4_4: ['ねこ', 'ネコ', '猫'],
     q4_5: ['たけこぷたー', 'タケコプター']
   };
 
@@ -692,13 +655,10 @@
 
     for (let i = 1; i <= 5; i++) {
       const key = `q4_${i}`;
-      const inputs = document.querySelectorAll(`[data-q="${key}"] input`);
-      let userStr = '';
-      inputs.forEach(inp => userStr += inp.value);
-
+      const userStr = document.getElementById(key).value;
       const normUser = normalizeText(userStr);
-      const isCorrect = ans4[key].some(ans => normalizeText(ans) === normUser);
 
+      const isCorrect = ans4[key].some(ans => normalizeText(ans) === normUser);
       if (isCorrect) score += 6;
 
       html += `<div class="result-item ${isCorrect ? 'result-correct' : 'result-incorrect'}">
@@ -710,7 +670,6 @@
     sectionScores.sec4 = score;
     sectionHTML.sec4 = html;
 
-    // 総合スコア算出
     const totalScore = sectionScores.sec1 + sectionScores.sec2 + sectionScores.sec3 + sectionScores.sec4;
     const isPass = totalScore >= 80;
 
@@ -720,13 +679,11 @@
     banner.style.borderColor = isPass ? 'var(--correct-color)' : 'var(--incorrect-color)';
     banner.innerHTML = `<div>総合得点: ${totalScore} / 120 点</div><div style="font-size:1.6rem; margin-top:8px;">${isPass ? '合格' : '不合格'}</div><div style="font-size:0.85rem; font-weight:normal; color:#666; margin-top:4px;">(合格基準点: 80点)</div>`;
 
-    // 最終画面に全問題の正解・不正解をまとめて表示
     let summaryHTML = '';
-
-    summaryHTML += `<div class="result-section-title">大問1 正解数: ${sectionScores.sec1 / 6} / 5問 (${sectionScores.sec1} / 30点)</div>` + sectionHTML.sec1;
-    summaryHTML += `<div class="result-section-title">大問2 正解数: ${sectionScores.sec2 / 6} / 5問 (${sectionScores.sec2} / 30点)</div>` + sectionHTML.sec2;
-    summaryHTML += `<div class="result-section-title">大問3 正解数: ${sectionScores.sec3 / 6} / 5問 (${sectionScores.sec3} / 30点)</div>` + sectionHTML.sec3;
-    summaryHTML += `<div class="result-section-title">大問4 正解数: ${sectionScores.sec4 / 6} / 5問 (${sectionScores.sec4} / 30点)</div>` + sectionHTML.sec4;
+    summaryHTML += `<div class="result-section-title">大問1 得点: ${sectionScores.sec1} / 30点</div>` + sectionHTML.sec1;
+    summaryHTML += `<div class="result-section-title">大問2 得点: ${sectionScores.sec2} / 30点</div>` + sectionHTML.sec2;
+    summaryHTML += `<div class="result-section-title">大問3 得点: ${sectionScores.sec3} / 30点</div>` + sectionHTML.sec3;
+    summaryHTML += `<div class="result-section-title">大問4 得点: ${sectionScores.sec4} / 30点</div>` + sectionHTML.sec4;
 
     document.getElementById('final-summary-list').innerHTML = summaryHTML;
 
