@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ドラえもん検定 2022年度 中級</title>
+  <style>
+    :root { --main:#6b9dff; --bg:#f4f7f9; --card:#fff; --text:#333; --accent:#ffd43b; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif; background:var(--bg); color:var(--text); line-height:1.65; padding:20px 12px; }
+    .container { max-width:680px; margin:auto; }
+    header { text-align:center; margin-bottom:20px; padding:18px; background:var(--main); color:#fff; border-radius:12px; }
+    h1 { font-size:1.35rem; }
+    .card { background:var(--card); border-radius:12px; padding:20px; box-shadow:0 2px 8px #0000000d; margin-bottom:18px; }
+    h2 { font-size:1.12rem; margin-bottom:12px; }
+    .intro { margin-bottom:14px; }
+    .question-block { margin-bottom:20px; padding-bottom:14px; border-bottom:1px dashed #e5e5e5; }
+    .question-block:last-child { border-bottom:0; }
+    .q-title { font-weight:700; margin-bottom:8px; }
+    .choices { display:grid; gap:7px; margin-top:8px; }
+    .choice { display:flex; gap:9px; align-items:flex-start; padding:8px 10px; background:#f9fbfd; border:1px solid #e5edf8; border-radius:8px; cursor:pointer; }
+    .choice input { margin-top:5px; accent-color:var(--main); }
+    .text-input { width:100%; padding:11px; font-size:1rem; border:2px solid var(--main); border-radius:8px; margin-top:5px; }
+    .points { color:#666; font-size:.86rem; font-weight:400; }
+    .btn { width:100%; padding:13px; background:var(--main); color:white; border:0; border-radius:8px; font-size:1rem; font-weight:700; cursor:pointer; margin-top:9px; }
+    .btn:hover { filter:brightness(.94); }
+    .btn-back { background:#687789; }
+    .result-item { margin:10px 0; padding:12px; border-radius:8px; background:#f4f7f9; border-left:5px solid #aaa; }
+    .result-correct { border-left-color:#20a464; }
+    .result-wrong { border-left-color:#e25252; }
+    .badge { display:inline-block; font-weight:700; margin-bottom:4px; }
+    .answer-key { margin-top:5px; color:#444; }
+    .self-check { margin-top:9px; padding:8px; background:white; border-radius:6px; }
+    .score-banner { text-align:center; background:#edf4ff; color:#244b87; padding:18px; border-radius:10px; font-size:1.25rem; font-weight:700; margin:12px 0 18px; }
+    .summary-title { background:#eaf1fb; padding:9px 11px; border-radius:7px; margin:16px 0 8px; font-weight:700; }
+    .muted { color:#666; font-size:.9rem; }
+    .name-input { width:100%; padding:10px; border:1px solid #b9c8dd; border-radius:7px; margin-top:5px; font-size:1rem; }
+    [hidden] { display:none !important; }
+    @media (max-width:480px) { body { padding:12px 8px; } .card { padding:16px; } }
+  </style>
+</head>
+<body>
+<main class="container">
+  <header><h1>ドラえもん検定 2022年度 中級</h1></header>
+  <section id="intro" class="card">
+    <h2>受験者情報</h2>
+    <label>名前（任意）<input id="name" class="name-input" type="text" placeholder="名前を入力"></label>
+    <p class="intro muted" style="margin-top:12px">各セクションの回答後に採点結果を確認できます。記述問題は模範解答を見て自己採点してください。合計100点です。</p>
+    <button class="btn" onclick="startQuiz()">Ⅰから始める</button>
+  </section>
+  <div id="quiz"></div>
+</main>
+<script>
+const sections = [
+  {title:'Ⅰ 正誤問題', max:10, fields:[
+    {q:'問1. 「ウルトラよろい」で、のび太はスネ夫に鎧が見えるか？と聞いた。', type:'choice', options:['〇','×'], key:1, pts:2},
+    {q:'問2. 「ジャイアン反省・のび太めいわく」では、ジャイアンのおじさんが登場する。', type:'choice', options:['〇','×'], key:0, pts:2},
+    {q:'問3. 「オキテテヨカッタ」では、深夜の物の値段が昼間より高くなっていた。', type:'choice', options:['〇','×'], key:1, pts:2},
+    {q:'問4. 「大人をしかる腕章」は子どもが子どもを叱る事もできる。', type:'choice', options:['〇','×'], key:1, pts:2},
+    {q:'問5. 「ぞうとおじさん」に登場するゾウの名前は、ハナ夫である。', type:'choice', options:['〇','×'], key:0, pts:2}
+  ]},
+  {title:'Ⅱ 選択問題', max:36, fields:[
+    {q:'問1. のび太たちがよく行く空き地には何があるか。', type:'choice', options:['メリーゴーランド','ジャングルジム','土管','池'], key:2, pts:2},
+    {q:'問2. ジャイアンの両親の仕事は何か。', type:'choice', options:['商店','プロボクサー','学校の先生','医者'], key:0, pts:2},
+    {q:'問3. この中で、ペットを飼っていないのは誰か。', type:'choice', options:['のび太','しずか','スネ夫','ジャイアン'], key:0, pts:2},
+    {q:'問4. パパのボーナスは、新しい自転車を買ってもらおうとしたのび太によって何倍に増やされたか。', type:'choice', options:['10倍','512倍','1024倍','2000倍'], key:2, pts:2},
+    {q:'問5. 「あべこべクリーム」は何をあべこべにする道具か。', type:'choice', options:['足の速さ','体感気温','にきびの数','肌の色'], key:1, pts:2},
+    {q:'問6. 「のび太が消えちゃう？」より、学生の頃の父の意外な才能は何か。', type:'choice', options:['野球','ピアノを弾く','釣り','絵を描く'], key:3, pts:2},
+    {q:'問7. 「さようなら、ドラえもん」で、真夜中の空き地でのび太は誰と喧嘩したか。', type:'choice', options:['スネ夫','ジャイアン','隣町の強い子','ドラえもん'], key:1, pts:2},
+    {q:'問8. 「台風のフー子」より、フー子は話の最後どうなったか。', type:'choice', options:['ジャイアンをやっつけた','本物の台風とぶつかり消えた','学校をふきとばした','未来に帰った'], key:1, pts:2},
+    {q:'問9. 「ウルトラミキサー」でドラえもんとのび太が合体してできたキャラクターの名前は何か。', type:'choice', options:['のびえもん','ドラ太','ドラ&のび','のび&ドラ'], key:0, pts:2},
+    {q:'問10. 「のび太のなが〜い家出」で彼はどこへ家出するか。', type:'choice', options:['ジャイアンの家','スネ夫の家','山の上','無人島'], key:0, pts:2},
+    {q:'問11. 「人生やりなおし機」で、のび太の体力、知能はどれほどだと評価されたか。', type:'choice', options:['4歳程度','小学2年生程度','小学4年生程度','中学1年生程度'], key:1, pts:2},
+    {q:'問12. 「夢まくらのおじいさん」によると子供時代ののび太のパパは何を欲しがっていたか。', type:'choice', options:['ぬいぐるみ','おかし','マンガ','ランドセル'], key:2, pts:2},
+    {q:'問13. 「ムシャクシャカーッとしたら」でのでび太が最初に当たった物とは。', type:'choice', options:['まくら','やかん','マンガ','窓ガラス'], key:0, pts:2},
+    {q:'問14. 「アニメ制作なんてわけないよ」でのび太が作った長編アニメのタイトルは何か。', type:'choice', options:['のび太ウォーズ','のび太バトル','のび太ランド','のび太ドライブ'], key:2, pts:2},
+    {q:'問15. 「しずちゃんさようなら」でのでび太がしずかに嫌われるために使った道具はどれか。', type:'choice', options:['キラワレール','スカートめくり機','虫スカン','空気砲'], key:2, pts:2},
+    {q:'問16. 「ぎんげぼう」をかぶって、10秒以内に罪を認めないとどうなるか。', type:'choice', options:['所持金が減る','雷に打たれる','体が小さくなる','水をかぶせられる'], key:3, pts:2},
+    {q:'問17. のび太が「人間機関車」に頼った理由は何か。', type:'choice', options:['ジャイアンと二人三脚に参加するため','遠くののび太のママの知り合いに荷物を届けるため','スネ夫の機関車のジオラマに嫉妬したため','出張先ののび太のパパに書類を届けるため'], key:0, pts:2},
+    {q:'問18. 「立体コピー」で作られたのび太がやらなかったことは何か。', type:'choice', options:['ジャイアンとけんか','溺れた子どもの救出','ママに叱られる','泥棒逮捕の手伝い'], key:2, pts:2}
+  ]},
+  {title:'Ⅲ 読解問題', max:12, fields:[
+    {q:'[Ⅰ] 問1. ひみつ道具全体の約(①)がレンタルである。', type:'choice', options:['半分','3分の1','3分の2','5分の1'], key:2, pts:2},
+    {q:'[Ⅰ] 問2. ドラえもんは(②)か月ごとに定期けんたを行う。数字で答えなさい。', type:'text', accepted:['100'], pts:2, answer:'100か月'},
+    {q:'[Ⅰ] 問3. 壊れたり使えなくなった道具を捨てる道具の名前と、普段置かれている場所（完答）。', type:'self', pts:2, answer:'四次元くずかご／押入れの足元'},
+    {q:'[Ⅱ] 問1. 藤子・F・不二雄先生の代表作を選びなさい。', type:'choice', options:['おそ松くん','キテレツ大百科','あたしンち','美味しんぼ'], key:1, pts:2},
+    {q:'[Ⅱ] 問2. 藤子・F・不二雄先生が生まれた(①)県はどこか。', type:'choice', options:['富山','兵庫','新潟','宮城'], key:0, pts:2},
+    {q:'[Ⅱ] 問3. 「マンガ荘」とも呼ばれたアパートの名称を答えなさい。', type:'text', accepted:['トキワ荘','ときわ荘'], pts:2, answer:'トキワ荘'}
+  ]},
+  {title:'Ⅳ 作品・ひみつ道具問題', max:18, fields:[
+    {q:'問1. 「虹のビオレッタ」 A.このマンガはジャイ子が描いた / B.芸術家を目指す女学生は作者を褒めた（正誤の組み合わせ）。', type:'choice', options:['A正 B正','A正 B誤','A誤 B正','A誤 B誤'], key:1, pts:2},
+    {q:'問2-①. 「ミニ熱気球」で、ドラえもんとのび太は誰の所に物を届けようとしていたか。', type:'choice', options:['ドラえもん','ドラミちゃん','しずかちゃん','出木杉'], key:3, pts:2},
+    {q:'問2-②. ミニ熱気球には誰が描かれていたか。', type:'choice', options:['ドラえもん','ドラミちゃん','しずかちゃん','出木杉'], key:1, pts:2},
+    {q:'問3-①. 「ツチノコ見つけた」で、最終的にツチノコを見つけたことになっているのは誰か。', type:'choice', options:['のび太','しずかちゃん','スネ夫','ジャイアン'], key:3, pts:2},
+    {q:'問3-②. 「ツチノコがそう」で、最終的にツチノコを見つけたことになっているのは誰か。', type:'choice', options:['のび太','しずかちゃん','スネ夫','ジャイアン'], key:0, pts:2},
+    {q:'問4-①. 「うそつ機」を主に使っていたのは誰か。', type:'choice', options:['スネ夫','ジャイアン','のび太','ドラえもん'], key:2, pts:2},
+    {q:'問4-②. 「アトカラホントスピーカー」を主に使っていたのは誰か。', type:'choice', options:['スネ夫','ジャイアン','のび太','ドラえもん'], key:1, pts:2},
+    {q:'問5-①. 「アパートの木」は植えてから何分でアパートになったか。', type:'choice', options:['5分','10分','15分','20分'], key:0, pts:2},
+    {q:'問5-②. のび太は1か月いくらで部屋を貸したか。', type:'choice', options:['10円','50円','100円','200円'], key:1, pts:2}
+  ]},
+  {title:'Ⅴ 記述問題', max:24, fields:[
+    {q:'問1. 「ガンファイターのび太」原作（漫画）で、登場した謎の影の人物は？', type:'self', pts:4, answer:'ドラミちゃん'},
+    {q:'問2. 「帰ってきたドラえもん」で、のび太が箱を開けて手にいれたひみつ道具は何か。', type:'self', pts:4, answer:'ウソ800'},
+    {q:'問3. 「きこりの泉」で、最後に池に落ち、女神ロボットが渡した綺麗な人物は誰か。', type:'self', pts:4, answer:'ジャイアン'},
+    {q:'問4. 「のび太の地底国」で、のび太が地底の穴を作った理由は何か。', type:'self', pts:4, answer:'例：0点の答案を隠すため'},
+    {q:'問5. 「音のない世界」でのリサイタルで、のび太が最後ジャイアンに怒られた理由を述べよ。', type:'self', pts:4, answer:'例：メガネを外したから'},
+    {q:'問6. 「やりすぎ！のぞみ実現機」で、骨川家が北海道に向かった理由は何か。', type:'self', pts:4, answer:'例：突然札幌ラーメンを食べたくなったから'}
+  ]}
+];
+const state = sections.map(s => ({answers:{}, checks:{}, score:0, graded:false}));
+let active = 0;
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function startQuiz() { document.getElementById('intro').hidden = true; active = 0; renderQuestion(0); }
+function renderQuestion(index) {
+  active=index;
+  document.querySelectorAll('.screen').forEach(e=>e.remove());
+  const s=sections[index], host=document.getElementById('quiz'), card=document.createElement('section');
+  card.className='card screen';
+  card.innerHTML=`<h2>${esc(s.title)} <span class="points">（${s.max}点満点）</span></h2><div class="muted" style="margin-bottom:12px">セクション ${index+1} / ${sections.length}</div>`;
+  s.fields.forEach((f,i)=>{
+    const block=document.createElement('div'); block.className='question-block';
+    let control='';
+    if(f.type==='choice') control=`<div class="choices">${f.options.map((o,j)=>`<label class="choice"><input type="radio" name="f${index}_${i}" value="${j}" ${state[index].answers[i]===j?'checked':''}> <span>${esc(o)}</span></label>`).join('')}</div>`;
+    else control=`<input class="text-input" type="text" data-answer="${i}" value="${esc(state[index].answers[i]||'')}" placeholder="回答を入力">`;
+    block.innerHTML=`<div class="q-title">${esc(f.q)} <span class="points">（${f.pts}点）</span></div>${control}`; card.appendChild(block);
+  });
+  const btn=document.createElement('button'); btn.className='btn'; btn.textContent=index===4?'Ⅴを回答して採点結果へ':'回答を採点する'; btn.onclick=()=>submitSection(index); card.appendChild(btn);
+  host.appendChild(card);
+  card.querySelectorAll('input[type=radio]').forEach(el=>el.addEventListener('change',()=>{state[index].answers[Number(el.name.split('_')[1])]=Number(el.value)}));
+  card.querySelectorAll('[data-answer]').forEach(el=>el.addEventListener('input',()=>{state[index].answers[Number(el.dataset.answer)]=el.value}));
+}
+function submitSection(index) {
+  const s=sections[index], st=state[index]; let auto=0;
+  document.querySelectorAll('.screen input[type=radio]:checked').forEach(el=>{st.answers[Number(el.name.split('_')[1])]=Number(el.value)});
+  document.querySelectorAll('.screen [data-answer]').forEach(el=>{st.answers[Number(el.dataset.answer)]=el.value});
+  s.fields.forEach((f,i)=>{if(f.type==='choice' && st.answers[i]===f.key) auto+=f.pts;});
+  st.score=auto; st.graded=true; renderResult(index);
+}
+function renderResult(index) {
+  active=index; document.querySelectorAll('.screen').forEach(e=>e.remove());
+  const s=sections[index], st=state[index], card=document.createElement('section'); card.className='card screen';
+  card.innerHTML=`<h2>${esc(s.title)} 採点結果</h2><p class="muted">自動採点分：<strong id="auto-score">${st.score}</strong>点</p>`;
+  s.fields.forEach((f,i)=>{
+    const row=document.createElement('div'); row.className='result-item';
+    if(f.type==='choice') { const ok=st.answers[i]===f.key; row.classList.add(ok?'result-correct':'result-wrong'); row.innerHTML=`<div class="badge">${ok?'正解':'不正解'}（${ok?f.pts:0}/${f.pts}点）</div><div>${esc(f.q)}</div><div class="answer-key">あなたの回答：${st.answers[i]===undefined?'未選択':esc(f.options[st.answers[i]])} ／ 正解：${esc(f.options[f.key])}</div>`; }
+    else {
+      const typed=st.answers[i]||'';
+      const known=f.accepted ? f.accepted.some(x=>normalize(typed)===normalize(x)) : false;
+      if(known) st.checks[i]=true;
+      row.classList.add(st.checks[i]?'result-correct':'result-wrong');
+      row.innerHTML=`<div class="badge">記述・自己採点（${f.pts}点）</div><div>${esc(f.q)}</div><div class="answer-key">あなたの回答：${typed?esc(typed):'未入力'}<br>模範解答：${esc(f.answer)}</div><label class="self-check"><input type="checkbox" data-check="${i}" ${st.checks[i]?'checked':''}> 模範解答と同等の内容を書けていた（${f.pts}点）</label>`;
+      const checkbox=row.querySelector('input'); checkbox.addEventListener('change',()=>{st.checks[i]=checkbox.checked; row.classList.toggle('result-correct',checkbox.checked); row.classList.toggle('result-wrong',!checkbox.checked); updateSelfScore(index)});
+    }
+    card.appendChild(row);
+  });
+  const selfPoints=s.fields.reduce((n,f,i)=>n+(f.type!=='choice'&&st.checks[i]?f.pts:0),0);
+  card.insertAdjacentHTML('beforeend',`<div class="score-banner">このセクション：<span id="section-score">${st.score+selfPoints}</span> / ${s.max} 点</div>`);
+  if(index>0){const back=document.createElement('button');back.className='btn btn-back';back.textContent=`${index===4?'Ⅴ':'このセクション'}の回答に戻る`;back.onclick=()=>renderQuestion(index);card.appendChild(back)}
+  const next=document.createElement('button');next.className='btn';next.textContent=index===sections.length-1?'最終結果を見る':`${sections[index+1].title}へ進む`;next.onclick=()=>index===sections.length-1?renderFinal():renderQuestion(index+1);card.appendChild(next);
+  document.getElementById('quiz').appendChild(card);
+}
+function normalize(s){return String(s||'').toLowerCase().replace(/[\s　。、,，.]/g,'').replace(/[Ａ-Ｚａ-ｚ０-９]/g,c=>String.fromCharCode(c.charCodeAt(0)-0xfee0));}
+function updateSelfScore(index){const st=state[index], self=sections[index].fields.reduce((n,f,i)=>n+(f.type!=='choice'&&st.checks[i]?f.pts:0),0);document.getElementById('section-score').textContent=st.score+self;}
+function renderFinal(){document.querySelectorAll('.screen').forEach(e=>e.remove()); const total=state.reduce((n,st)=>n+st.score,0)+sections.reduce((n,s,i)=>n+s.fields.reduce((m,f,j)=>m+(f.type!=='choice'&&state[i].checks[j]?f.pts:0),0),0); const card=document.createElement('section');card.className='card screen';card.innerHTML=`<h2>最終結果</h2><div class="score-banner">${esc(document.getElementById('name').value||'受験者')}さん<br>総合得点：${total} / 100 点</div><div id="summary"></div>`; const summary=card.querySelector('#summary'); sections.forEach((s,i)=>{const subtotal=state[i].score+s.fields.reduce((n,f,j)=>n+(f.type!=='choice'&&state[i].checks[j]?f.pts:0),0);const title=document.createElement('div');title.className='summary-title';title.textContent=`${s.title}：${subtotal} / ${s.max}点`;summary.appendChild(title); s.fields.forEach((f,j)=>{const p=document.createElement('p');p.className='muted';const a=state[i].answers[j];p.textContent=`${f.q} — ${f.type==='choice'?(a===undefined?'未選択':f.options[a]):(a||'未入力')}`;summary.appendChild(p)});}); if(state[4].graded){const back=document.createElement('button');back.className='btn btn-back';back.textContent='Ⅴの採点結果に戻る';back.onclick=()=>renderResult(4);card.appendChild(back)} document.getElementById('quiz').appendChild(card);}
+</script>
+</body>
+</html>
