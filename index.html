@@ -34,22 +34,22 @@
     header {
       text-align: center;
       margin-bottom: 24px;
-      padding: 20px;
-      background: var(--card-bg);
+      padding: 24px 20px;
+      background: var(--main-color);
+      color: #FFFFFF;
       border-radius: 16px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-      border-top: 6px solid var(--main-color);
     }
 
     h1 {
       font-size: 1.5rem;
-      color: var(--main-color);
+      color: #FFFFFF;
       margin-bottom: 4px;
     }
 
     p.subtitle {
       font-size: 0.9rem;
-      color: #666;
+      color: rgba(255, 255, 255, 0.9);
     }
 
     .year-card {
@@ -69,14 +69,13 @@
       font-weight: bold;
       padding: 16px;
       cursor: pointer;
-      background-color: #ffffff;
+      background-color: #FFFFFF;
+      color: var(--text-color);
       list-style: none;
       display: flex;
       justify-content: space-between;
       align-items: center;
       user-select: none;
-      border-left: 5px solid var(--main-color);
-      color: var(--text-color);
     }
 
     summary::-webkit-details-marker {
@@ -96,7 +95,7 @@
 
     details[open] summary {
       border-bottom: 1px solid #eee;
-      background-color: #fcfcfc;
+      background-color: #FFFFFF;
     }
 
     .level-list {
@@ -104,6 +103,7 @@
       flex-direction: column;
       gap: 10px;
       padding: 16px;
+      background-color: #FFFFFF;
     }
 
     .level-btn {
@@ -147,6 +147,7 @@
         <summary>2025年度</summary>
         <div class="level-list">
           <a href="2025-beginner.html" class="level-btn">初級</a>
+          <a href="2025-shochukyu.html" class="level-btn">初中級</a>
           <a href="2025-intermediate.html" class="level-btn">中級</a>
           <a href="2025-advanced.html" class="level-btn">上級</a>
         </div>
