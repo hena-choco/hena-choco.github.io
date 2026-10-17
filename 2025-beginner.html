@@ -10,8 +10,7 @@
       --bg-color: #f4f7f9; 
       --card-bg: #ffffff; 
       --text-color: #333333; 
-      --correct-color: #30D3C4; 
-      --incorrect-color: #CA6D2D; 
+      --accent-color: #FFD43B; 
     } 
 
     * { 
@@ -67,6 +66,7 @@
     .q-title { 
       font-weight: bold; 
       margin-bottom: 10px; 
+      color: var(--text-color);
     } 
 
     /* 自由入力テキストボックス */ 
@@ -74,16 +74,16 @@
       width: 100%; 
       padding: 12px; 
       font-size: 1.05rem; 
-      border: 2px solid #ccc; 
+      border: 2px solid var(--main-color); 
       border-radius: 8px; 
       outline: none; 
-      background-color: #fafafa; 
+      background-color: var(--card-bg); 
+      color: var(--text-color);
       transition: border-color 0.2s, background-color 0.2s; 
     } 
 
     .text-input:focus { 
-      border-color: var(--main-color); 
-      background-color: #fff; 
+      border-color: var(--accent-color); 
     } 
 
     /* ボタン群 */ 
@@ -97,7 +97,7 @@
       flex: 1; 
       padding: 12px; 
       border: 2px solid var(--main-color); 
-      background-color: #FFFFFF; 
+      background-color: var(--card-bg); 
       color: var(--main-color); 
       font-size: 1.1rem; 
       font-weight: bold; 
@@ -108,7 +108,7 @@
 
     .opt-btn.selected { 
       background-color: var(--main-color); 
-      color: #FFFFFF; 
+      color: var(--card-bg); 
     } 
 
     .options-vertical { 
@@ -122,7 +122,7 @@
       text-align: left; 
       padding: 12px 16px; 
       border: 2px solid var(--main-color); 
-      background-color: #FFFFFF; 
+      background-color: var(--card-bg); 
       color: var(--text-color); 
       font-size: 1rem; 
       border-radius: 8px; 
@@ -131,7 +131,7 @@
 
     .opt-btn-v.selected { 
       background-color: var(--main-color); 
-      color: #FFFFFF; 
+      color: var(--card-bg); 
     } 
 
     select.tool-select { 
@@ -142,14 +142,15 @@
       border-radius: 8px; 
       margin-top: 8px; 
       outline: none; 
-      background-color: #fff; 
+      background-color: var(--card-bg); 
+      color: var(--text-color);
     } 
 
     .btn-submit { 
       width: 100%; 
       padding: 16px; 
       background-color: var(--main-color); 
-      color: #FFFFFF; 
+      color: var(--card-bg); 
       border: none; 
       border-radius: 8px; 
       font-size: 1.1rem; 
@@ -158,13 +159,18 @@
       margin-top: 10px; 
     } 
 
-    /* 結果表示パーツ（単色化対応） */ 
+    .btn-submit:hover {
+      background-color: var(--text-color);
+    }
+
+    /* 結果表示パーツ（指定の5色のみで正誤を表現） */ 
     .result-section-title { 
       font-size: 1.1rem; 
       font-weight: bold; 
       margin: 20px 0 10px; 
       padding-bottom: 4px; 
       border-bottom: 2px solid var(--main-color); 
+      color: var(--text-color);
     } 
 
     .result-item { 
@@ -172,17 +178,30 @@
       border-radius: 8px; 
       margin-bottom: 12px; 
       font-size: 0.95rem; 
+      border: 2px solid var(--main-color);
     } 
 
+    /* 正解：メインカラーを下地にし、文字を白（card-bg）にする */
     .result-correct { 
-      background-color: var(--correct-color); 
-      color: #FFFFFF; 
+      background-color: var(--main-color); 
+      color: var(--card-bg); 
+      border-color: var(--main-color);
     } 
 
+    /* 不正解：白（card-bg）を下地にし、文字をメインカラーにする */
     .result-incorrect { 
-      background-color: var(--incorrect-color); 
-      color: #FFFFFF; 
+      background-color: var(--card-bg); 
+      color: var(--main-color); 
+      border-color: var(--main-color);
     } 
+    .result-incorrect .res-badge {
+      background-color: var(--main-color);
+      color: var(--card-bg);
+    }
+    .result-incorrect strong,
+    .result-incorrect div {
+      color: var(--text-color);
+    }
 
     .res-badge { 
       font-weight: bold; 
@@ -190,11 +209,12 @@
       padding: 2px 8px; 
       border-radius: 4px; 
       background-color: rgba(255, 255, 255, 0.3); 
-      color: #FFFFFF; 
+      color: var(--card-bg); 
       font-size: 0.8rem; 
       margin-bottom: 4px; 
     } 
 
+    /* スコアバナー：必要最小限のアクセントカラー（#FFD43B）を合格時の強調に使用 */
     .score-banner { 
       text-align: center; 
       padding: 20px; 
@@ -202,15 +222,21 @@
       font-weight: bold; 
       margin-bottom: 20px; 
       border-radius: 12px; 
-      color: #FFFFFF; 
+      background-color: var(--main-color);
+      color: var(--card-bg); 
     } 
+    
+    .score-banner.pass {
+      background-color: var(--accent-color);
+      color: var(--text-color);
+    }
 
     .nav-btn { 
       display: block; 
       text-align: center; 
       padding: 14px; 
       background-color: var(--main-color); 
-      color: #FFFFFF; 
+      color: var(--card-bg); 
       text-decoration: none; 
       font-weight: bold; 
       border-radius: 8px; 
@@ -218,11 +244,13 @@
     } 
 
     .tool-list-box { 
-      background: #eef4ff; 
+      background: var(--bg-color); 
       padding: 12px; 
       border-radius: 8px; 
       margin-bottom: 16px; 
       font-size: 0.9rem; 
+      border: 1px solid var(--main-color);
+      color: var(--text-color);
     } 
   </style> 
 </head> 
@@ -236,7 +264,7 @@
   <!-- ==================== 大問 1 問題 ==================== --> 
   <div id="section-q1" class="card"> 
     <h2>大問 1 (配点: 各6点 / 30点満点)</h2> 
-    <p style="margin-bottom:16px; color:#666;">文が正しければ○を、正しくなければ×を選びましょう。</p> 
+    <p style="margin-bottom:16px; color:var(--text-color); opacity:0.8;">文が正しければ○を、正しくなければ×を選びましょう。</p> 
 
     <div class="question-block"> 
       <div class="q-title">(1) ドラえものは22世紀から来た。</div> 
@@ -291,7 +319,7 @@
   <!-- ==================== 大問 2 問題 ==================== --> 
   <div id="section-q2" class="card" style="display:none;"> 
     <h2>大問 2 (配点: 各6点 / 30点満点)</h2> 
-    <p style="margin-bottom:16px; color:#666;">正しい答えを一つ選びましょう。</p> 
+    <p style="margin-bottom:16px; color:var(--text-color); opacity:0.8;">正しい答えを一つ選びましょう。</p> 
 
     <div class="question-block"> 
       <div class="q-title">(1) ドラえもんが大好きなものは何でしょう。</div> 
@@ -356,7 +384,7 @@
   <!-- ==================== 大問 3 問題 ==================== --> 
   <div id="section-q3" class="card" style="display:none;"> 
     <h2>大問 3 (配点: 各6点 / 30点満点)</h2> 
-    <p style="margin-bottom:12px; color:#666;">叶えたいことにもっともよくあてはまるひみつ道具の名前を「ひみつ道具リスト」から選びましょう。</p> 
+    <p style="margin-bottom:12px; color:var(--text-color); opacity:0.8;">叶えたいことにもっともよくあてはまるひみつ道具の名前を「ひみつ道具リスト」から選びましょう。</p> 
 
     <div class="tool-list-box"> 
       <strong>【ひみつ道具リスト】</strong><br> 
@@ -446,7 +474,7 @@
   <!-- ==================== 大問 4 問題 ==================== --> 
   <div id="section-q4" class="card" style="display:none;"> 
     <h2>大問 4 (配点: 各6点 / 30点満点)</h2> 
-    <p style="margin-bottom:16px; color:#666;">問題の答えを入力しましょう。</p> 
+    <p style="margin-bottom:16px; color:var(--text-color); opacity:0.8;">問題の答えを入力しましょう。</p> 
 
     <div class="question-block"> 
       <div class="q-title">(1) ドラえもんは普段、ひみつ道具をどこから出すでしょう。（5文字程度）</div> 
@@ -635,7 +663,7 @@
   const q4Text = [ 
     "(1) ドラえもんは普段、ひみつ道具をどこから出すでしょう。", 
     "(2) のび太の苗字は何でしょう。", 
-    "(3) のび太がテストで5回に1回とる点수는何点でしょう。", 
+    "(3) のび太がテストで5回に1回とる点数は何点でしょう。", 
     "(4) スネ夫のペット“チルチル”は何の生き物でしょう。", 
     "(5) “ヘリトンボ”という体につけて空を飛べるひみつ道具は何でしょう。" 
   ]; 
@@ -672,8 +700,12 @@
     const isPass = totalScore >= 80; 
 
     const banner = document.getElementById('final-banner'); 
-    banner.style.backgroundColor = isPass ? '#30D3C4' : '#CA6D2D'; 
-    banner.innerHTML = `<div>総合得点: ${totalScore} / 120 点</div><div style="font-size:1.6rem; margin-top:8px;">${isPass ? '合格' : '不合格'}</div><div style="font-size:0.85rem; font-weight:normal; color:#ffffff; margin-top:4px; opacity:0.9;">(合格基準点: 80点)</div>`; 
+    if (isPass) {
+      banner.className = 'score-banner pass';
+    } else {
+      banner.className = 'score-banner';
+    }
+    banner.innerHTML = `<div>総合得点: ${totalScore} / 120 点</div><div style="font-size:1.6rem; margin-top:8px;">${isPass ? '合格' : '不合格'}</div><div style="font-size:0.85rem; font-weight:normal; margin-top:4px; opacity:0.9;">(合格基準点: 80点)</div>`; 
 
     let summaryHTML = ''; 
     summaryHTML += `<div class="result-section-title">大問1 得点: ${sectionScores.sec1} / 30点</div>` + sectionHTML.sec1; 
