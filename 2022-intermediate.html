@@ -151,7 +151,6 @@ function renderResult(index) {
   card.insertAdjacentHTML('beforeend',`<div class="score-banner">このセクション：<span id="section-score">${st.score+selfPoints}</span> / ${s.max} 点</div>`);
   const back=document.createElement('button');back.className='btn btn-back';back.textContent=`${['Ⅰ','Ⅱ','Ⅲ','Ⅳ','Ⅴ'][index]}の回答に戻る`;back.onclick=()=>renderQuestion(index);card.appendChild(back);
   const next=document.createElement('button');next.className='btn';next.textContent=index===sections.length-1?'最終結果を見る':`${sections[index+1].title}へ進む`;next.onclick=()=>index===sections.length-1?renderFinal():renderQuestion(index+1);card.appendChild(next);
-  const list=document.createElement('a');list.className='btn';list.href='https://hena-choco.github.io';list.textContent='問題一覧へ戻る';card.appendChild(list);
   document.getElementById('quiz').appendChild(card);
 }
 function normalize(s){return String(s||'').toLowerCase().replace(/[\s　。、,，.]/g,'').replace(/[Ａ-Ｚａ-ｚ０-９]/g,c=>String.fromCharCode(c.charCodeAt(0)-0xfee0));}
