@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ドラえもん検定 2025年度 中級</title>
+  <style>
+    :root {
+      --main-color: #6B9DFF;
+      --bg-color: #f4f7f9;
+      --card-bg: #ffffff;
+      --text-color: #333333;
+      --correct-color: #28a745;
+      --incorrect-color: #dc3545;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      padding: 20px 12px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 20px;
+      padding: 16px;
+      background: var(--main-color);
+      color: #FFFFFF;
+      border-radius: 12px;
+    }
+
+    h1 {
+      font-size: 1.3rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      margin-bottom: 20px;
+    }
+
+    .passage-box {
+      background: #eef4ff;
+      padding: 14px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 0.95rem;
+      border-left: 4px solid var(--main-color);
+    }
+
+    .question-block {
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px dashed #eee;
+    }
+
+    .question-block:last-child {
+      border-bottom: none;
+    }
+
+    .q-title {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    /* 自由入力テキストボックス */
+    .text-input {
+      width: 100%;
+      padding: 12px;
+      font-size: 1.05rem;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      outline: none;
+      background-color: #fafafa;
+      transition: border-color 0.2s, background-color 0.2s;
+    }
+
+    .text-input:focus {
+      border-color: var(--main-color);
+      background-color: #fff;
+    }
+
+    /* 選択肢ボタン群 */
+    .options-grid {
+      display: flex;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .opt-btn {
+      flex: 1;
+      padding: 12px;
+      border: 2px solid var(--main-color);
+      background-color: #FFFFFF;
+      color: var(--main-color);
+      font-size: 1.1rem;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .opt-btn.selected {
+      background-color: var(--main-color);
+      color: #FFFFFF;
+    }
+
+    .options-vertical {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .opt-btn-v {
+      text-align: left;
+      padding: 12px 16px;
+      border: 2px solid var(--main-color);
+      background-color: #FFFFFF;
+      color: var(--text-color);
+      font-size: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .opt-btn-v.selected {
+      background-color: var(--main-color);
+      color: #FFFFFF;
+    }
+
+    select.v-select {
+      width: 100%;
+      padding: 10px;
+      font-size: 0.95rem;
+      border: 2px solid var(--main-color);
+      border-radius: 8px;
+      margin-top: 6px;
+      outline: none;
+      background-color: #fff;
+    }
+
+    .btn-submit {
+      width: 100%;
+      padding: 16px;
+      background-color: var(--main-color);
+      color: #FFFFFF;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    /* 結果表示パーツ */
+    .result-section-title {
+      font-size: 1.1rem;
+      font-weight: bold;
+      margin: 20px 0 10px;
+      padding-bottom: 4px;
+      border-bottom: 2px solid var(--main-color);
+    }
+
+    .result-item {
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 12px;
+      font-size: 0.95rem;
+    }
+
+    .result-correct {
+      background-color: #e8f5e9;
+      border-left: 5px solid var(--correct-color);
+    }
+
+    .result-incorrect {
+      background-color: #ffebee;
+      border-left: 5px solid var(--incorrect-color);
+    }
+
+    .res-badge {
+      font-weight: bold;
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      color: #fff;
+      font-size: 0.8rem;
+      margin-bottom: 4px;
+    }
+
+    .bg-pass { background-color: var(--correct-color); }
+    .bg-fail { background-color: var(--incorrect-color); }
+
+    .score-banner {
+      text-align: center;
+      padding: 20px;
+      font-size: 1.4rem;
+      font-weight: bold;
+      margin-bottom: 20px;
+      border-radius: 12px;
+      border: 2px solid transparent;
+    }
+
+    .nav-btn {
+      display: block;
+      text-align: center;
+      padding: 14px;
+      background-color: var(--main-color);
+      color: #FFFFFF;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 8px;
+      margin-top: 24px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <h1>ドラえもん検定 2025年度 中級</h1>
+  </header>
+
+  <!-- ==================== 大問 Ⅰ ==================== -->
+  <div id="section-q1" class="card">
+    <h2>大问 Ⅰ (配点: 18点)</h2>
+    <div class="passage-box">
+      2025年に【①45周年を迎えた『映画ドラえもん』シリーズ】には、原作マンガ『ドラえもん』とつながりのある作品も多い。例えば、2003年公開『映画ドラえもんのび太【②□】ふしぎ風使い』にて、のび太が出会った (A) は、原作マンガ「台風の (A) 」においては、のび太が卵からかえしたキャラクターとして登場する。翌年に公開された【③『のび太のワンニャン時空伝』】も、原作マンガ「のら犬 (B) の国」とのつながりが密接である。『映画ドラえもん』には、過去の『映画ドラえもん』のリメイク作品も多い。例えば、【④『のび太の恐竜』】や『のび太の日本誕生』は、これらを原作にリメイクが行われている。こうした重層的な作品構造が、『映画ドラえもん』のもつ大きな特徴といえよう。
+    </div>
+
+    <div class="question-block">
+      <div class="q-title">問1 (A). 空欄 (A) に当てはまるキャラクター名</div>
+      <input type="text" id="q1_1a" class="text-input" placeholder="ここに入力してください">
+    </div>
+
+    <div class="question-block">
+      <div class="q-title">問1 (B). 空欄 (B) に当てはまるキャラクター名</div>
+      <input type="text" id="q1_1b" class="text-input" placeholder="ここに入力してください">
+    </div>
+
+    <div class="question-block">
+      <div class="q-title">問2. 映画ドラえもんシリーズ45周年記念作品として2025年に公開されたタイトル（「映画ドラえもん」は不要）</div>
+      <input type="text" id="q1_2" class="text-input" placeholder="ここに入力してください">
+    </div>
+
+    <div class="question-block">
+      <div class="q-title">問3. 下線部②について、□に入る1字</div>
+      <input type="text" id="q1_3" class="text-input" placeholder="ここに入力してください">
+    </div>
+
+    <div class="question-block">
+      <div class="q-title">問4. 『のび太のワンニャン時空伝』でドラえもん役を演じた声優の名前</div>
+      <input type="text" id="q1_4" class="text-input" placeholder="ここに入力してください">
+    </div>
+
+    <div class="question-block">
+      <div class="q-title">問5. 『のび太の恐竜』をリメイクし2006年に公開されたタイトル（「映画ドラえもん」は不要）</div>
+      <input type="text" id="q1_5" class="text-input" placeholder="ここに入力してください">
+    </div>
+
+    <button class="btn-submit" onclick="gradeQ1()">採点して次へ</button>
+  </div>
+
+  <div id="section-r1" class="card" style="display:none;">
+    <h2>大問 Ⅰ 採点結果</h2>
+    <div id="r1-details" style="margin-top:16px;"></div>
+    <button class="btn-submit" onclick="showNext('section-r1', 'section-q2')">大問 Ⅱ へ進む</button>
+  </div>
+
+  <!-- ==================== 大問 Ⅱ ==================== -->
+  <div id="section-q2" class="card" style="display:none;">
+    <h2>大問 Ⅱ (配点: 各2点 / 10点満点)</h2>
+    <p style="margin-bottom:16px; color:#666;">正しいものには〇、間違っているものには×を選びなさい。</p>
+
+    <div class="question-block">
+      <div class="q-title">問1. しずかが飼っている犬の名前はムクである。</div>
+      <div class="options-grid">
+        <button class="opt-btn" onclick="selectQ('q2_1', '〇', this)">〇</button>
+        <button class="opt-btn" onclick="selectQ('q2_1', '×', this)">×</button>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-title">問2. 「人生やりなおし機」を使うと、4歳の時にも戻ることができる。</div>
+      <div class="options-grid">
+        <button class="opt-btn" onclick="selectQ('q2_2', '〇', this)">〇</button>
+        <button class="opt-btn" onclick="selectQ('q2_2', '×', this)">×</button>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-title">問3. ひみつ道具「スズメバチの巣」は「ハチにたのめばなんとかなるさ」に登場する。</div>
+      <div class="options-grid">
+        <button class="opt-btn" onclick="selectQ('q2_3', '〇', this)">〇</button>
+        <button class="opt-btn" onclick="selectQ('q2_3', '×', this)">×</button>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-title">問4. 「ガッコー仮面登場」には、中学生と高校生ののび太がともに登場する。</div>
+      <div class="options-grid">
+        <button class="opt-btn" onclick="selectQ('q2_4', '〇', this)">〇</button>
+        <button class="opt-btn" onclick="selectQ('q2_4', '×', this)">×</button>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-title">問5. のび太のママの旧姓は高岡である。</div>
+      <div class="options-grid">
+        <button class="opt-btn" onclick="selectQ('q2_5', '〇', this)">〇</button>
+        <button class="opt-btn" onclick="selectQ('q2_5', '×', this)">×</button>
+      </div>
+    </div>
+
+    <button class="btn-submit" onclick="gradeQ2()">採点して次へ</button>
+  </div>
+
+  <div id="section-r2" class="card" style="display:none;">
+    <h2>大問 Ⅱ 採点結果</h2>
+    <div id="r2-details" style="margin-top:16px;"></div>
+    <button class="btn-submit" onclick="showNext('section-r2', 'section-q3')">大問 Ⅲ へ進む</button>
+  </div>
+
+  <!-- ==================== 大問 Ⅲ ==================== -->
+  <div id="section-q3" class="card" style="display:none;">
+    <h2>大問 Ⅲ (配点: 各2点 / 20点満点)</h2>
+    <p style="margin-bottom:16px; color:#666;">最も適切な選択肢を一つ選びなさい。</p>
+
+    <div class="question-block">
+      <div class="q-title">問1. 「しずちゃんのはごろも」に登場するひみつ道具は何か。</div>
+      <div class="options-vertical">
+        <button class="opt-btn-v" onclick="selectQ('q3_1', '1', this)">1. フワフワオビ</button>
+        <button class="opt-btn-v" onclick="selectQ('q3_1', '2', this)">2. トイレットペーパー</button>
+        <button class="opt-btn-v" onclick="selectQ('q3_1', '3', this)">3. フワフワタスキ</button>
+        <button class="opt-btn-v" onclick="selectQ('q3_1', '4', this)">4. ふわふわぐすり</button>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-title">問2. 「〇〇恐怖症」にて開催された、のび太たちがらせコンクールの第一等は誰か。</div>
+      <div class="options-vertical">
+        <button class="opt-btn-v" onclick="selectQ('q3_2', '1', this)">1. 学校の先生</button>
+        <button class="opt-btn-v" onclick="selectQ('q3_2', '2', this)">2. ジャイアン</button>
+        <button class="opt-btn-v" onclick="selectQ('q3_2', '3', this)">3. スネ夫</button>
+        <button class="opt-btn-v" onclick="selectQ('q3_2', '4', this)">4. のび太のママ</button>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-title">問3. 「にっくきあいつ」とは誰のことか。</div>
+      <div class="options-vertical">
+        <button class="opt-btn-v" onclick="selectQ('q3_3', '1', this)">1. 出木杉</button>
+        <button class="opt-btn-v" onclick="selectQ('q3_3', '2', this)">2. 野球部のキャプテン</button>
+        <button class="opt-btn-v" onclick="selectQ('q3_3', '3', this)">3. しずかの家庭教師</button>
+        <button class="opt-btn-v" onclick="selectQ('q3_3', '4', this)">4. 学校の先生</button>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-title">問4. 「ペッター」は何に対して使用するひみつ道具か。</div>
+      <div class="options-vertical">
+        <button class="opt-btn-v" onclick="selectQ('q3_4', '1', this)">1. 掃除機</button>
+        <button class="opt-btn-v" onclick="selectQ('q3_4', '2', this)">2. ほうき</button>
+        <button class="opt-btn-v" onclick="selectQ('q3_4', '3', this)">3. 紙相撲</button>
+        <button class="opt-btn-v" onclick="selectQ('q3_4', '4', this)">4. 椅子</button>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-title">問5. 「やりすぎ！のぞみ実現機」にて、のび太がテストを受けずに済んだ理由は何か。</div>
+      <div class="options-vertical">
+        <button class="opt-btn-v" onclick="selectQ('q3_5', '1', this)">1. 大地震</button>
+        <button class="opt-btn-v" onclick="selectQ('q3_5', '2', this)">2. ジャイアンの歌</button>
+        <button class="opt-btn-v" onclick="selectQ('q3_5', '3', this)">3. 先生のテスト忘れ</button>
+        <button class="opt-btn-v" onclick="selectQ('q3_5', '4', this)">4. 遅刻</button>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-title">問6. ジャイアンの頭に「タイヤ」と「木」が当たる原因となったひみつ道具は何か。</div>
+      <div class="options-vertical">
+        <button class="opt-btn-v" onclick="selectQ('q3_6', '1', this)">1. 人間あやつり機</button>
+        <button class="opt-btn-v" onclick="selectQ('q3_6', '2', this)">2. ねがい星</button>
+        <button class="opt-btn-v" onclick="selectQ('q3_6', '3', this)">3. とりよせバッグ</button>
+        <button class="opt-btn-v" onclick="selectQ('q3_6', '4', this)">4. タケコプター</button>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-title">問7. ひみつ道具「音楽いも」を使って探したのは誰のおしりか。</div>
+      <div class="options-vertical">
+        <button class="opt-btn-v" onclick="selectQ('q3_7', '1', this)">1. のび太</button>
+        <button class="opt-btn-v" onclick="selectQ('q3_7', '2', this)">2. しずか</button>
+        <button class="opt-btn-v" onclick="selectQ('q3_7', '3', this)">3. スネ夫</button>
+        <button class="opt-btn-v" onclick="selectQ('q3_7', '4', this)">4. ジャイアン</button>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-title">問8. 「ふきかえ糸電話」にて、のび太が阻止したかったことは何か。</div>
+      <div class="options-vertical">
+        <button class="opt-btn-v" onclick="selectQ('q3_8', '1', this)">1. ジャイアンリサイタル</button>
+        <button class="opt-btn-v" onclick="selectQ('q3_8', '2', this)">2. 弱い者いじめ</button>
+        <button class="opt-btn-v" onclick="selectQ('q3_8', '3', this)">3. スネ夫の自慢話</button>
+        <button class="opt-btn-v" onclick="selectQ('q3_8', '4', this)">4. 先生の家庭訪問</button>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-title">問9. 「チョージャワラシベ」にて、のび太が欲しかった物は何か。</div>
+      <div class="options-vertical">
+        <button class="opt-btn-v" onclick="selectQ('q3_9', '1', this)">1. グローブ</button>
+        <button class="opt-btn-v" onclick="selectQ('q3_9', '2', this)">2. サッカーボール</button>
+        <button class="opt-btn-v" onclick="selectQ('q3_9', '3', this)">3. マンガ</button>
+        <button class="opt-btn-v" onclick="selectQ('q3_9', '4', this)">4. 出木杉の宿題</button>
+      </div>
+    </div>
+
+    <div class="question-block">
+      <div class="q-title">問10. 「念録マイク」にて、風邪をひいていたジャイアンがリサイタルを開催できた理由は何か。</div>
+      <div class="options-vertical">
+        <button class="opt-btn-v" onclick="selectQ('q3_10', '1', this)">1. 「お医者さんカバン」で治したから</button>
+        <button class="opt-btn-v" onclick="selectQ('q3_10', '2', this)">2. みんなに歌わせたから</button>
+        <button class="opt-btn-v" onclick="selectQ('q3_10', '3', this)">3. 「念録マイク」を使わせたから</button>
+        <button class="opt-btn-v" onclick="selectQ('q3_10', '4', this)">4. テープに吹き込んでいたから</button>
+      </div>
+    </div>
+
+    <button class="btn-submit" onclick="gradeQ3()">採点して次へ</button>
+  </div>
+
+  <div id="section-r3" class="card" style="display:none;">
+    <h2>大問 Ⅲ 採点結果</h2>
+    <div id="r3-details" style="margin-top:16px;"></div>
+    <button class="btn-submit" onclick="showNext('section-r3', 'section-q4')">大問 Ⅳ へ進む</button>
+  </div>
+
+  <!-- ==================== 大問 Ⅳ ==================== -->
+  <div id="section-q4" class="card" style="display:none;">
+    <h2>大問 Ⅳ (配点: 各3点 / 18点満点)</h2>
+    <p style="margin-bottom:16px; color:#666;">次の問いに答えなさい。</p>
+
+    <div class="question-block">
+      <div class="q-title">問1. 「のび太の海底鬼岩城」にて、しずかは「水中バギー」を特定と何と呼んでいたか。</div>
+      <input type="text" id="q4_1" class="text-input" placeholder="ここに入力してください">
+    </div>
+
+    <div class="question-block">
+      <div class="q-title">問2. 「うちのプールは太平洋」にて、ドラえもんは野比家の何をプールに見立てたか。</div>
+      <input type="text" id="q4_2" class="text-input" placeholder="ここに入力してください">
+    </div>
+
+    <div class="question-block">
+      <div class="q-title">問3. 「ようろうおつまみ」は水を何に変えるひみつ道具か。</div>
+      <input type="text" id="q4_3" class="text-input" placeholder="ここに入力してください">
+    </div>
+
+    <div class="question-block">
+      <div class="q-title">問4. 「キンシひょうしき」にて、のび太のパパがやめようとしていたことは何か。</div>
+      <input type="text" id="q4_4" class="text-input" placeholder="ここに入力してください">
+    </div>
+
+    <div class="question-block">
+      <div class="q-title">問5. 「ポラマップスコープ」と「ポラマップ地図」を使って、居場所を確認した乗り物は何か。</div>
+      <input type="text" id="q4_5" class="text-input" placeholder="ここに入力してください">
+    </div>
+
+    <div class="question-block">
+      <div class="q-title">問6. 「大富豪ののび太」にて、物価の安い世界にするために使ったひみつ道具は何か。</div>
+      <input type="text" id="q4_6" class="text-input" placeholder="ここに入力してください">
+    </div>
+
+    <button class="btn-submit" onclick="gradeQ4()">採点して次へ</button>
+  </div>
+
+  <div id="section-r4" class="card" style="display:none;">
+    <h2>大問 Ⅳ 採点結果</h2>
+    <div id="r4-details" style="margin-top:16px;"></div>
+    <button class="btn-submit" onclick="showNext('section-r4', 'section-q5')">大問 Ⅴ へ進む</button>
+  </div>
+
+  <!-- ==================== 大問 Ⅴ ==================== -->
+  <div id="section-q5" class="card" style="display:none;">
+    <h2>大問 Ⅴ (配点: 各2点 / 12点満点)</h2>
+    <p style="margin-bottom:16px; color:#666;">説明文から正しいひみつ道具の名前を答えなさい。</p>
+
+    <div class="question-block">
+      <div class="q-title">問1. 過去や未来と連絡がとれる、便利な電話。</div>
+      <input type="text" id="q5_1" class="text-input" placeholder="ここに入力してください">
+    </div>
+
+    <div class="question-block">
+      <div class="q-title">問2. 何時間も前の声が、山びこになって返ってくる。</div>
+      <input type="text" id="q5_2" class="text-input" placeholder="ここに入力してください">
+    </div>
+
+    <div class="question-block">
+      <div class="q-title">問3. 本人に直接聞かなくても、本人の意見をしゃべってくれる。</div>
+      <input type="text" id="q5_3" class="text-input" placeholder="ここに入力してください">
+    </div>
+
+    <div class="question-block">
+      <div class="q-title">問4. これを飲んで寝ると、魂が抜け出して、一時的に幽霊になる。</div>
+      <input type="text" id="q5_4" class="text-input" placeholder="ここに入力してください">
+    </div>
+
+    <div class="question-block">
+      <div class="q-title">問5. この薬を飲むと、人のことを信じなくなる。</div>
+      <input type="text" id="q5_5" class="text-input" placeholder="ここに入力してください">
+    </div>
+
+    <div class="question-block">
+      <div class="q-title">問6. 忠実な友達になってくれる、ロボット犬。</div>
+      <input type="text" id="q5_6" class="text-input" placeholder="ここに入力してください">
+    </div>
+
+    <button class="btn-submit" onclick="gradeQ5()">採点して次へ</button>
+  </div>
+
+  <div id="section-r5" class="card" style="display:none;">
+    <h2>大問 Ⅴ 採点結果</h2>
+    <div id="r5-details" style="margin-top:16px;"></div>
+    <button class="btn-submit" onclick="showNext('section-r5', 'section-q6')">大問 Ⅵ へ進む</button>
+  </div>
+
+  <!-- ==================== 大問 Ⅵ ==================== -->
+  <div id="section-q6" class="card" style="display:none;">
+    <h2>大問 Ⅵ (配点: 17点)</h2>
+    <div class="passage-box">
+      近年、生成AIは急速に進展しているが、利用者の言動や思考を無批判に肯定する仕組みを持つAIに依存することの危険性も指摘されている。こうした依存の問題を先取りするようなテーマは、『ドラえもん』の作品にも描かれている。<br>
+      例えば、「（1）ロボット」という作品が挙げられる。茶碗を割ってしょげてしまったのび太のために、ドラえもんが（1）ロボットを出す。ロボットはのび太を慰めた。やがて、のび太はロボットへの依存を深めてしまう。見かねたドラえもんが（2）を出して、みすぼらしくなったのび太を見せ、成長には厳しく叱る人も必要と説得した。のび太は理解し、厳しいロボットをドラえもんにも出してもらうが、ドラえもんが出した（3）は逆に厳しすぎた、というオチである。<br>
+      また、「ロボ子が愛してる」という作品も重要である。のび太が女の子の前で得意の（4）の投げ食いを披露している際に、やってきた（5）に女の子をとられてしまった。可哀想に思ったドラえもんが出したのが、（6）ロボットのロボ子だった。彼女はのび太だけが好きになるように設定されており、のび太を全肯定する。加減を知らないロボ子は、のび太に嫌なことが起きれば（7）の力で過剰に対応して、周囲を困らせる。
+    </div>
+
+    <div class="question-block">
+      <div class="q-title">問1 (1) に当てはまるもの</div>
+      <select id="q6_1_1" class="v-select">
+        <option value="">-- 選択してください --</option>
+        <option value="1">1. かぐや</option>
+        <option value="2">2. トモダチ</option>
+        <option value="3">3. ハゲマシ</option>
+        <option value="4">4. いたわり</option>
+      </select>
+    </div>
+
+    <div class="question-block">
+      <div class="q-title">問1 (2) に当てはまるもの</div>
+      <select id="q6_1_2" class="v-select">
+        <option value="">-- 選択してください --</option>
+        <option value="1">1. 具象化鏡</option>
+        <option value="2">2. 進化退化放射線源</option>
+        <option value="3">3. きせかえカメラ</option>
+        <option value="4">4. タイムテレビ</option>
+      </select>
+    </div>
+
+    <div class="question-block">
+      <div class="q-title">問1 (3) に当てはまるもの</div>
+      <select id="q6_1_3" class="v-select">
+        <option value="">-- 選択してください --</option>
+        <option value="1">1. しごきロボット</option>
+        <option value="2">2. 多目的おまもり</option>
+        <option value="3">3. スパルタコーチ</option>
+        <option value="4">4. 強いイシ</option>
+      </select>
+    </div>
+
+    <div class="question-block">
+      <div class="q-title">問1 (4) に当てはまるもの</div>
+      <select id="q6_1_4" class="v-select">
+        <option value="">-- 選択してください --</option>
+        <option value="1">1. レーズン</option>
+        <option value="2">2. ピーナッツ</option>
+        <option value="3">3. マシュマロ</option>
+        <option value="4">4. こんぺいとう</option>
+      </select>
+    </div>
+
+    <div class="question-block">
+      <div class="q-title">問1 (5) に当てはまるもの</div>
+      <select id="q6_1_5" class="v-select">
+        <option value="">-- 選択してください --</option>
+        <option value="1">1. 出木杉</option>
+        <option value="2">2. 子犬</option>
+        <option value="3">3. スネ夫</option>
+        <option value="4">4. ジャイアン</option>
+      </select>
+    </div>
+
+    <div class="question-block">
+      <div class="q-title">問1 (6) に当てはまるもの</div>
+      <select id="q6_1_6" class="v-select">
+        <option value="">-- 選択してください --</option>
+        <option value="1">1. かぐや</option>
+        <option value="2">2. トモダチ</option>
+        <option value="3">3. ハゲマシ</option>
+        <option value="4">4. いたわり</option>
+      </select>
+    </div>
+
+    <div class="question-block">
+      <div class="q-title">問1 (7) に当てはまるもの</div>
+      <select id="q6_1_7" class="v-select">
+        <option value="">-- 選択してください --</option>
+        <option value="1">1. 一万馬力</option>
+        <option value="2">2. 十万馬力</option>
+        <option value="3">3. 百万馬力</option>
+        <option value="4">4. 一千万馬力</option>
+      </select>
+    </div>
+
+    <div class="question-block">
+      <div class="q-title">問2. ドラえもんがのび太へのお説教の中で語った言葉を一つ選びなさい。</div>
+      <div class="options-vertical">
+        <button class="opt-btn-v" onclick="selectQ('q6_2', '1', this)">1. 毎日勉強もせず、いたずらばかりして！！だから成績があがらんのだ</button>
+        <button class="opt-btn-v" onclick="selectQ('q6_2', '2', this)">2. いちばんいけないのは自分なんかだめだと思いこむことだよ</button>
+        <button class="opt-btn-v" onclick="selectQ('q6_2', '3', this)">3. つらいことくるしいことに、ドンとぶつかっていけ！！</button>
+        <button class="opt-btn-v" onclick="selectQ('q6_2', '4', this)">4. はじめから計画的にやっていれば、こんなことにならなかったんだぞ</button>
+      </div>
+    </div>
+
+    <button class="btn-submit" onclick="gradeQ6()">採点して次へ</button>
+  </div>
+
+  <div id="section-r6" class="card" style="display:none;">
+    <h2>大問 Ⅵ 採点結果</h2>
+    <div id="r6-details" style="margin-top:16px;"></div>
+    <button class="btn-submit" onclick="showNext('section-r6', 'section-q7')">大問 Ⅶ へ進む</button>
+  </div>
+
+  <!-- ==================== 大問 Ⅶ ==================== -->
+  <div id="section-q7" class="card" style="display:none;">
+    <h2>大問 Ⅶ (配点: 各1点 / 5点満点)</h2>
+    <p style="margin-bottom:16px; color:#666;">歴代オープニング曲の空欄①〜⑤に適する曲名を答えなさい。</p>
+
+    <div class="question-block">
+      <div class="q-title">① 79年（大杉久美子）の曲名</div>
+      <input type="text" id="q7_1" class="text-input" placeholder="ここに入力してください">
+    </div>
+
+    <div class="question-block">
+      <div class="q-title">② 92年（山野さと子）の曲名</div>
+      <input type="text" id="q7_2" class="text-input" placeholder="ここに入力してください">
+    </div>
+
+    <div class="question-block">
+      <div class="q-title">③ 2003年（渡辺美里）の曲名</div>
+      <input type="text" id="q7_3" class="text-input" placeholder="ここに入力してください">
+    </div>
+
+    <div class="question-block">
+      <div class="q-title">④ 04年（AJI）の曲名</div>
+      <input type="text" id="q7_4" class="text-input" placeholder="ここに入力してください">
+    </div>
+
+    <div class="question-block">
+      <div class="q-title">⑤ 05年（女子十二楽坊）の曲名</div>
+      <input type="text" id="q7_5" class="text-input" placeholder="ここに入力してください">
+    </div>
+
+    <button class="btn-submit" onclick="gradeQ7()">最終結果を見る</button>
+  </div>
+
+  <!-- ==================== 最終 合否判定 画面 ==================== -->
+  <div id="section-final" class="card" style="display:none;">
+    <h2>最終結果</h2>
+    <div id="final-banner" class="score-banner"></div>
+
+    <div class="result-section-title">分野別成績・回答結果一覧</div>
+    <div id="final-summary-list"></div>
+
+    <a href="index.html" class="nav-btn">トップ一覧へ戻る</a>
+  </div>
+
+</div>
+
+<script>
+  const userAnswers = {};
+  const sectionScores = { sec1: 0, sec2: 0, sec3: 0, sec4: 0, sec5: 0, sec6: 0, sec7: 0 };
+  const sectionHTML = { sec1: '', sec2: '', sec3: '', sec4: '', sec5: '', sec6: '', sec7: '' };
+
+  function selectQ(key, val, el) {
+    userAnswers[key] = val;
+    const parent = el.parentElement;
+    const btns = parent.querySelectorAll('button');
+    btns.forEach(b => b.classList.remove('selected'));
+    el.classList.add('selected');
+  }
+
+  function showNext(hideId, showId) {
+    document.getElementById(hideId).style.display = 'none';
+    document.getElementById(showId).style.display = 'block';
+    window.scrollTo(0, 0);
+  }
+
+  function normalizeText(str) {
+    if (!str) return '';
+    return str
+      .toLowerCase()
+      .replace(/[Ａ-Ｚａ-ｚ０-９]/g, s => String.fromCharCode(s.charCodeAt(0) - 0xFEE0))
+      .replace(/[\u30a1-\u30f6]/g, s => String.fromCharCode(s.charCodeAt(0) - 0x60))
+      .replace(/[\s ー〜・]/g, '');
+  }
+
+  // 大問Ⅰ 採点
+  const ans1 = {
+    q1_1a: ['ふーこ', 'フー子'],
+    q1_1b: ['いち', 'イチ'],
+    q1_2: ['のびたのえせかいものがたり', 'のび太の絵世界物語', '絵世界物語'],
+    q1_3: ['と', 'ト'],
+    q1_4: ['おおやまのぶよ', '大山のぶ代'],
+    q1_5: ['のびたのきょうりゅう2006', 'のび太の恐竜2006']
+  };
+
+  function gradeQ1() {
+    let score = 0;
+    let html = '';
+    const items = [
+      { id: 'q1_1a', name: '問1 (A)' },
+      { id: 'q1_1b', name: '問1 (B)' },
+      { id: 'q1_2', name: '問2' },
+      { id: 'q1_3', name: '問3' },
+      { id: 'q1_4', name: '問4' },
+      { id: 'q1_5', name: '問5' }
+    ];
+
+    items.forEach(item => {
+      const userStr = document.getElementById(item.id).value;
+      const isCorrect = ans1[item.id].some(ans => normalizeText(ans) === normalizeText(userStr));
+      if (isCorrect) score += 3;
+
+      html += `<div class="result-item ${isCorrect ? 'result-correct' : 'result-incorrect'}">
+        <span class="res-badge ${isCorrect ? 'bg-pass' : 'bg-fail'}">${isCorrect ? '正解 (+3点)' : '不正解'}</span>
+        <div><strong>${item.name}</strong></div>
+        <div>あなたの回答: ${userStr || '未入力'} / 模範解答: ${ans1[item.id][1] || ans1[item.id][0]}</div>
+      </div>`;
+    });
+
+    sectionScores.sec1 = score;
+    sectionHTML.sec1 = html;
+    document.getElementById('r1-details').innerHTML = html;
+    showNext('section-q1', 'section-r1');
+  }
+
+  // 大問Ⅱ 採点
+  const ans2 = { q2_1: '×', q2_2: '〇', q2_3: '×', q2_4: '〇', q2_5: '×' };
+  function gradeQ2() {
+    let score = 0;
+    let html = '';
+    for (let i = 1; i <= 5; i++) {
+      const key = `q2_${i}`;
+      const user = userAnswers[key] || '未回答';
+      const correct = ans2[key];
+      const isCorrect = (user === correct);
+      if (isCorrect) score += 2;
+
+      html += `<div class="result-item ${isCorrect ? 'result-correct' : 'result-incorrect'}">
+        <span class="res-badge ${isCorrect ? 'bg-pass' : 'bg-fail'}">${isCorrect ? '正解 (+2点)' : '不正解'}</span>
+        <div><strong>問${i}</strong> - あなたの回答: ${user} / 正解: ${correct}</div>
+      </div>`;
+    }
+    sectionScores.sec2 = score;
+    sectionHTML.sec2 = html;
+    document.getElementById('r2-details').innerHTML = html;
+    showNext('section-q2', 'section-r2');
+  }
+
+  // 大問Ⅲ 採点
+  const ans3 = { q3_1: '1', q3_2: '2', q3_3: '3', q3_4: '1', q3_5: '4', q3_6: '2', q3_7: '3', q3_8: '4', q3_9: '1', q3_10: '4' };
+  function gradeQ3() {
+    let score = 0;
+    let html = '';
+    for (let i = 1; i <= 10; i++) {
+      const key = `q3_${i}`;
+      const user = userAnswers[key] || '未選択';
+      const correct = ans3[key];
+      const isCorrect = (user === correct);
+      if (isCorrect) score += 2;
+
+      html += `<div class="result-item ${isCorrect ? 'result-correct' : 'result-incorrect'}">
+        <span class="res-badge ${isCorrect ? 'bg-pass' : 'bg-fail'}">${isCorrect ? '正解 (+2点)' : '不正解'}</span>
+        <div><strong>問${i}</strong> - あなたの回答: ${user} / 正解: ${correct}</div>
+      </div>`;
+    }
+    sectionScores.sec3 = score;
+    sectionHTML.sec3 = html;
+    document.getElementById('r3-details').innerHTML = html;
+    showNext('section-q3', 'section-r3');
+  }
+
+  // 大問Ⅳ 採点
+  const ans4 = {
+    q4_1: ['ばぎーちゃん', 'バギーちゃん'],
+    q4_2: ['おふろ', 'お風呂', '浴槽', '湯船'],
+    q4_3: ['おさけ', 'お酒', '酒', 'ウイスキー'],
+    q4_4: ['たばこ', 'タバコ', '喫煙'],
+    q4_5: ['ききゅう', '気球'],
+    q4_6: ['もしもぼっくす', 'もしもボックス']
+  };
+  function gradeQ4() {
+    let score = 0;
+    let html = '';
+    for (let i = 1; i <= 6; i++) {
+      const key = `q4_${i}`;
+      const userStr = document.getElementById(key).value;
+      const isCorrect = ans4[key].some(ans => normalizeText(ans) === normalizeText(userStr));
+      if (isCorrect) score += 3;
+
+      html += `<div class="result-item ${isCorrect ? 'result-correct' : 'result-incorrect'}">
+        <span class="res-badge ${isCorrect ? 'bg-pass' : 'bg-fail'}">${isCorrect ? '正解 (+3点)' : '不正解'}</span>
+        <div><strong>問${i}</strong> - あなたの回答: ${userStr || '未入力'} / 模範解答: ${ans4[key][1] || ans4[key][0]}</div>
+      </div>`;
+    }
+    sectionScores.sec4 = score;
+    sectionHTML.sec4 = html;
+    document.getElementById('r4-details').innerHTML = html;
+    showNext('section-q4', 'section-r4');
+  }
+
+  // 大問Ⅴ 採点
+  const ans5 = {
+    q5_1: ['たいむでんわ', 'タイム電話'],
+    q5_2: ['やまびこやま', '山びこ山'],
+    q5_3: ['あんけーたー', 'アンケーター'],
+    q5_4: ['うらめしどろっぷ', 'うらめしドロップ'],
+    q5_5: ['ぎしんあんき', 'ギシンアンキ'],
+    q5_6: ['ちゅーけんぱー', 'チューケンパー']
+  };
+  function gradeQ5() {
+    let score = 0;
+    let html = '';
+    for (let i = 1; i <= 6; i++) {
+      const key = `q5_${i}`;
+      const userStr = document.getElementById(key).value;
+      const isCorrect = ans5[key].some(ans => normalizeText(ans) === normalizeText(userStr));
+      if (isCorrect) score += 2;
+
+      html += `<div class="result-item ${isCorrect ? 'result-correct' : 'result-incorrect'}">
+        <span class="res-badge ${isCorrect ? 'bg-pass' : 'bg-fail'}">${isCorrect ? '正解 (+2点)' : '不正解'}</span>
+        <div><strong>問${i}</strong> - あなたの回答: ${userStr || '未入力'} / 模範解答: ${ans5[key][1] || ans5[key][0]}</div>
+      </div>`;
+    }
+    sectionScores.sec5 = score;
+    sectionHTML.sec5 = html;
+    document.getElementById('r5-details').innerHTML = html;
+    showNext('section-q5', 'section-q6');
+  }
+
+  // 大問Ⅵ 採点
+  const ans6_1 = { q6_1_1: '4', q6_1_2: '2', q6_1_3: '4', q6_1_4: '3', q6_1_5: '1', q6_1_6: '4', q6_1_7: '2' };
+  const ans6_2 = '3';
+  function gradeQ6() {
+    let score = 0;
+    let html = '';
+    for (let i = 1; i <= 7; i++) {
+      const key = `q6_1_${i}`;
+      const user = document.getElementById(key).value;
+      const correct = ans6_1[key];
+      const isCorrect = (user === correct);
+      if (isCorrect) score += 2;
+
+      html += `<div class="result-item ${isCorrect ? 'result-correct' : 'result-incorrect'}">
+        <span class="res-badge ${isCorrect ? 'bg-pass' : 'bg-fail'}">${isCorrect ? '正解 (+2点)' : '不正解'}</span>
+        <div><strong>問1 (${i})</strong> - あなたの回答: ${user || '未選択'} / 正解: ${correct}</div>
+      </div>`;
+    }
+
+    const user2 = userAnswers['q6_2'] || '未選択';
+    const isCorrect2 = (user2 === ans6_2);
+    if (isCorrect2) score += 3;
+
+    html += `<div class="result-item ${isCorrect2 ? 'result-correct' : 'result-incorrect'}">
+      <span class="res-badge ${isCorrect2 ? 'bg-pass' : 'bg-fail'}">${isCorrect2 ? '正解 (+3点)' : '不正解'}</span>
+      <div><strong>問2</strong> - あなたの回答: ${user2} / 正解: ${ans6_2}</div>
+    </div>`;
+
+    sectionScores.sec6 = score;
+    sectionHTML.sec6 = html;
+    document.getElementById('r6-details').innerHTML = html;
+    showNext('section-q6', 'section-r6');
+  }
+
+  // 大問Ⅶ 採点 ＆ 最終集計
+  function gradeQ7() {
+    let score = 0;
+    let html = '';
+    for (let i = 1; i <= 5; i++) {
+      const userStr = document.getElementById(`q7_${i}`).value;
+      const normUser = normalizeText(userStr);
+      const isCorrect = (normUser === 'ドラえもんのうた' || normUser === 'どらえもんのうた');
+      if (isCorrect) score += 1;
+
+      html += `<div class="result-item ${isCorrect ? 'result-correct' : 'result-incorrect'}">
+        <span class="res-badge ${isCorrect ? 'bg-pass' : 'bg-fail'}">${isCorrect ? '正解 (+1点)' : '不正解'}</span>
+        <div><strong>①~⑤ (${i})</strong> - あなたの回答: ${userStr || '未入力'} / 正解: ドラえもんのうた</div>
+      </div>`;
+    }
+    sectionScores.sec7 = score;
+    sectionHTML.sec7 = html;
+
+    const totalScore = sectionScores.sec1 + sectionScores.sec2 + sectionScores.sec3 + sectionScores.sec4 + sectionScores.sec5 + sectionScores.sec6 + sectionScores.sec7;
+    const isPass = totalScore >= 60;
+
+    const banner = document.getElementById('final-banner');
+    banner.style.backgroundColor = isPass ? '#e8f5e9' : '#ffebee';
+    banner.style.color = isPass ? 'var(--correct-color)' : 'var(--incorrect-color)';
+    banner.style.borderColor = isPass ? 'var(--correct-color)' : 'var(--incorrect-color)';
+    banner.innerHTML = `<div>総合得点: ${totalScore} / 100 点</div><div style="font-size:1.6rem; margin-top:8px;">${isPass ? '合格' : '不合格'}</div><div style="font-size:0.85rem; font-weight:normal; color:#666; margin-top:4px;">(合格基準点: 60点)</div>`;
+
+    let summaryHTML = '';
+    summaryHTML += `<div class="result-section-title">大問Ⅰ 得点: ${sectionScores.sec1} / 18点</div>` + sectionHTML.sec1;
+    summaryHTML += `<div class="result-section-title">大問Ⅱ 得点: ${sectionScores.sec2} / 10点</div>` + sectionHTML.sec2;
+    summaryHTML += `<div class="result-section-title">大問Ⅲ 得点: ${sectionScores.sec3} / 20点</div>` + sectionHTML.sec3;
+    summaryHTML += `<div class="result-section-title">大問Ⅳ 得点: ${sectionScores.sec4} / 18点</div>` + sectionHTML.sec4;
+    summaryHTML += `<div class="result-section-title">大問Ⅴ 得点: ${sectionScores.sec5} / 12点</div>` + sectionHTML.sec5;
+    summaryHTML += `<div class="result-section-title">大問Ⅵ 得点: ${sectionScores.sec6} / 17点</div>` + sectionHTML.sec6;
+    summaryHTML += `<div class="result-section-title">大問Ⅶ 得点: ${sectionScores.sec7} / 5点</div>` + sectionHTML.sec7;
+
+    document.getElementById('final-summary-list').innerHTML = summaryHTML;
+    showNext('section-q7', 'section-final');
+  }
+</script>
+
+</body>
+</html>
