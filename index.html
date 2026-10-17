@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ドラえもん検定 過去問集</title>
+  <style>
+    :root {
+      --primary-color: #009be3;
+      --bg-color: #f4f7f9;
+      --card-bg: #ffffff;
+      --text-color: #333333;
+      --accent-red: #e60012;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      padding: 20px 12px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 24px;
+      padding: 20px;
+      background: var(--card-bg);
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      border-top: 6px solid var(--primary-color);
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      color: var(--primary-color);
+      margin-bottom: 8px;
+    }
+
+    p.subtitle {
+      font-size: 0.85rem;
+      color: #666;
+    }
+
+    .year-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      overflow: hidden;
+    }
+
+    details {
+      width: 100%;
+    }
+
+    summary {
+      font-size: 1.1rem;
+      font-weight: bold;
+      padding: 16px;
+      cursor: pointer;
+      background-color: #ffffff;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+      border-left: 5px solid var(--primary-color);
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    summary::after {
+      content: "＋";
+      font-size: 1.2rem;
+      color: var(--primary-color);
+      transition: transform 0.2s;
+    }
+
+    details[open] summary::after {
+      content: "－";
+    }
+
+    details[open] summary {
+      border-bottom: 1px solid #eee;
+      background-color: #fcfcfc;
+    }
+
+    .level-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 16px;
+    }
+
+    .level-btn {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 18px;
+      text-decoration: none;
+      color: #fff;
+      font-weight: bold;
+      border-radius: 8px;
+      transition: transform 0.1s, opacity 0.2s;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .level-btn:active {
+      transform: scale(0.98);
+    }
+
+    .btn-beginner {
+      background-color: #28a745;
+    }
+
+    .btn-intermediate {
+      background-color: #007bff;
+    }
+
+    .btn-advanced {
+      background-color: var(--accent-red);
+    }
+
+    .arrow {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 32px;
+      font-size: 0.75rem;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>ドラえもん検定 過去問集</h1>
+      <p class="subtitle">早稲田大学ドラえもん研究会 公式赤本より</p>
+    </header>
+
+    <!-- 2025年 -->
+    <div class="year-card">
+      <details open>
+        <summary>2025年度</summary>
+        <div class="level-list">
+          <a href="2025-beginner.html" class="level-btn btn-beginner">
+            <span>初級</span>
+            <span class="arrow">挑戦する ➔</span>
+          </a>
+          <a href="2025-intermediate.html" class="level-btn btn-intermediate">
+            <span>中級</span>
+            <span class="arrow">挑戦する ➔</span>
+          </a>
+          <a href="2025-advanced.html" class="level-btn btn-advanced">
+            <span>上級</span>
+            <span class="arrow">挑戦する ➔</span>
+          </a>
+        </div>
+      </details>
+    </div>
+
+    <!-- 2024年 -->
+    <div class="year-card">
+      <details>
+        <summary>2024年度</summary>
+        <div class="level-list">
+          <a href="2024-beginner.html" class="level-btn btn-beginner">
+            <span>初級</span>
+            <span class="arrow">挑戦する ➔</span>
+          </a>
+          <a href="2024-intermediate.html" class="level-btn btn-intermediate">
+            <span>中級</span>
+            <span class="arrow">挑戦する ➔</span>
+          </a>
+          <a href="2024-advanced.html" class="level-btn btn-advanced">
+            <span>上級</span>
+            <span class="arrow">挑戦する ➔</span>
+          </a>
+        </div>
+      </details>
+    </div>
+
+    <!-- 2023年 -->
+    <div class="year-card">
+      <details>
+        <summary>2023年度</summary>
+        <div class="level-list">
+          <a href="2023-beginner.html" class="level-btn btn-beginner">
+            <span>初級</span>
+            <span class="arrow">挑戦する ➔</span>
+          </a>
+          <a href="2023-intermediate.html" class="level-btn btn-intermediate">
+            <span>中級</span>
+            <span class="arrow">挑戦する ➔</span>
+          </a>
+          <a href="2023-advanced.html" class="level-btn btn-advanced">
+            <span>上級</span>
+            <span class="arrow">挑戦する ➔</span>
+          </a>
+        </div>
+      </details>
+    </div>
+
+    <footer>
+      <p>© hena-choco / 出典：早稲田大学ドラえもん研究会 赤本</p>
+    </footer>
+  </div>
+
+</body>
+</html>
