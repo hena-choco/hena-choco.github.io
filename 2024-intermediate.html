@@ -155,18 +155,6 @@
       color: var(--card-bg);
     }
 
-    select.tool-select {
-      width: 100%;
-      padding: 12px;
-      font-size: 1rem;
-      border: 2px solid var(--main-color);
-      border-radius: 8px;
-      margin-top: 8px;
-      outline: none;
-      background-color: var(--card-bg);
-      color: var(--text-color);
-    }
-
     .btn-submit {
       width: 100%;
       padding: 16px;
@@ -204,6 +192,7 @@
       border-radius: 6px;
       font-size: 0.95rem;
       margin-bottom: 10px;
+      color: var(--text-color);
     }
 
     .result-section-title {
@@ -502,60 +491,35 @@
 
   <!-- ==================== Ⅳ 大問 4 ==================== -->
   <div id="section-q4" class="card" style="display:none;">
-    <h2>Ⅳ 次の記述問題に答えよ（自己申告制 / 各3点・計15点満点）</h2>
-    <p style="margin-bottom:16px; color:var(--text-color); opacity:0.8; font-size:0.9rem;">ご自身の回答と模範解答を比較し、自己採点を行ってください。</p>
+    <h2>Ⅳ 次の記述問題に答えよ（各3点・計15点満点）</h2>
+    <p style="margin-bottom:16px; color:var(--text-color); opacity:0.8; font-size:0.9rem;">ご自身の回答を入力してください。採点結果画面で模範解答と照らし合わせて自己採点を行います。</p>
 
     <div class="question-block">
       <div class="q-title">問1. 「宝くじ大あたり」にて、のび太のパパは一等の当たりくじを買っていたが、当選金を受け取ることはできなかった。それはなぜか。(3点)</div>
       <input type="text" id="q4_1_user" class="text-input" placeholder="あなたの回答を入力">
-      <div class="self-eval-box">
-        <div class="self-eval-title">【模範解答】</div>
-        <div class="self-eval-answer">一等の当たりくじ（宝くじ）を、友達に売ってしまった（渡してしまった）から。</div>
-        <label style="font-size:0.9rem; font-weight:bold;"><input type="checkbox" id="q4_1_check" style="transform:scale(1.2); margin-right:6px;"> 正解したらチェック (3点)</label>
-      </div>
     </div>
 
     <div class="question-block">
       <div class="q-title">問2. 「火災予定報知ベル」にて、ポイ捨てしたタバコが原因で自宅を焼いてしまった男性は、反省して何をしたか。(3点)</div>
       <input type="text" id="q4_2_user" class="text-input" placeholder="あなたの回答を入力">
-      <div class="self-eval-box">
-        <div class="self-eval-title">【模範解答】</div>
-        <div class="self-eval-answer">タイムマシンで過去に戻り、自分を叱った。</div>
-        <label style="font-size:0.9rem; font-weight:bold;"><input type="checkbox" id="q4_2_check" style="transform:scale(1.2); margin-right:6px;"> 正解したらチェック (3点)</label>
-      </div>
     </div>
 
     <div class="question-block">
       <div class="q-title">問3. 「モーゼステッキ」にて、のび太からステッキを奪って川底の探索を始めたジャイアンとスネ夫は、その後どうなったかについて、理由も含めて答えよ。(3点)</div>
       <input type="text" id="q4_3_user" class="text-input" placeholder="あなたの回答を入力">
-      <div class="self-eval-box">
-        <div class="self-eval-title">【模範解答】</div>
-        <div class="self-eval-answer">モーゼステッキの電池（効果）が切れ、水（川）が元に戻ったため、溺れてしまった。</div>
-        <label style="font-size:0.9rem; font-weight:bold;"><input type="checkbox" id="q4_3_check" style="transform:scale(1.2); margin-right:6px;"> 正解したらチェック (3点)</label>
-      </div>
     </div>
 
     <div class="question-block">
       <div class="q-title">問4. 「ホームメイロ」を使ったことで、家の中で迷子になりうろたえてしまったのび太たちは、どのようにして助かったか答えよ。(3点)</div>
       <input type="text" id="q4_4_user" class="text-input" placeholder="あなたの回答を入力">
-      <div class="self-eval-box">
-        <div class="self-eval-title">【模範解答】</div>
-        <div class="self-eval-answer">家に帰ってきたのび太のパパが、ホームメイロを逆回転させた。</div>
-        <label style="font-size:0.9rem; font-weight:bold;"><input type="checkbox" id="q4_4_check" style="transform:scale(1.2); margin-right:6px;"> 正解したらチェック (3点)</label>
-      </div>
     </div>
 
     <div class="question-block">
       <div class="q-title">問5. 「な、なんと!! のび太が百点とった」にて、「ピーアール」の効果がなくなった後、百点のテストを見つけたのび太のママは、どのような反応をしたか答えよ。(3点)</div>
       <input type="text" id="q4_5_user" class="text-input" placeholder="あなたの回答を入力">
-      <div class="self-eval-box">
-        <div class="self-eval-title">【模範解答】</div>
-        <div class="self-eval-answer">涙して（感動して）、百点のテストを額縁に入れて飾ろうとした。</div>
-        <label style="font-size:0.9rem; font-weight:bold;"><input type="checkbox" id="q4_5_check" style="transform:scale(1.2); margin-right:6px;"> 正解したらチェック (3点)</label>
-      </div>
     </div>
 
-    <button class="btn-submit" onclick="gradeQ4()">Ⅳを確定してⅤへ</button>
+    <button class="btn-submit" onclick="gradeQ4()">Ⅳを採点してⅤへ</button>
   </div>
 
   <div id="section-r4" class="card" style="display:none;">
@@ -613,7 +577,7 @@
     <div class="reading-text">のび太は短編作品の中で、地上と地下の両方に「のび太国」を創っている。地上の「のび太国」は、てんとう虫コミックス第40巻に収録されており、作品名にもなっている (1) を使って創られた。順調に行こくづくりが進んでいた矢先、ジャイアンが (2) を発見。のび太国に上陸し、そのまま乗っ取ってしまう。やがて、(1) に含まれる (3) を使ってマンホール上に引いた国境線の一部が、工事で取り外されたため、のび太国は滅亡した。地下の「のび太国」は、てんとう虫コミックス第26巻に収録されており、作品名は「のび太の (4) 」である。(5) を使った時に、偶然空洞を発見したことから建国された。出木杉主導の都市計画のもとで本格的な国づくりが行われ、のび太は (6) に就任することになる。しかし、(6) となったのび太は、出木杉に対して宿題の答えを見せるよう望むなど独裁的な政治を行い、みんなから反発を買う。やがてクーデタとともに (7) が発生し、のび太国は滅亡した。</div>
 
     <div class="question-block">
-      <div class="q-title">問1. 空欄に当てはまるものを選択肢の中から一つ選んで答えよ。(各2点 / 計14点分...配分調整のため各約1.8点計算、計12点)</div>
+      <div class="q-title">問1. 空欄に当てはまるものを選択肢の中から一つ選んで答えよ。</div>
       <div style="font-size:0.95rem; font-weight:bold; margin-bottom:4px;">(1)</div>
       <div class="options-vertical">
         <button class="opt-btn-v" onclick="selectQ('q6_1', '1', this)">1. おこのみ建国用品さまざま</button>
@@ -768,7 +732,6 @@
     let score = 0;
     let html = '';
 
-    // 問1 (A)3点, (B)2点
     const ua = normalizeText(document.getElementById('q1_1_a').value);
     const ub = normalizeText(document.getElementById('q1_1_b').value);
     const correctA = ['藤子不二雄', '藤子f不二雄', '藤本弘'];
@@ -784,7 +747,6 @@
       <div>あなたの回答: (A) ${document.getElementById('q1_1_a').value || '未入力'}, (B) ${document.getElementById('q1_1_b').value || '未入力'}</div>
     </div>`;
 
-    // 問2: のび太の恐竜 (2点)
     const u2 = normalizeText(document.getElementById('q1_2').value);
     const is2OK = normalizeText('のび太の恐竜').includes(u2) && u2.length >= 4;
     if (is2OK) score += 2;
@@ -794,7 +756,6 @@
       <div>あなたの回答: ${document.getElementById('q1_2').value || '未入力'}</div>
     </div>`;
 
-    // 問3: 水田わさび (2点)
     const u3 = normalizeText(document.getElementById('q1_3').value);
     const is3OK = u3.includes('水田わさび') || (u3.includes('水田') && u3.includes('わさび'));
     if (is3OK) score += 2;
@@ -804,7 +765,6 @@
       <div>あなたの回答: ${document.getElementById('q1_3').value || '未入力'}</div>
     </div>`;
 
-    // 問4: 交響楽 (2点)
     const u4 = normalizeText(document.getElementById('q1_4').value);
     const is4OK = u4.includes('交響楽');
     if (is4OK) score += 2;
@@ -814,7 +774,6 @@
       <div>あなたの回答: ${document.getElementById('q1_4').value || '未入力'}</div>
     </div>`;
 
-    // 問5: ネズミにかじられた (3点)
     const u5 = normalizeText(document.getElementById('q1_5').value);
     const is5OK = u5.includes('ねずみにかじられた') || u5.includes('ねずみに');
     if (is5OK) score += 3;
@@ -902,32 +861,57 @@
   }
 
   // ------------ Ⅳ 採点（自己申告） ------------
+  const q4Titles = [
+    "問1. 「宝くじ大あたり」にて、のび太のパパは一等の当たりくじを買っていたが、当選金を受け取ることはできなかった。それはなぜか。",
+    "問2. 「火災予定報知ベル」にて、ポイ捨てしたタバコが原因で自宅を焼いてしまった男性は、反省して何をしたか。",
+    "問3. 「モーゼステッキ」にて、のび太からステッキを奪って川底の探索を始めたジャイアンとスネ夫は、その後どうなったかについて、理由も含めて答えよ。",
+    "問4. 「ホームメイロ」を使ったことで、家の中で迷子になりうろたえてしまったのび太たちは、どのようにして助かったか答えよ。",
+    "問5. 「な、なんと!! のび太が百点とった」にて、「ピーアール」の効果がなくなった後、百点のテストを見つけたのび太のママは、どのような反応をしたか答えよ。"
+  ];
+  const q4Answers = [
+    "一等の当たりくじ（宝くじ）を、友達に売ってしまった（渡してしまった）から。",
+    "タイムマシンで過去に戻り、自分を叱った。",
+    "モーゼステッキの電池（効果）が切れ、水（川）が元に戻ったため、溺れてしまった。",
+    "家に帰ってきたのび太のパパが、ホームメイロを逆回転させた。",
+    "涙して（感動して）、百点のテストを額縁に入れて飾ろうとした。"
+  ];
+
   function gradeQ4() {
     let score = 0;
     let html = '';
-    const q4Titles = [
-      "問1. 宝くじの当選金を受け取れなかった理由",
-      "問2. タバコのポイ捨てをした男性の反省",
-      "問3. モーゼステッキでの川底探索の結末",
-      "問4. ホームメイロで迷ったのび太たちが助かった方法",
-      "問5. ママが百点のテストを見つけたときの反応"
-    ];
 
     for (let i = 1; i <= 5; i++) {
-      const isChecked = document.getElementById(`q4_${i}_check`).checked;
       const userText = document.getElementById(`q4_${i}_user`).value || '未記入';
-      if (isChecked) score += 3;
-
-      html += `<div class="result-item ${isChecked ? 'result-correct' : 'result-incorrect'}">
-        <span class="res-badge">${isChecked ? '正解 (+3点)' : '不正解 (0点)'}</span>
-        <div><strong>${q4Titles[i-1]}</strong></div>
-        <div>あなたの回答: ${userText}</div>
+      html += `<div class="question-block" style="border-bottom: 1px dashed #ccc; padding-bottom:14px; margin-bottom:14px;">
+        <div class="q-title"><strong>${q4Titles[i-1]}</strong> (3点)</div>
+        <div style="font-size:0.95rem; margin-bottom:8px;"><strong>あなたの回答:</strong> ${userText}</div>
+        <div class="self-eval-box">
+          <div class="self-eval-title">【模範解答】</div>
+          <div class="self-eval-answer">${q4Answers[i-1]}</div>
+          <label style="font-size:0.9rem; font-weight:bold; cursor:pointer;"><input type="checkbox" id="q4_${i}_check" style="transform:scale(1.2); margin-right:6px;" onchange="updateQ4Score()"> 正解したらチェック (3点)</label>
+        </div>
       </div>`;
     }
-    sectionScores.sec4 = score;
-    sectionHTML.sec4 = html;
+
+    html += `<div id="q4-current-score" style="font-weight:bold; font-size:1.1rem; text-align:center; margin-top:16px; color:var(--main-color);">現在の自己採点小計: 0 / 15点</div>`;
+
     document.getElementById('r4-details').innerHTML = html;
     showNext('section-q4', 'section-r4');
+  }
+
+  function updateQ4Score() {
+    let score = 0;
+    for (let i = 1; i <= 5; i++) {
+      const chk = document.getElementById(`q4_${i}_check`);
+      if (chk && chk.checked) {
+        score += 3;
+      }
+    }
+    sectionScores.sec4 = score;
+    const scoreEl = document.getElementById('q4-current-score');
+    if (scoreEl) {
+      scoreEl.innerText = `現在の自己採点小計: ${score} / 15点`;
+    }
   }
 
   // ------------ Ⅴ 採点 ------------
@@ -966,7 +950,7 @@
     sectionScores.sec5 = score;
     sectionHTML.sec5 = html;
     document.getElementById('r5-details').innerHTML = html;
-    showNext('section-r5', 'section-q6');
+    showNext('section-q5', 'section-q6');
   }
 
   // ------------ Ⅵ 採点 ------------
@@ -974,8 +958,7 @@
   function gradeQ6() {
     let score = 0;
     let html = '';
-    // 7 questions in Q1 + 1 question in Q2 = 8 questions total. 13 points total -> let's make 7 questions worth ~1.6pt or standard check. Let's award 1.5 pt each or map to 13 points. To keep exact, let's do 1.5 for q1-q7 and 2.5 for q8, or simply 1.5 points each (total 12) + 1 bonus point. Let's check correctness and sum up to 13.
-    const subScores = [1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 2.5]; // 1.5*7 + 2.5 = 13
+    const subScores = [1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 2.5];
     
     for (let i = 1; i <= 7; i++) {
       const key = `q6_${i}`;
@@ -1035,7 +1018,6 @@
     sectionScores.sec7 = score;
     sectionHTML.sec7 = html;
 
-    // Final tally
     const totalScore = sectionScores.sec1 + sectionScores.sec2 + sectionScores.sec3 + sectionScores.sec4 + sectionScores.sec5 + sectionScores.sec6 + sectionScores.sec7;
     const isPass = totalScore >= 60;
 
