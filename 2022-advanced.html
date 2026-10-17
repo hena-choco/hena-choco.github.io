@@ -79,5 +79,6 @@ function renderResult(si){document.querySelectorAll('.screen').forEach(e=>e.remo
 function renderFinal(){document.querySelectorAll('.screen').forEach(e=>e.remove());const total=state.reduce((n,x)=>n+x.score,0),card=document.createElement('section');card.className='card screen';card.innerHTML=`<h2>最終結果</h2><div class="score-banner">総合得点：${total} / 200点</div>`;sections.forEach((s,si)=>{const h=document.createElement('div');h.className='result-section-title';h.textContent=`${['Ⅰ','Ⅱ','Ⅲ','Ⅳ','Ⅴ','Ⅵ'][si]} ${s.title.replace(/^[ⅠⅡⅢⅣⅤⅥ]\s*/, '')}：${state[si].score} / ${s.max}点`;card.appendChild(h)});const back=document.createElement('button');back.className='btn-submit';back.textContent='Ⅵの採点結果に戻る';back.onclick=()=>renderResult(5);card.appendChild(back);const home=document.createElement('a');home.className='btn-submit';home.href='https://hena-choco.github.io';home.textContent='問題一覧へ戻る';card.appendChild(home);document.getElementById('quiz').appendChild(card)}
 renderQuestion(0);
 </script>
+  
 </body>
 </html>
