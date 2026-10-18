@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>【過去問】ドラえもん検定 2025 中級</title>
+<meta name="description" content="ドラえもん検定2025中級のクイズ。全7大問を回答して採点できます。">
+<link rel="icon" href="https://hena-choco.github.io/favicon.png" type="image/png">
+<style>
+:root{--main-color:#6B9DFF;--bg-color:#f4f7f9;--card-bg:#fff;--text-color:#333;--accent-color:#FFD43B}*{box-sizing:border-box;margin:0;padding:0}body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;background:var(--bg-color);color:var(--text-color);line-height:1.6;padding:20px 12px}.container{max-width:600px;margin:0 auto}header{text-align:center;margin-bottom:20px;padding:16px;background:var(--main-color);color:#fff;border-radius:12px}h1{font-size:1.3rem}.card{background:var(--card-bg);border-radius:12px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,.05);margin-bottom:20px}h2{font-size:1.1rem;margin-bottom:10px}.muted{font-size:.9rem;color:#666}.reading-text{background:#f9fbfd;padding:14px;border-radius:8px;border:1px solid #e1ecff;margin:12px 0 16px;font-size:.95rem;white-space:pre-line}.question-block{margin-bottom:24px;padding-bottom:16px;border-bottom:1px dashed #eee}.question-block:last-child{border-bottom:0}.q-title{font-weight:bold;margin-bottom:10px}.options-grid{display:flex;gap:10px;margin-top:8px}.opt-btn{flex:1;padding:12px;border:2px solid var(--main-color);background:#fff;color:var(--main-color);font-size:1.1rem;font-weight:bold;border-radius:8px;cursor:pointer}.opt-btn.selected,.opt-btn-v.selected{background:var(--main-color);color:#fff}.options-vertical{display:flex;flex-direction:column;gap:8px;margin-top:8px}.opt-btn-v{text-align:left;padding:12px 16px;border:2px solid var(--main-color);background:#fff;color:var(--text-color);font-size:1rem;border-radius:8px;cursor:pointer}.text-input{width:100%;padding:12px;font-size:1.02rem;border:2px solid var(--main-color);border-radius:8px;outline:none;background:#fff;color:var(--text-color);margin-top:6px}.text-input:focus{border-color:var(--accent-color)}.btn-submit{display:block;width:100%;padding:16px;background:var(--main-color);color:#fff;border:0;border-radius:8px;font-size:1.1rem;font-weight:bold;cursor:pointer;margin-top:10px;text-align:center;text-decoration:none}.btn-submit:hover{background:var(--text-color)}.result-item{padding:12px;border-radius:8px;margin-bottom:12px;font-size:.95rem;border:2px solid var(--main-color)}.result-correct{background:var(--main-color);color:#fff}.result-incorrect{background:#fff;color:var(--text-color)}.result-incorrect strong,.result-incorrect div{color:var(--text-color)}.res-badge{font-weight:bold;display:inline-block;padding:2px 8px;border-radius:4px;background:rgba(255,255,255,.3);color:#fff;font-size:.8rem;margin-bottom:4px}.result-incorrect .res-badge{background:var(--main-color);color:#fff}.score-banner{text-align:center;padding:20px;font-size:1.35rem;font-weight:bold;margin:14px 0 20px;border-radius:12px;background:var(--main-color);color:#fff}.score-banner.pass{background:var(--accent-color);color:var(--text-color)}.result-section-title{font-size:1.05rem;font-weight:bold;margin:20px 0 10px;padding-bottom:4px;border-bottom:2px solid var(--main-color)}@media(max-width:500px){body{padding:12px 8px}.card{padding:16px}.options-grid{gap:6px}.opt-btn{padding:10px 6px}}
+</style>
+</head>
+<body><main class="container"><header><h1>ドラえもん検定 2025 中級問題</h1></header><div id="quiz"></div></main>
+<script>
+const passMark=60, nominalTotal=100;
+const sections=[
+{title:'Ⅰ 次の文章を読んで、後の問いに答えよ',reading:'2025年に【①45周年を迎えた『映画ドラえもん』シリーズ】には、原作マンガ『ドラえもん』とつながりのある作品も多い。例えば、2003年公開『映画ドラえもん のび太【②□】ふしぎ風使い』にて、のび太が出会った (A) は、原作マンガ「台風の (A) 」においては、のび太が卵からかえしたキャラクターとして登場する。翌年に公開された【③『のび太のワンニャン時空伝』】も、原作マンガ「のら犬 (B) の国」とのつながりが密接である。『映画ドラえもん』には、過去の『映画ドラえもん』のリメイク作品も多い。例えば、【④『のび太の恐竜』】や『のび太の日本誕生』は、これらを原作にリメイクが行われている。こうした重層的な作品構造が、『映画ドラえもん』のもつ大きな特徴といえよう。',items:[
+{q:'問1. 空欄 (A) および (B) に当てはまるキャラクター名',kind:'multi',points:4,fields:[{label:'(A)',answer:'フー子',points:2},{label:'(B)',answer:'イチ',points:2}]},
+{q:'問2. 2025年に公開された映画ドラえもん45周年記念作品のタイトル（「映画ドラえもん」は不要）',kind:'text',points:2,answer:'のび太の絵世界物語'},
+{q:'問3. 下線部②の□に入る1字',kind:'text',points:2,answer:'と'},
+{q:'問4. 『のび太のワンニャン時空伝』でドラえもん役を演じた声優',kind:'text',points:3,answer:'大山のぶ代'},
+{q:'問5. 2006年公開の『のび太の恐竜』リメイク作品のタイトル（「映画ドラえもん」は不要）',kind:'text',points:2,answer:'のび太の恐竜2006'}]},
+{title:'Ⅱ 次の文を読み、正しいものには〇、間違っているものには×をつけよ',items:[
+{q:'問1. しずかが飼っている犬の名前はムクである。',kind:'tf',points:2,key:1,answer:'×'},
+{q:'問2. 「人生やりなおし機」を使うと、4歳の時にも戻ることができる。',kind:'tf',points:2,key:0,answer:'〇'},
+{q:'問3. ひみつ道具「スズメバチの巣」は「ハチにたのめばなんとかなるさ」に登場する。',kind:'tf',points:2,key:1,answer:'×'},
+{q:'問4. 「ガッコー仮面登場」には、中学生と高校生ののび太がともに登場する。',kind:'tf',points:2,key:0,answer:'〇'},
+{q:'問5. のび太のママの旧姓は高岡である。',kind:'tf',points:2,key:1,answer:'×'}]},
+{title:'Ⅲ 以下の問題について、解答として最も適切な選択肢を一つ選びなさい',items:[
+{q:'問1. 「しずちゃんのはごろも」に登場するひみつ道具は何か。',kind:'choice',points:2,options:['1. フワフワオビ','2. トイレットペーパー','3. フワフワタスキ','4. ふわふわぐすり'],key:0},
+{q:'問2. 「〇〇恐怖症」にて開催された、のび太たちがらせコンクールの第一等は誰か。',kind:'choice',points:2,options:['1. 学校の先生','2. ジャイアン','3. スネ夫','4. のび太のママ'],key:1},
+{q:'問3. 「にっくきあいつ」とは誰のことか。',kind:'choice',points:2,options:['1. 出木杉','2. 野球部のキャプテン','3. しずかの家庭教師','4. 学校の先生'],key:2},
+{q:'問4. 「ペッター」は何に対して使用するひみつ道具か。',kind:'choice',points:2,options:['1. 掃除機','2. ほうき','3. 紙相撲','4. 椅子'],key:0},
+{q:'問5. 「やりすぎ！のぞみ実現機」で、のび太がテストを受けずに済んだ理由は何か。',kind:'choice',points:2,options:['1. 大地震','2. ジャイアンの歌','3. 先生のテスト忘れ','4. 遅刻'],key:3},
+{q:'問6. ジャイアンの頭に「タイヤ」と「木」が当たる原因となったひみつ道具は何か。',kind:'choice',points:2,options:['1. 人間あやつり機','2. ねがい星','3. とりよせバッグ','4. タケコプター'],key:1},
+{q:'問7. ひみつ道具「音楽いも」を使って探したのは誰のおしりか。',kind:'choice',points:2,options:['1. のび太','2. しずか','3. スネ夫','4. ジャイアン'],key:2},
+{q:'問8. 「ふきかえ糸電話」にて、のび太が阻止したかったことは何か。',kind:'choice',points:2,options:['1. ジャイアンリサイタル','2. 弱い者いじめ','3. スネ夫の自慢話','4. 先生の家庭訪問'],key:3},
+{q:'問9. 「チョージャワラシベ」にて、のび太が欲しかった物は何か。',kind:'choice',points:2,options:['1. グローブ','2. サッカーボール','3. マンガ','4. 出木杉の宿題'],key:0},
+{q:'問10. 「念録マイク」で、風邪をひいていたジャイアンがリサイタルを開催できた理由は何か。',kind:'choice',points:2,options:['1. お医者さんカバンで治したから','2. みんなに歌わせたから','3. 念録マイクを使わせたから','4. テープに吹き込んでいたから'],key:3}]},
+{title:'Ⅳ 次の問題に答えよ',items:[
+{q:'問1. 「のび太の海底鬼岩城」にて、しずかはひみつ道具「水中バギー」を特定と何と呼んでいたか。6字で答えよ。',kind:'text',points:3,answer:'バギーちゃん'},
+{q:'問2. 「うちのプールは太平洋」にて、ドラえもんは野比家の何をプールに見立てたか。',kind:'text',points:3,answer:'お風呂',aliases:['浴槽','湯船']},
+{q:'問3. 「ようろうおつまみ」は水を何に変えるひみつ道具か。',kind:'text',points:3,answer:'お酒',aliases:['酒','ウイスキー']},
+{q:'問4. 「キンシひょうしき」にて、のび太のパパがやめようとしていたことは何か。',kind:'text',points:3,answer:'たばこ',aliases:['タバコ','喫煙']},
+{q:'問5. 「ポラマップスコープ」と「ポラマップ地図」を使って居場所を確認した乗り物は何か。',kind:'text',points:3,answer:'気球'},
+{q:'問6. 「大富豪ののび太」にて、のび太が物価の安い世界にするために使ったひみつ道具は何か。',kind:'text',points:3,answer:'もしもボックス'}]},
+{title:'Ⅴ ひみつ道具の説明文から、正しいひみつ道具の名前を答えよ',reading:'藤子・F・不二雄監修・まんが（2013）『ドラえもん 最新ひみつ道具大事典』小学館からの引用',items:[
+{q:'問1. 過去や未来と連絡がとれる、便利な電話。（P36）',kind:'text',points:2,answer:'タイム電話'},
+{q:'問2. 何時間も前の声が、山びこになって返ってくる。（P308）',kind:'text',points:2,answer:'山びこ山'},
+{q:'問3. 本人に直接聞かなくても、本人の意見をしゃべってくれる。（P70）',kind:'text',points:2,answer:'アンケーター'},
+{q:'問4. これを飲んで寝ると、魂が抜け出して、一時的に幽霊になる。（P330）',kind:'text',points:2,answer:'うらめしドロップ'},
+{q:'問5. この薬を飲むと、人のことを信じなくなる。（P340）',kind:'text',points:2,answer:'ギシンアンキ'},
+{q:'問6. 忠実な友達になってくれる、ロボット犬。（P143）',kind:'text',points:2,answer:'チューケンパー'}]},
+{title:'Ⅵ 次の文章を読んで、後の問いに答えよ',reading:'近年、生成AIは急速に進展しているが、利用者の言動や思考を無批判に肯定する仕組みを持つAIに依存することの危険性も指摘されている。こうした依存の問題を先取りするようなテーマは、『ドラえもん』の作品にも描かれている。\n\n例えば、「（1）ロボット」という作品が挙げられる。茶碗を割ってしょげてしまったのび太のために、ドラえもんが（1）ロボットを出す。ロボットは「毎日買いたての新鮮な茶碗でお茶が飲めるなんてすばらしい」と言ってのび太を慰めた。やがて、のび太はロボットへの依存を深めてしまう。見かねたドラえもんが（2）を出して、みすぼらしくなったのび太を見せ、成長には厳しく叱る人も必要、と説得した。のび太は理解し、厳しいロボットをドラえもんにも出してもらうが、ドラえもんが出した（3）は逆に厳しすぎた、というオチである。\n\nまた、「ロボ子が愛してる」という作品も重要である。のび太が女の子の前で得意の（4）の投げ食いを披露している際に、やってきた（5）に女の子をとられてしまった。可哀想に思ったドラえもんが出したのが、（6）ロボットのロボ子だった。彼女はのび太だけが好きになるように設定されており、のび太を全肯定する。加減を知らないロボ子は、のび太に嫌なことが起きれば（7）の力で過剰に対応して、周囲を困らせる。',items:[
+{q:'問1(1). 空欄に入る語句',kind:'choice',points:2,options:['1. かぐや','2. トモダチ','3. ハゲマシ','4. いたわり'],key:3},
+{q:'問1(2). 空欄に入るひみつ道具',kind:'choice',points:2,options:['1. 具象化鏡','2. 進化退化放射線源','3. きせかえカメラ','4. タイムテレビ'],key:3},
+{q:'問1(3). 空欄に入るロボット',kind:'choice',points:2,options:['1. しごきロボット','2. 多目的おまもり','3. スパルタコーチ','4. 強いイシ'],key:0},
+{q:'問1(4). 空欄に入る食べ物',kind:'choice',points:2,options:['1. レーズン','2. ピーナッツ','3. マシュマロ','4. こんぺいとう'],key:1},
+{q:'問1(5). 空欄に入る人物',kind:'choice',points:2,options:['1. 出木杉','2. 子犬','3. スネ夫','4. ジャイアン'],key:2},
+{q:'問1(6). 空欄に入る語句',kind:'choice',points:2,options:['1. かぐや','2. トモダチ','3. ハゲマシ','4. いたわり'],key:1},
+{q:'問1(7). 空欄に入る力',kind:'choice',points:2,options:['1. 一万馬力','2. 十万馬力','3. 百万馬力','4. 一千万馬力'],key:2},
+{q:'問2. ドラえもんのお説教の中で語ったこと',kind:'choice',points:3,options:['1. 毎日勉強もせず、いたずらばかりして！！だから成績があがらんのだ','2. いちばんいけないのは自分なんかだめだと思いこむことだよ','3. つらいことくるしいことに、ドンとぶつかっていけ！！','4. はじめから計画的にやっていれば、こんなことにならなかったんだぞ'],key:3}]},
+{title:'Ⅶ テレビアニメ『ドラえもん』の歴代オープニング曲（1973〜2024年）',reading:'次の表の空欄①〜⑤に適する曲名をそれぞれ答えよ。\n\n年　｜曲名｜歌手\n1973年｜ドラえもん｜内藤はるみと劇団NLT\n79年｜ドラえもんのうた｜大杉久美子\n79年｜ぼくドラえもん｜大山のぶ代、こおろぎ’73\n92年｜ドラえもんのうた｜山野さと子\n2003年｜ドラえもんのうた｜渡辺美里\n04年｜ドラえもんのうた｜AJI\n05年｜ドラえもんのうた｜女子十二楽坊（演奏）\n05年｜ハグしちゃお｜夏川りみ\n07年｜夢をかなえてドラえもん｜mao\n19年｜ドラえもん｜星野源',items:[1,2,3,4,5].map(n=>({q:`①〜⑤の曲名（空欄${n}）`,kind:'text',points:2,answer:'ドラえもんのうた'}))}
+];
+const state=sections.map(()=>({answers:{},choices:{},score:0}));
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function norm(s){return String(s??'').normalize('NFKC').toLowerCase().replace(/[\s。、,，.！!「」『』（）()・]/g,'')}
+function correct(value,answer,aliases=[]){const v=norm(value);return [answer,...aliases].some(a=>v===norm(a))}
+function maxPoints(s){return s.items.reduce((n,x)=>n+x.points,0)}
+function renderQuestion(si){document.querySelectorAll('.screen').forEach(x=>x.remove());const s=sections[si],st=state[si],card=document.createElement('section');card.className='card screen';card.innerHTML=`<h2>${esc(s.title)}</h2><p class="muted">大問 ${si+1} / ${sections.length}　（${maxPoints(s)}点満点）</p>${s.reading?`<div class="reading-text">${esc(s.reading)}</div>`:''}`;s.items.forEach((it,ii)=>{const b=document.createElement('div');b.className='question-block';let h=`<div class="q-title">${esc(it.q)} <span class="muted">（${it.points}点）</span></div>`;if(it.kind==='tf')h+=`<div class="options-grid">${['〇','×'].map((v,j)=>`<button type="button" class="opt-btn ${st.choices[ii]===j?'selected':''}" data-choice="${ii}" data-value="${j}">${v}</button>`).join('')}</div>`;else if(it.kind==='choice')h+=`<div class="options-vertical">${it.options.map((v,j)=>`<button type="button" class="opt-btn-v ${st.choices[ii]===j?'selected':''}" data-choice="${ii}" data-value="${j}">${esc(v)}</button>`).join('')}</div>`;else if(it.kind==='multi')h+=it.fields.map((f,j)=>`<label>${esc(f.label)}：</label><input class="text-input" data-answer="${ii}-${j}" value="${esc(st.answers[`${ii}-${j}`]||'')}" placeholder="回答を入力">`).join('');else h+=`<input class="text-input" data-answer="${ii}" value="${esc(st.answers[ii]||'')}" placeholder="回答を入力">`;b.innerHTML=h;card.appendChild(b)});const submit=document.createElement('button');submit.className='btn-submit';submit.textContent=`${['Ⅰ','Ⅱ','Ⅲ','Ⅳ','Ⅴ','Ⅵ','Ⅶ'][si]}を採点する`;submit.onclick=()=>grade(si);card.appendChild(submit);if(si>0){const back=document.createElement('button');back.className='btn-submit';back.textContent='前の大問に戻る';back.onclick=()=>renderResult(si-1);card.appendChild(back)}document.getElementById('quiz').appendChild(card);card.querySelectorAll('[data-choice]').forEach(x=>x.onclick=()=>{st.choices[x.dataset.choice]=Number(x.dataset.value);x.parentElement.querySelectorAll('button').forEach(b=>b.classList.toggle('selected',b===x))});card.querySelectorAll('[data-answer]').forEach(x=>x.oninput=()=>{const id=x.dataset.answer;st.answers[id.includes('-')?id:id]=x.value})}
+function itemResult(st,it,ii){if(it.kind==='choice'||it.kind==='tf'){const ok=st.choices[ii]===it.key;return{ok,earned:ok?it.points:0,user:st.choices[ii]===undefined?'未選択':it.kind==='tf'?['〇','×'][st.choices[ii]]:it.options[st.choices[ii]],answer:it.kind==='tf'?it.answer:it.options[it.key]}}if(it.kind==='multi'){const details=it.fields.map((f,j)=>({ok:correct(st.answers[`${ii}-${j}`],f.answer),user:st.answers[`${ii}-${j}`]||'未入力',answer:f.answer,label:f.label,points:f.points}));const earned=details.reduce((n,x)=>n+(x.ok?x.points:0),0);return{ok:earned===it.points,earned,details,user:details.map(x=>`${x.label} ${x.user}`).join(' / '),answer:details.map(x=>`${x.label} ${x.answer}`).join(' / ')}}const user=st.answers[ii]||'未入力',ok=correct(user,it.answer,it.aliases);return{ok,earned:ok?it.points:0,user,answer:it.answer}}
+function grade(si){const st=state[si],s=sections[si];st.score=s.items.reduce((n,it,ii)=>n+itemResult(st,it,ii).earned,0);renderResult(si)}
+function renderResult(si){document.querySelectorAll('.screen').forEach(x=>x.remove());const s=sections[si],st=state[si],card=document.createElement('section');card.className='card screen';card.innerHTML=`<h2>${['Ⅰ','Ⅱ','Ⅲ','Ⅳ','Ⅴ','Ⅵ','Ⅶ'][si]} 採点結果</h2>`;s.items.forEach((it,ii)=>{const r=itemResult(st,it,ii),row=document.createElement('div');row.className=`result-item ${r.ok?'result-correct':'result-incorrect'}`;row.innerHTML=`<span class="res-badge">${r.ok?`正解（${r.earned}点）`:r.earned?`一部正解（${r.earned}/${it.points}点）`:'不正解（0点）'}</span><div><strong>${esc(it.q)}</strong></div><div>あなたの回答：${esc(r.user)}</div><div>正解：${esc(r.answer)}</div>`;card.appendChild(row)});card.insertAdjacentHTML('beforeend',`<div class="score-banner">大問得点：${st.score} / ${maxPoints(s)}点</div>`);const back=document.createElement('button');back.className='btn-submit';back.textContent='回答に戻る';back.onclick=()=>renderQuestion(si);card.appendChild(back);if(si<sections.length-1){const next=document.createElement('button');next.className='btn-submit';next.textContent=`${['Ⅰ','Ⅱ','Ⅲ','Ⅳ','Ⅴ','Ⅵ','Ⅶ'][si+1]}へ進む`;next.onclick=()=>renderQuestion(si+1);card.appendChild(next)}else{const end=document.createElement('button');end.className='btn-submit';end.textContent='最終結果を見る';end.onclick=renderFinal;card.appendChild(end)}document.getElementById('quiz').appendChild(card)}
+function renderFinal(){document.querySelectorAll('.screen').forEach(x=>x.remove());const total=state.reduce((n,x)=>n+x.score,0),card=document.createElement('section');card.className='card screen';card.innerHTML=`<h2>最終結果</h2><div class="score-banner ${total>=passMark?'pass':''}">総合得点：${total} / ${nominalTotal}点<div style="font-size:1.1rem;margin-top:8px">${total>=passMark?'合格':'不合格'}</div><div style="font-size:.85rem">合格ライン：${passMark}点以上</div></div>`;sections.forEach((s,i)=>{const d=document.createElement('div');d.className='result-section-title';d.textContent=`${['Ⅰ','Ⅱ','Ⅲ','Ⅳ','Ⅴ','Ⅵ','Ⅶ'][i]}：${state[i].score} / ${maxPoints(s)}点`;card.appendChild(d)});const home=document.createElement('a');home.className='btn-submit';home.href='https://hena-choco.github.io';home.textContent='問題一覧へ戻る';card.appendChild(home);document.getElementById('quiz').appendChild(card)}
+renderQuestion(0);
+</script></body></html>
