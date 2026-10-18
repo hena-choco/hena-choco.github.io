@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>【過去問】ドラえもん検定 2025 初中級</title>
+<meta name="description" content="ドラえもん検定2025初中級のクイズ形式問題です。全5大問、100点満点で挑戦できます。">
+<link rel="icon" href="https://hena-choco.github.io/favicon.png" type="image/png">
+<style>
+:root{--main-color:#6B9DFF;--bg-color:#f4f7f9;--card-bg:#fff;--text-color:#333;--accent-color:#FFD43B}*{box-sizing:border-box;margin:0;padding:0}body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;background:var(--bg-color);color:var(--text-color);line-height:1.6;padding:20px 12px}.container{max-width:650px;margin:0 auto}header{text-align:center;margin-bottom:20px;padding:16px;background:var(--main-color);color:#fff;border-radius:12px}h1{font-size:1.3rem}.card{background:var(--card-bg);border-radius:12px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,.05);margin-bottom:20px}h2{font-size:1.1rem;margin-bottom:10px}.muted{font-size:.9rem;color:#666}.reading-text{background:#f9fbfd;padding:14px;border-radius:8px;border:1px solid #e1ecff;margin:12px 0 16px;font-size:.96rem;white-space:pre-line}.question-block{margin-bottom:24px;padding-bottom:16px;border-bottom:1px dashed #eee}.question-block:last-child{border:0}.q-title{font-weight:bold;margin-bottom:10px;white-space:pre-line}.options-grid{display:flex;gap:10px;margin-top:8px}.opt-btn{flex:1;padding:12px;border:2px solid var(--main-color);background:#fff;color:var(--main-color);font-size:1.1rem;font-weight:bold;border-radius:8px;cursor:pointer}.opt-btn.selected,.opt-btn-v.selected{background:var(--main-color);color:#fff}.options-vertical{display:flex;flex-direction:column;gap:8px;margin-top:8px}.opt-btn-v{text-align:left;padding:12px 16px;border:2px solid var(--main-color);background:#fff;color:var(--text-color);font-size:1rem;border-radius:8px;cursor:pointer}.text-input,.score-select{width:100%;padding:12px;font-size:1.02rem;border:2px solid var(--main-color);border-radius:8px;outline:none;background:#fff;color:var(--text-color);margin-top:6px}.text-input:focus,.score-select:focus{border-color:var(--accent-color)}.btn-submit{display:block;width:100%;padding:15px;background:var(--main-color);color:#fff;border:0;border-radius:8px;font-size:1.05rem;font-weight:bold;cursor:pointer;margin-top:10px;text-align:center;text-decoration:none}.btn-submit:hover{background:#5689e8}.result-item{padding:12px;border-radius:8px;margin-bottom:12px;font-size:.95rem;border:2px solid var(--main-color);background:#fff}.res-badge{display:inline-block;padding:2px 8px;border-radius:4px;font-weight:bold;font-size:.8rem;margin-bottom:6px;background:#eaf1ff;color:#335f9e}.score-banner{text-align:center;padding:18px;font-size:1.25rem;font-weight:bold;margin:14px 0 20px;border-radius:12px;background:var(--main-color);color:#fff}.score-banner.pass{background:var(--accent-color);color:var(--text-color)}.result-section-title{font-size:1.05rem;font-weight:bold;margin:20px 0 10px;padding-bottom:4px;border-bottom:2px solid var(--main-color)}.result-answer{margin-top:5px}@media(max-width:500px){body{padding:12px 8px}.card{padding:16px}.options-grid{gap:6px}.opt-btn{padding:10px 6px}}
+</style>
+</head>
+<body>
+<main class="container">
+<header><h1>ドラえもん検定 2025 初中級</h1></header>
+<div id="quiz"></div>
+</main>
+<script>
+const sections=[
+{title:'Ⅰ',max:24,reading:`Ⅰ 次の文章を読んで、後の問いに答えよ。
+
+「ドラえもん」は、ドラえもんとのび太が主人公的存在であるが、脇を固める登場人物も個性豊かである。例えば、【①しずか】は「しずちゃん」と呼ばれて親しまれている、【②のび太の妻】となる人物である。真面目で優しく、正義感に溢れた性格をしている。【③好きな食べ物はチーズケーキ】など、趣味は【④バイオリン】や入浴である。スネ夫は、実家がお金持ちであることが特徴である。それを言いことに、たびたび【⑤自慢話】をしては、ドラえもんのひみつ道具によって返り討ちに遭っている。ただし、単に金を消費しているのではなく、【⑥プラモデル、ラジコン、ジオラマなど様々な趣味】に投資し、興味・関心の幅を広げ、広範な知識を持っていることは強調しておきたい。`,items:[
+{q:'問1. 下線部①について、しずかの名字は何か。',kind:'text',answer:'源',aliases:['源静香'],pts:4},
+{q:'問2. 下線部②について、未来が変わるまでの、のび太の妻となるはずだった人物は誰か。',kind:'text',answer:'ジャイ子',pts:4},
+{q:'問3. 下線部③について、「しずちゃんの心の秘密」にて登場したひみつ道具「アンケーター」によれば、チーズケーキは好きな食べ物第2位である。では、第1位は何か。',kind:'text',answer:'焼きイモ',aliases:['焼き芋'],pts:4},
+{q:'問4. 下線部④について、「へたまうちスプレー」にて、のび太にしずかのバイオリンの巧拙（上手い・下手のこと）を、「（5字）の歌といい勝負だよ」と評している。括弧に当てはまる5字を答えよ。',kind:'text',answer:'ジャイアン',pts:4},
+{q:'問5. 下線部⑤について、スネ夫の自慢話によく登場する、スネ夫がクラブの幹部にもなっている女性アイドルは誰か。（名字は不要）',kind:'text',answer:'翼',aliases:['伊藤翼','つばさ','つばさちゃん','翼ちゃん'],pts:4},
+{q:'問6. 下線部⑥について、スネ夫の様々な趣味の師匠的存在である、大学生の従兄の名前は何か。',kind:'text',answer:'スネ吉',aliases:['スネ吉兄さん','スネ吉（兄さん）'],pts:4}
+]},
+{title:'Ⅱ',max:18,reading:'Ⅱ 次の文を読み、正しいものには〇、間違っているものには×をつけよ。',items:[
+{q:'問1. アンキパンは、メロンパンの形をしたひみつ道具である。',kind:'tf',answer:'×',pts:3},
+{q:'問2. タイムマシンを使うと、時間の移動はできるが空間の移動はできない。',kind:'tf',answer:'×',pts:3},
+{q:'問3. のび太のパパは、自動車の運転が得意である。',kind:'tf',answer:'×',pts:3},
+{q:'問4. 2026年に公開予定の『映画ドラえもん』は『新・のび太の海底鬼岩城』である。',kind:'tf',answer:'〇',pts:3},
+{q:'問5. ドラえもんは生まれたとき、ミニドラと同じ体が緑色だった。',kind:'tf',answer:'×',pts:3},
+{q:'問6. セワシは、ノビスケよりも未来を生きてる。',kind:'tf',answer:'〇',pts:3}
+]},
+{title:'Ⅲ',max:24,reading:'Ⅲ 以下の問題について、解答として最も適切な選択肢を一つ選びなさい。',items:[
+{q:'問1. 学校の裏山の頂上にそびえる巨大な樹木をとくに何というか。',kind:'choice',options:['1. 一本杉','2. 千年杉','3. 二本杉','4. 地魔ケヤキ'],answer:1,pts:4},
+{q:'問2. のび太が飼ったことがある「恐竜」の名前は何か。',kind:'choice',options:['1. ピー助','2. ピッポ','3. クルト','4. クレア'],answer:0,pts:4},
+{q:'問3. のび太のパパが、先生に師事しながら目指していたものは何か。',kind:'choice',options:['1. 彫刻家','2. 作家','3. 画家','4. 弁護士'],answer:2,pts:4},
+{q:'問4. ひみつ道具「カムカムキャット」は、何をおよぶ道具か。',kind:'choice',options:['1. ネズミ','2. 小鳥','3. お客','4. 幸福'],answer:2,pts:4},
+{q:'問5. ジャイアンが率いる草野球チームの名前は何か。',kind:'choice',options:['1. チラノルズ','2. ドラーズ','3. ホワイターズ','4. ジャイアンズ'],answer:3,pts:4},
+{q:'問6. 以下のドラえもんに関するトリビアのうち、正しいものは何か。',kind:'choice',options:['1. 足が地面から3mm浮いている','2. 身長が123.9cmである','2. 「ノラミャー子」という姉がいる','4. お餅が苦手である'],answer:0,pts:4}
+]},
+{title:'Ⅳ',max:16,reading:'Ⅳ 以下は、“藤子・F・不二雄監修・まんが(2013)『ドラえもん 最新ひみつ道具大事典』小学館”に掲載された、ひみつ道具の説明文からの引用である。ひみつ道具の説明文から、正しい【ひみつ道具の名前】を答えよ。引用の都合上、説明文の後に頁数をいれている。',items:[
+{q:'問1. このテーブルかけに、食べたい物を言うと、なんでも出てくる。（P104）',kind:'text',answer:'グルメテーブルかけ',pts:4},
+{q:'問2. 過去や未来を見ることができるテレビ。（P36）',kind:'text',answer:'タイムテレビ',pts:4},
+{q:'問3. このライトの光を浴びせると、どんなものでも小さくなる。（P128）',kind:'text',answer:'スモールライト',pts:4},
+{q:'問4. どんな動物でも、これを食べさせると、言うことをきくようになる。（P305）',kind:'text',answer:'桃太郎印のきびだんご',aliases:['桃太郎印のキビダンゴ','桃太郎印のきび団子'],pts:4}
+]},
+{title:'Ⅴ',max:18,manual:true,reading:`Ⅴ 以下は、“橋部工作作『ドラえもんえかきうた』”の歌詞のフレーズである。①～⑧のフレーズを並べ替えて、正しい歌詞を完成させよ。なお、①と⑧は、すでに解答用紙に記載されているため解答不要である。解答用紙の「メモ」欄に実際に絵を描きながら解くと分かりやすい。
+
+①【まるかいてちょん】
+
+②おいけにおふねを うかべたら ③おまめにねがでて ④あっちいって こっちいって ⑤おそらにみかづき のぼってた ⑥うえきばち うえきばち ⑦おいけがふたつできました ⑧ろくがつついかに ユーフォーが ⑨まるかいてちょん ⑩おっこちて
+
+⑪【ひげをつけたら ドラえもん】`,items:[
+{q:'①～⑪のフレーズを正しい順に並べた番号（解答列）を入力してください。',kind:'manual',answer:'①⑨③⑥⑧④⑩⑦②⑤⑪',pts:18}
+]}
+];
+const state=sections.map(()=>({answers:{},choices:{},manual:0,score:0}));
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const norm=s=>String(s??'').normalize('NFKC').toLowerCase().replace(/[\s。、,，.！!「」『』（）()・]/g,'');
+const correct=(v,a,aliases=[])=>[a,...aliases].some(x=>norm(v)===norm(x));
+function renderQuestion(si){document.querySelectorAll('.screen').forEach(x=>x.remove());const s=sections[si],st=state[si],card=document.createElement('section');card.className='card screen';card.innerHTML=`<h2>${s.title} 問題</h2><p class="muted">大問 ${si+1} / ${sections.length}　（${s.max}点満点）</p><div class="reading-text">${esc(s.reading)}</div>`;s.items.forEach((it,ii)=>{const b=document.createElement('div');b.className='question-block';let h=`<div class="q-title">${esc(it.q)} <span class="muted">（${it.pts}点）</span></div>`;if(it.kind==='tf')h+=`<div class="options-grid">${['〇','×'].map((v,j)=>`<button type="button" class="opt-btn ${st.choices[ii]===j?'selected':''}" data-choice="${ii}" data-value="${j}">${v}</button>`).join('')}</div>`;else if(it.kind==='choice')h+=`<div class="options-vertical">${it.options.map((o,j)=>`<button type="button" class="opt-btn-v ${st.choices[ii]===j?'selected':''}" data-choice="${ii}" data-value="${j}">${esc(o)}</button>`).join('')}</div>`;else h+=`<input class="text-input" data-answer="${ii}" value="${esc(st.answers[ii]||'')}" placeholder="回答を入力">`;b.innerHTML=h;card.appendChild(b)});const submit=document.createElement('button');submit.className='btn-submit';submit.textContent=`${s.title}を採点する`;submit.onclick=()=>gradeSection(si);card.appendChild(submit);if(si>0){const back=document.createElement('button');back.className='btn-submit';back.textContent='前の大問へ戻る';back.onclick=()=>renderQuestion(si-1);card.appendChild(back)}document.getElementById('quiz').appendChild(card);card.querySelectorAll('[data-choice]').forEach(x=>x.onclick=()=>{st.choices[Number(x.dataset.choice)]=Number(x.dataset.value);x.parentElement.querySelectorAll('button').forEach(y=>y.classList.toggle('selected',y===x))});card.querySelectorAll('[data-answer]').forEach(x=>x.oninput=()=>st.answers[Number(x.dataset.answer)]=x.value)}
+function gradeSection(si){const s=sections[si],st=state[si];document.querySelectorAll('.screen [data-answer]').forEach(x=>st.answers[Number(x.dataset.answer)]=x.value);st.score=s.items.reduce((n,it,ii)=>{if(it.kind==='tf')return n+((['〇','×'][st.choices[ii]]===it.answer)?it.pts:0);if(it.kind==='choice')return n+(st.choices[ii]===it.answer?it.pts:0);if(it.kind==='manual')return n+Number(st.manual||0);return n+(correct(st.answers[ii],it.answer,it.aliases)?it.pts:0)},0);renderResult(si)}
+function renderResult(si){document.querySelectorAll('.screen').forEach(x=>x.remove());const s=sections[si],st=state[si],card=document.createElement('section');card.className='card screen';card.innerHTML=`<h2>${s.title} 採点結果</h2>`;s.items.forEach((it,ii)=>{const manual=it.kind==='manual',ok=manual?null:it.kind==='tf'?['〇','×'][st.choices[ii]]===it.answer:it.kind==='choice'?st.choices[ii]===it.answer:correct(st.answers[ii],it.answer,it.aliases);const earned=manual?Number(st.manual||0):ok?it.pts:0;const user=it.kind==='tf'?(st.choices[ii]===undefined?'未選択':['〇','×'][st.choices[ii]]):it.kind==='choice'?(st.choices[ii]===undefined?'未選択':it.options[st.choices[ii]]):(st.answers[ii]||'未入力');const answer=it.kind==='tf'?it.answer:it.kind==='choice'?it.options[it.answer]:it.answer;const row=document.createElement('div');row.className='result-item';row.innerHTML=`<span class="res-badge">${manual?'自己採点':ok?'正解':'確認'}</span><div><strong>${esc(it.q)}</strong></div>${manual?`<div class="result-answer">あなたの解答列：${esc(user)}</div><div class="result-answer">解答列：${esc(answer)}</div><label class="muted">得点（2点刻み・18点満点）<select class="score-select" data-manual>${Array.from({length:10},(_,p)=>p*2).map(p=>`<option value="${p}" ${earned===p?'selected':''}>${p}点</option>`).join('')}</select></label>`:`<div class="result-answer">あなたの回答：${esc(user)}</div><div class="result-answer">正解：${esc(answer)}</div>`}`;card.appendChild(row)});card.insertAdjacentHTML('beforeend',`<div id="section-total" class="score-banner">大問得点：${st.score} / ${s.max}点</div>`);const manual=card.querySelector('[data-manual]');if(manual)manual.onchange=()=>{st.manual=Number(manual.value);st.score=st.manual;document.getElementById('section-total').textContent=`大問得点：${st.score} / ${s.max}点`};const back=document.createElement('button');back.className='btn-submit';back.textContent='回答に戻る';back.onclick=()=>renderQuestion(si);card.appendChild(back);if(si<sections.length-1){const next=document.createElement('button');next.className='btn-submit';next.textContent=`${sections[si+1].title}へ進む`;next.onclick=()=>renderQuestion(si+1);card.appendChild(next)}else{const final=document.createElement('button');final.className='btn-submit';final.textContent='最終結果を見る';final.onclick=renderFinal;card.appendChild(final)}document.getElementById('quiz').appendChild(card)}
+function renderFinal(){document.querySelectorAll('.screen').forEach(x=>x.remove());const total=state.reduce((n,s)=>n+s.score,0),card=document.createElement('section');card.className='card screen';card.innerHTML=`<h2>最終結果</h2><div class="score-banner ${total>=60?'pass':''}">総合得点：${total} / 100点<div style="font-size:1.05rem;margin-top:8px">${total>=60?'合格':'不合格'}</div><div style="font-size:.85rem">合格点：60点</div></div>`;sections.forEach((s,i)=>{const row=document.createElement('div');row.className='result-section-title';row.textContent=`${s.title}：${state[i].score} / ${s.max}点`;card.appendChild(row)});const home=document.createElement('a');home.className='btn-submit';home.href='https://hena-choco.github.io';home.textContent='問題一覧へ戻る';card.appendChild(home);document.getElementById('quiz').appendChild(card)}
+renderQuestion(0);
+</script>
+</body>
+</html>
