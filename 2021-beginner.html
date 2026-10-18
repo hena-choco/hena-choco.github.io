@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ドラえもん検定 2021 初級問題</title>
+<style>
+:root{--main-color:#6B9DFF;--bg-color:#f4f7f9;--card-bg:#fff;--text-color:#333;--accent-color:#FFD43B}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;background:var(--bg-color);color:var(--text-color);line-height:1.6;padding:20px 12px}
+.container{max-width:600px;margin:0 auto}.image-container{margin:14px 0 18px;text-align:center}.image-container img{display:block;width:100%;height:auto;max-height:70vh;object-fit:contain;border-radius:8px}header{text-align:center;margin-bottom:20px;padding:16px;background:var(--main-color);color:#fff;border-radius:12px}h1{font-size:1.3rem}.card{background:var(--card-bg);border-radius:12px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,.05);margin-bottom:20px}h2{font-size:1.1rem;margin-bottom:10px}.muted{font-size:.9rem;color:#666}.question-block{margin-bottom:24px;padding-bottom:16px;border-bottom:1px dashed #eee}.question-block:last-child{border-bottom:none}.q-title{font-weight:bold;margin-bottom:10px}.options-grid{display:flex;gap:10px;margin-top:8px}.opt-btn{flex:1;padding:12px;border:2px solid var(--main-color);background:#fff;color:var(--main-color);font-size:1.1rem;font-weight:bold;border-radius:8px;cursor:pointer}.opt-btn.selected,.opt-btn-v.selected{background:var(--main-color);color:#fff}.options-vertical{display:flex;flex-direction:column;gap:8px;margin-top:8px}.opt-btn-v{text-align:left;padding:12px 16px;border:2px solid var(--main-color);background:#fff;color:var(--text-color);font-size:1rem;border-radius:8px;cursor:pointer}.text-input,.tool-select{width:100%;padding:12px;font-size:1.02rem;border:2px solid var(--main-color);border-radius:8px;outline:none;background:#fff;color:var(--text-color);margin-top:6px}.text-input:focus,.tool-select:focus{border-color:var(--accent-color)}.btn-submit{display:block;width:100%;padding:16px;background:var(--main-color);color:#fff;border:0;border-radius:8px;font-size:1.1rem;font-weight:bold;cursor:pointer;margin-top:10px;text-align:center;text-decoration:none}.btn-submit:hover{background:var(--text-color)}.result-item{padding:12px;border-radius:8px;margin-bottom:12px;font-size:.95rem;border:2px solid var(--main-color)}.result-correct{background:var(--main-color);color:#fff}.result-incorrect{background:#fff;color:var(--text-color)}.res-badge{font-weight:bold;display:inline-block;padding:2px 8px;border-radius:4px;background:var(--main-color);color:#fff;font-size:.8rem;margin-bottom:4px}.result-correct .res-badge{background:rgba(255,255,255,.3)}.score-banner{text-align:center;padding:20px;font-size:1.35rem;font-weight:bold;margin:14px 0 20px;border-radius:12px;background:var(--main-color);color:#fff}.result-section-title{font-size:1.05rem;font-weight:bold;margin:20px 0 10px;padding-bottom:4px;border-bottom:2px solid var(--main-color)}.result-item div{margin:3px 0}@media(max-width:500px){body{padding:12px 8px}.card{padding:16px}.options-grid{gap:6px}.opt-btn{padding:10px 6px}}
+</style>
+</head>
+<body>
+<main class="container"><header><h1>ドラえもん検定 2021 初級</h1></header><div id="quiz"></div></main>
+<script>
+const passMark=80;
+const sections=[
+{title:'1. 正しければ〇を、まちがっていれば×を書きましょう',max:30,items:[
+{q:'(1) ドラえもんはタヌキ型ロボットである。',kind:'tf',key:1,answer:'×'},
+{q:'(2) のび太の特技は射的である。',kind:'tf',key:0,answer:'〇'},
+{q:'(3) しずちゃんはお風呂に入ることが好きである。',kind:'tf',key:0,answer:'〇'},
+{q:'(4) スネ夫はお金を持っていない。',kind:'tf',key:1,answer:'×'},
+{q:'(5) ジャイアンは歌が上手い。',kind:'tf',key:1,answer:'×'}
+]},
+{title:'2. ア〜エの中から当てはまるものを選んで書きましょう',max:30,items:[
+{q:'(1) ドラミはドラえもんの何でしょう。',kind:'choice',options:['ア. 母','イ. 姉','ウ. 妹','エ. 弟'],key:2},
+{q:'(2) スネ夫の苗字はどれでしょう。',kind:'choice',options:['ア. 骨川','イ. 剛田','ウ. 源','エ. 野比'],key:0},
+{q:'(3) ジャイ子の将来の夢はどれでしょう。',kind:'choice',options:['ア. 花屋','イ. 漫画家','ウ. 小説家','エ. 雑貨店'],key:1},
+{q:'(4) ドラミちゃんの苦手なものはなんでしょう。',kind:'choice',options:['ア. クモ','イ. ヘビ','ウ. カエル','エ. ゴキブリ'],key:3},
+{q:'(5) ドラえもんの体重はどれでしょう。',kind:'choice',options:['ア. 119.3kg','イ. 129.3kg','ウ. 139.3kg','エ. 129.3t'],key:1}
+]},
+{title:'3. 次の写真に合うひみつ道具の名前を書きましょう',max:30,media:'https://hena-choco.github.io/2021-beginnerIII.jpg',items:[
+{q:'(1)',kind:'text',answer:'空気砲'},
+{q:'(2)',kind:'text',answer:'どこでもドア'},
+{q:'(3)',kind:'text',answer:'通り抜けフープ'},
+{q:'(4)',kind:'text',answer:'もしもボックス'},
+{q:'(5)',kind:'text',answer:'タイムマシン'}
+]},
+{title:'4. 次の問題の答えを書きましょう',max:30,items:[
+{q:'(1) ドラえもんの鼻の色は何色でしょう。',kind:'text',answer:'赤',aliases:['赤色']},
+{q:'(2) ジャイアンが一番よくリサイタルで使う場所はどこでしょう。',kind:'text',answer:'空き地'},
+{q:'(3) しずちゃんが好きな食べ物は何でしょう。',kind:'text',answer:'焼きいも',aliases:['焼き芋']},
+{q:'(4) ドラえもんをのび太のもとに連れてきたのは誰でしょう。',kind:'text',answer:'セワシ'},
+{q:'(5) のび太の将来のお嫁さんは誰でしょう。',kind:'text',answer:'しずかちゃん',aliases:['源静香','しずか','ジャイ子']}
+]}
+];
+const state=sections.map(()=>({answers:{},choices:{},score:0}));
+const toolList=[];
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function normalizeText(s){return String(s??'').normalize('NFKC').toLowerCase().replace(/[\u3041-\u3096]/g,c=>String.fromCharCode(c.charCodeAt(0)+0x60)).replace(/[\s。、,，.！!「」『』（）()・]/g,'')}
+function isCorrect(answer,target,aliases=[]){const value=normalizeText(answer);return [target,...aliases].some(x=>value===normalizeText(x))}
+function renderQuestion(si){document.querySelectorAll('.screen').forEach(e=>e.remove());const section=sections[si],st=state[si],card=document.createElement('section');card.className='card screen';card.innerHTML=`<h2>${esc(section.title)} <span class="muted">（${section.max}点満点）</span></h2><p class="muted">大問 ${si+1} / ${sections.length}</p>${section.intro?`<p class="muted" style="margin:10px 0 16px">${esc(section.intro)}</p>`:''}`;if(section.media)card.insertAdjacentHTML('beforeend',`<div class="image-container"><img src="${esc(section.media)}" alt="大問Ⅲの写真" loading="lazy"></div>`);section.items.forEach((item,ii)=>{const block=document.createElement('div');block.className='question-block';let html=`<div class="q-title">${esc(item.q)} <span class="muted">（6点）</span></div>`;if(item.kind==='tf')html+=`<div class="options-grid">${['〇','×'].map((v,j)=>`<button type="button" class="opt-btn ${st.choices[ii]===j?'selected':''}" data-choice="${ii}" data-value="${j}">${v}</button>`).join('')}</div>`;else if(item.kind==='choice')html+=`<div class="options-vertical">${item.options.map((o,j)=>`<button type="button" class="opt-btn-v ${st.choices[ii]===j?'selected':''}" data-choice="${ii}" data-value="${j}">${esc(o)}</button>`).join('')}</div>`;else if(item.kind==='tool')html+=`<select class="tool-select" data-tool="${ii}"><option value="">道具を選択</option>${toolList.map(x=>`<option value="${esc(x)}" ${st.answers[ii]===x?'selected':''}>${esc(x)}</option>`).join('')}</select>`;else html+=`<input class="text-input" type="text" data-answer="${ii}" value="${esc(st.answers[ii]||'')}" placeholder="回答を入力">`;block.innerHTML=html;card.appendChild(block)});const submit=document.createElement('button');submit.className='btn-submit';submit.textContent=`${si+1}を採点する`;submit.onclick=()=>gradeSection(si);card.appendChild(submit);if(si>0){const back=document.createElement('button');back.className='btn-submit';back.textContent='前の大問に戻る';back.onclick=()=>renderResult(si-1);card.appendChild(back)}document.getElementById('quiz').appendChild(card);card.querySelectorAll('[data-choice]').forEach(b=>b.addEventListener('click',()=>{st.choices[Number(b.dataset.choice)]=Number(b.dataset.value);b.parentElement.querySelectorAll('button').forEach(x=>x.classList.toggle('selected',x===b))}));card.querySelectorAll('[data-answer]').forEach(el=>el.addEventListener('input',()=>{st.answers[Number(el.dataset.answer)]=el.value}));card.querySelectorAll('[data-tool]').forEach(sel=>sel.addEventListener('change',()=>{st.answers[Number(sel.dataset.tool)]=sel.value;updateToolOptions(card)}));if(si===2)updateToolOptions(card)}
+function updateToolOptions(card){const selects=[...card.querySelectorAll('[data-tool]')];selects.forEach((sel,i)=>{const used=new Set(selects.filter((_,j)=>j!==i).map(x=>x.value).filter(Boolean));[...sel.options].forEach(opt=>{if(opt.value)opt.disabled=used.has(opt.value)})})}
+function gradeSection(si){const s=sections[si],st=state[si];document.querySelectorAll('.screen [data-answer]').forEach(el=>{st.answers[Number(el.dataset.answer)]=el.value});st.score=s.items.reduce((n,item,ii)=>n+((item.kind==='tf'||item.kind==='choice')?(st.choices[ii]===item.key?6:0):item.kind==='tool'?(isCorrect(st.answers[ii],item.answer)?6:0):(isCorrect(st.answers[ii],item.answer,item.aliases)?6:0)),0);renderResult(si)}
+function renderResult(si){document.querySelectorAll('.screen').forEach(e=>e.remove());const s=sections[si],st=state[si],card=document.createElement('section');card.className='card screen';card.innerHTML=`<h2>${si+1} 採点結果</h2><p class="muted">各問6点・大問${s.max}点満点</p>`;s.items.forEach((item,ii)=>{let ok,user,answer;if(item.kind==='tf'){ok=st.choices[ii]===item.key;user=st.choices[ii]===undefined?'未選択':['〇','×'][st.choices[ii]];answer=item.answer}else if(item.kind==='choice'){ok=st.choices[ii]===item.key;user=st.choices[ii]===undefined?'未選択':item.options[st.choices[ii]];answer=item.options[item.key]}else{user=st.answers[ii]||'未入力';answer=item.answer;ok=item.kind==='tool'?isCorrect(user,item.answer):isCorrect(user,item.answer,item.aliases)}const row=document.createElement('div');row.className=`result-item ${ok?'result-correct':'result-incorrect'}`;row.innerHTML=`<span class="res-badge">${ok?'正解（6点）':'不正解（0点）'}</span><div><strong>${esc(item.q)}</strong></div><div>あなたの回答：${esc(user)}</div><div>正解：${esc(answer)}</div>`;card.appendChild(row)});card.insertAdjacentHTML('beforeend',`<div class="score-banner">大問得点：${st.score} / ${s.max}点</div>`);const back=document.createElement('button');back.className='btn-submit';back.textContent=`${si+1}の回答に戻る`;back.onclick=()=>renderQuestion(si);card.appendChild(back);if(si<sections.length-1){const next=document.createElement('button');next.className='btn-submit';next.textContent=`${si+2}へ進む`;next.onclick=()=>renderQuestion(si+1);card.appendChild(next)}else{const final=document.createElement('button');final.className='btn-submit';final.textContent='最終結果を見る';final.onclick=renderFinal;card.appendChild(final)}document.getElementById('quiz').appendChild(card)}
+function renderFinal(){document.querySelectorAll('.screen').forEach(e=>e.remove());const total=state.reduce((n,x)=>n+x.score,0),card=document.createElement('section');card.className='card screen';card.innerHTML=`<h2>最終結果</h2><div class="score-banner">総合得点：${total} / 120点<div style="font-size:1.2rem;margin-top:8px">${total>=passMark?'合格':'不合格'}</div><div class="muted" style="color:#fff">合格ライン：${passMark}点以上</div></div>`;sections.forEach((s,i)=>{const line=document.createElement('div');line.className='result-section-title';line.textContent=`${i+1} ${s.title.replace(/^\d+\s*/,'')}：${state[i].score} / ${s.max}点`;card.appendChild(line)});const back=document.createElement('button');back.className='btn-submit';back.textContent='4の採点結果に戻る';back.onclick=()=>renderResult(3);card.appendChild(back);const home=document.createElement('a');home.className='btn-submit';home.href='https://hena-choco.github.io';home.textContent='問題一覧へ戻る';card.appendChild(home);document.getElementById('quiz').appendChild(card)}
+renderQuestion(0);
+</script>
+</body>
+</html>
