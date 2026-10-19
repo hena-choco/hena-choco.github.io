@@ -56,26 +56,6 @@
       <p class="subtitle">早稲田大学ドラえもん研究会 赤本</p>
     </header>
 
-    <section class="account-card" aria-labelledby="account-heading">
-      <h2 id="account-heading">検定の点数を記録しよう</h2>
-      <p class="account-copy">アカウントを作成・ログインすると、各検定ページから点数を保存して、あとから振り返ることができます。</p>
-      <p id="account-status" class="account-status" role="status" aria-live="polite">ログイン状態を確認しています…</p>
-      <div id="signed-out-panel" hidden>
-        <form id="account-form" class="account-form" novalidate>
-          <label for="account-email">メールアドレス<input id="account-email" name="email" type="email" autocomplete="email" required></label>
-          <label for="account-password">パスワード（6文字以上）<input id="account-password" name="password" type="password" autocomplete="current-password" minlength="6" required></label>
-          <div class="account-actions">
-            <button id="submit-account" class="account-button primary" type="submit">ログイン</button>
-          </div>
-        </form>
-        <p class="account-switch"><span id="switch-prompt">初めての方はこちら：</span><button id="switch-mode" type="button">新規アカウント作成</button></p>
-      </div>
-      <div id="signed-in-panel" class="account-signed-in" hidden>
-        <p>ログイン中：<strong id="account-user-email"></strong></p>
-        <div class="account-actions"><button id="logout-button" class="account-button secondary" type="button">ログアウト</button></div>
-      </div>
-    </section>
-
     <!-- 2025年 -->
     <div class="year-card"><div class="movie-banner" style="--movie-color:#EADCC9" aria-hidden="true"></div><details open><summary>2025年</summary><div class="level-list"><a href="./2025-beginner.html" class="level-btn">初級</a><a href="./2025-shochukyu.html" class="level-btn">初中級</a><a href="./2025-intermediate.html" class="level-btn">中級</a><a href="./2025-advanced.html" class="level-btn">上級</a></div></details></div>
     <!-- 2024年 -->
@@ -96,6 +76,27 @@
     <div class="year-card"><div class="movie-banner" style="--movie-color:#CFFAFE" aria-hidden="true"></div><details><summary>2017年</summary><div class="level-list"><a href="./2017-intermediate.html" class="level-btn">中級</a><a href="./2017-advanced.html" class="level-btn">上級</a></div></details></div>
     <!-- 2016年 -->
     <div class="year-card"><div class="movie-banner" style="--movie-color:#FED7AA" aria-hidden="true"></div><details><summary>2016年</summary><div class="level-list"><a href="./2016-intermediate.html" class="level-btn">中級</a><a href="./2016-advanced.html" class="level-btn">上級</a></div></details></div>
+
+    <section class="account-card" aria-labelledby="account-heading">
+      <h2 id="account-heading">検定の点数を記録しよう</h2>
+      <p class="account-copy">アカウントを作成・ログインすると、各検定ページから点数を保存して、あとから振り返ることができます。</p>
+      <p id="account-status" class="account-status" role="status" aria-live="polite">ログイン状態を確認しています…</p>
+      <div id="signed-out-panel" hidden>
+        <form id="account-form" class="account-form" novalidate>
+          <label for="account-email">メールアドレス<input id="account-email" name="email" type="email" autocomplete="email" required></label>
+          <label for="account-password">パスワード（6文字以上）<input id="account-password" name="password" type="password" autocomplete="current-password" minlength="6" required></label>
+          <div class="account-actions">
+            <button id="submit-account" class="account-button primary" type="submit">ログイン</button>
+          </div>
+        </form>
+        <p class="account-switch"><span id="switch-prompt">初めての方はこちら：</span><button id="switch-mode" type="button">新規アカウント作成</button></p>
+      </div>
+      <div id="signed-in-panel" class="account-signed-in" hidden>
+        <p>ログイン中：<strong id="account-user-email"></strong></p>
+        <div class="account-actions"><button id="logout-button" class="account-button secondary" type="button">ログアウト</button></div>
+      </div>
+    </section>
+    
     <footer><p>へなちょこ / Hazel Nuts Chocolate</p></footer>
   </div>
 
