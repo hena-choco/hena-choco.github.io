@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ドラえもん検定 2018年度 上級</title>
+<meta name="description" content="ドラえもん検定 2018年度上級。全6大問、100点満点、合格点60点。">
+<link rel="icon" href="https://hena-choco.github.io/favicon.png" type="image/png">
+<style>
+    :root { --main:#6B9DFF; --bg:#f4f7f9; --card:#fff; --text:#333; --accent:#FFD43B; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif; background:var(--bg); color:var(--text); line-height:1.65; padding:20px 12px; }
+    .container { max-width:680px; margin:auto; }
+    .site-nav { position:sticky; top:8px; z-index:5; display:flex; justify-content:flex-start; margin-bottom:10px; }
+    .home-link { display:inline-flex; align-items:center; gap:6px; padding:9px 14px; border-radius:8px; background:#fff; color:#6B9DFF; border:1px solid #d6e3f8; font-weight:700; text-decoration:none; box-shadow:0 2px 8px #0000000d; }
+    header { text-align:center; margin-bottom:20px; padding:18px; background:var(--main); color:#fff; border-radius:12px; }
+    h1 { font-size:1.35rem; }
+    .card { background:var(--card); border-radius:12px; padding:20px; box-shadow:0 2px 8px #0000000d; margin-bottom:18px; }
+    h2 { font-size:1.12rem; margin-bottom:12px; }
+    .reading { white-space:pre-line; background:#f9fbfd; border:1px solid #e1ecff; border-radius:8px; padding:14px; margin-bottom:18px; }
+    .question-block { margin-bottom:20px; padding-bottom:14px; border-bottom:1px dashed #e5e5e5; }
+    .question-block:last-child { border-bottom:0; }
+    .q-title { font-weight:700; margin-bottom:8px; white-space:pre-line; }
+    .options-grid { display:flex; gap:10px; margin-top:8px; }
+    .opt-btn { flex:1; padding:12px; border:2px solid var(--main); background:var(--card); color:var(--main); font-size:1.1rem; font-weight:bold; border-radius:8px; cursor:pointer; }
+    .opt-btn.selected,.opt-btn-v.selected { background:var(--main); color:var(--card); }
+    .options-vertical { display:flex; flex-direction:column; gap:8px; margin-top:8px; }
+    .opt-btn-v { text-align:left; padding:12px 16px; border:2px solid var(--main); background:var(--card); color:var(--text); font-size:1rem; border-radius:8px; cursor:pointer; }
+    .text-input { width:100%; padding:11px; font-size:1rem; border:2px solid var(--main); border-radius:8px; margin-top:5px; }
+    .points,.muted { color:#666; font-size:.88rem; font-weight:400; }
+    .btn { display:block; width:100%; padding:16px; background:var(--main); color:var(--card); border:0; border-radius:8px; font-size:1.05rem; font-weight:bold; cursor:pointer; margin-top:10px; text-align:center; text-decoration:none; }
+    .btn:hover { background:#5689e8; }
+    .nav-row { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:12px; }
+    .nav-row .btn { margin:0; min-height:54px; display:flex; align-items:center; justify-content:center; }
+    .nav-placeholder { visibility:hidden; }
+    .result-item { padding:12px; border-radius:8px; margin:10px 0; font-size:.95rem; border:1px solid #d8dde5; background:#f7f8fa; }
+    .result-item.result-correct { border:0; background:#6B9DFF; color:#fff; }
+    .result-item.result-correct .answer-key { color:#fff; }
+    .result-item.result-correct .badge { background:rgba(255,255,255,.2); color:#fff; }
+    .result-item.result-wrong { border:0; background:#f1f2f4; color:#333; }
+    .result-item.result-wrong .badge { background:transparent; color:#6B9DFF; }
+    .result-item.result-pending { border:1px solid #d8dde5; background:#fff; color:#333; }
+    .badge { display:inline-block; padding:2px 8px; border-radius:4px; font-weight:700; font-size:.8rem; margin-bottom:4px; background:#eaf1ff; color:#335f9e; }
+    .answer-key { margin-top:5px; color:#444; white-space:pre-line; }
+    .self-check { display:block; margin-top:9px; padding:9px; background:#f4f7f9; border-radius:6px; }
+    .score-banner { text-align:center; background:var(--main); color:var(--card); padding:20px; border-radius:12px; font-size:1.3rem; font-weight:700; margin:12px 0 18px; }
+    .summary-title { border-bottom:2px solid var(--main); padding:0 0 4px; margin:20px 0 10px; font-weight:700; }
+    .account-card { background:#fff; border:1px solid #e4e9f0; border-radius:12px; padding:18px; margin-top:22px; }
+    .account-card h2 { margin-bottom:6px; }
+    .account-status { min-height:1.5em; margin:7px 0 12px; font-size:.9rem; }
+    .account-status[data-kind="error"] { color:#a33; }
+    .account-status[data-kind="success"] { color:#176b45; }
+    .account-form { display:grid; gap:10px; }
+    .account-form[hidden], [hidden] { display:none !important; }
+    .account-form label { display:grid; gap:4px; font-size:.9rem; font-weight:600; }
+    .account-form input { width:100%; padding:11px; border:1px solid #cfd6df; border-radius:7px; font:inherit; }
+    .account-actions { display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
+    .account-button { border:0; border-radius:7px; padding:10px 14px; font:inherit; font-weight:700; cursor:pointer; }
+    .account-button.primary { background:var(--main); color:#fff; }
+    .account-button.secondary { background:#eef3fb; color:#315a9d; }
+    .account-button:disabled { opacity:.55; cursor:not-allowed; }
+    .account-switch { margin-top:10px; font-size:.88rem; }
+    .account-switch button { border:0; background:none; color:#315a9d; text-decoration:underline; font:inherit; font-weight:700; cursor:pointer; }
+    .account-signed-in { padding:10px; background:#f4f8ff; border-radius:7px; overflow-wrap:anywhere; }
+    @media(max-width:480px) { body { padding:12px 8px; } .card { padding:16px; } .nav-row { gap:7px; } .nav-row .btn { padding:12px 8px; font-size:.95rem; } }
+  </style>
+</head>
+<body>
+<main class="container">
+  <nav class="site-nav" aria-label="サイトナビゲーション"><a class="home-link" href="https://hena-choco.github.io/index.html">← 一覧に戻る</a></nav>
+  <header><h1>ドラえもん検定 2018年度 上級</h1></header>
+  <div id="quiz"></div>
+</main>
+<script type="module">
+import "./firebase-auth.js";
+const sections=[{"title":"1","max":20,"reading":"1 以下の問いに答えよ","fields":[{"q":"(1) のび太とドラえもんが「もちせいぞうマシン」で作ったもちの数はいくつか。","type":"choice","options":["130個","182個","259個","366個"],"answer":2,"pts":2},{"q":"(2) のび太が発明していないあやとりの技はどれか。","type":"choice","options":["ギャラクシー","おどるチョウ","天の川","ほうき星"],"answer":2,"pts":2},{"q":"(3) 『なぜか劇がメチャクチャに』において、のび太たちが最後に演じた劇は何か。","type":"choice","options":["白雪姫","はだかの王様","人魚姫","星の銀貨"],"answer":3,"pts":2},{"q":"(4) 次のうち、空き地に埋まっていたものはどれか。","type":"choice","options":["スネ夫のハワイ土産","のび太のママの指輪","ツチノコ図鑑","不発弾"],"answer":3,"pts":2},{"q":"(5) 「遠写かがみ」を使い、のび太たちが宣伝したお店の名前は何か。","type":"choice","options":["つぶれ屋","甘井屋","くずれ屋","あばら屋"],"answer":3,"pts":2},{"q":"(6) しずかちゃんが風船につけてとばした手紙を拾ったのは誰か。","type":"choice","options":["アドルフ殿下","ウメボシ殿下","宇宙人","ルルロフ殿下"],"answer":0,"pts":2},{"q":"(7) 『ドラえもんに休日を!!』で、ドラえもんがタマちゃんと出かけたデート先はどこか。","type":"choice","options":["四丈半島","八丈島","百丈島","イリオモテ島"],"answer":3,"pts":2},{"q":"(8) 『恋するジャイアン』にて、ジャイアンが恋した女の子の飼っている犬の名前は何か。","type":"choice","options":["ラッシー","ベンジ―","ベソ","クロ"],"answer":1,"pts":2},{"q":"(9) 次のうち、出木杉が登場しない『映画ドラえもん』シリーズの作品はどれか。","type":"choice","options":["のび太の宇宙小戦争","のび太の魔界大冒険","のび太の宇宙漂流記","のび太の宝島"],"answer":2,"pts":2},{"q":"(10) 『のび太と翼の勇者たち』において、ドラえもんが妄想の中で変身したヒーローの名前は何か。","type":"choice","options":["ウドラドラマン","ドラパーマン","ドラドラマン","コンドルマン"],"answer":2,"pts":2}]},{"title":"2","max":40,"reading":"2 以下の問いに答えよ","fields":[{"q":"(1) のび太のいとこを1人答えよ。","type":"self","answer":"五郎、のび枝、すみれから1人","aliases":["五郎","のび枝","すみれ"],"pts":4},{"q":"(2) のび太としずちゃんの結婚式場の名前は何か。","type":"self","answer":"プリンスメロンホテル","aliases":["プリンスメロンホテル"],"pts":4},{"q":"(3) 「ソノウソホント」で強くなったのび太のパパが相撲を取った相手は誰か。","type":"self","answer":"ジャイアンのおやじ","aliases":["ジャイアンのおやじ","ジャイアンの父","ジャイアンの父親"],"pts":4},{"q":"(4) スネ夫の将来の夢は何か。","type":"self","answer":"デザイナー","aliases":["デザイナー"],"pts":4},{"q":"(5) 『大長編ドラえもん』シリーズで、タイトルが『のび太と』から始まる最初の作品は何か。","type":"self","answer":"（のび太と）鉄人兵団","aliases":["鉄人兵団","のび太と鉄人兵団"],"pts":4},{"q":"(6) 『のび太のねじ巻き都市冒険記』で活躍した「フワフワ銃」は、どこで入手したものか。","type":"self","answer":"ドリーマーズランド（の西部の星）","aliases":["ドリーマーズランド（の西部の星）","ドリーマーズランドの西部の星","西部の星"],"pts":4},{"q":"(7) 「ライオン仮面」の作者は誰か。","type":"self","answer":"フニャコフニャ夫","aliases":["フニャコフニャ夫"],"pts":4},{"q":"(8) ジャイアンファンクラブの会長は誰か。","type":"self","answer":"（野比）のび太","aliases":["のび太","野比のび太"],"pts":4},{"q":"(9) のび太が「悪魔のパスポート」を使い、しずちゃんに対して行った悪事は何か。","type":"self","answer":"スカートめくり","aliases":["スカートめくり"],"pts":4},{"q":"(10) スネ夫は、100点の答案をうらやまのどこに埋めたか。暗号の答えを、スネ夫の書いたとおりに書け。","type":"self","answer":"千年杉の下","aliases":["千年杉の下"],"pts":4}]},{"title":"3","max":4,"reading":"3 東京タワーより高くとぶにはどうすればよいか","fields":[{"q":"回答（※道具や余計な説明がある場合は不正解）","type":"self","answer":"ただとぶだけでいい","aliases":["ただとぶだけでいい","ただ飛ぶだけでいい","ただ跳ぶだけでいい","飛ぶだけでいい","跳ぶだけでいい"],"note":"（東京タワーはまるっきりとべないため、）ただとぶだけでいい。※「跳ぶ」ニュアンスの言葉と、「ただ〜だけ」と読み取れる表現ができていれば正解。道具や余計な説明がある場合は不正解。","pts":4}]},{"title":"4","max":15,"reading":"4 正しいひみつ道具の名前になるように、①〜③にそれぞれ合う選択肢を選べ","fields":[{"q":"(1) 「① 手綱」 「② かなづち」 「③ 操縦機」","type":"triple","labels":["①","②","③"],"options":["なんでも","万能","自動"],"answer":[1,2,0],"pts":3},{"q":"(2) 「① 消しゴム」 「② サンタ」 「③ 海賊船」","type":"triple","labels":["①","②","③"],"options":["ミニ","ロボット","ほどほど"],"answer":[1,0,2],"pts":3},{"q":"(3) 「① テレビ」 「② 若葉マーク」 「③ モニター」","type":"triple","labels":["①","②","③"],"options":["感覚","夢","四次元"],"answer":[1,2,0],"pts":3},{"q":"(4) 「① リモコン」 「② クレヨン」 「③ エネルギーボンベ」","type":"triple","labels":["①","②","③"],"options":["空気","感情","人間"],"answer":[2,0,1],"pts":3},{"q":"(5) 「① キャップ」 「② メーター」 「③ トランク」","type":"triple","labels":["①","②","③"],"options":["いいなり","ひさしぶり","ごきげん"],"answer":[0,2,1],"pts":3}]},{"title":"5","max":16,"reading":"5 「物体変換銃」によって、以下のものがそれぞれ何に変換されたか答えよ\n\nダイコン／スズメ／ネコ／ドカン／ミズ／パン／ドラえもん／フク","fields":[{"q":"ダイコン →","type":"self","answer":"ラジコン","aliases":["ラジコン"],"pts":2},{"q":"スズメ →","type":"self","answer":"スルメ","aliases":["スルメ"],"pts":2},{"q":"ネコ →","type":"self","answer":"ネッコ","aliases":["ネッコ"],"pts":2},{"q":"ドカン →","type":"self","answer":"ヤカン","aliases":["ヤカン"],"pts":2},{"q":"ミズ →","type":"self","answer":"ミミズ","aliases":["ミミズ"],"pts":2},{"q":"パン →","type":"self","answer":"パンツ","aliases":["パンツ"],"pts":2},{"q":"ドラえもん →","type":"self","answer":"ドラムカン","aliases":["ドラムカン"],"pts":2},{"q":"フク →","type":"self","answer":"フロ","aliases":["フロ"],"pts":2}]},{"title":"6","max":5,"reading":"6 ワンニャン国の文字で「山猫軒」と書け","fields":[{"q":"表記（表記揺れは認めない）","type":"self","answer":"山猫軒","aliases":["山猫軒"],"pts":5}]}];
+const state=sections.map(()=>({answers:{},checks:{},score:0}));
+let finalScoreSavePromise=null;
+let finalScoreSaved=false;
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const normalize=s=>String(s??'').normalize('NFKC').toLowerCase().replace(/[\s。、,，.！!「」『』（）()・：:／/]/g,'');
+const matches=(v,answers=[])=>answers.some(a=>normalize(v)===normalize(a));
+function renderQuestion(si){
+  document.querySelectorAll('.screen').forEach(e=>e.remove());
+  const s=sections[si],st=state[si],card=document.createElement('section');card.className='card screen';
+  card.innerHTML=`<h2>大問 ${s.title} <span class="points">（${s.max}点満点）</span></h2><div class="reading">${esc(s.reading)}</div>`;
+  s.fields.forEach((f,i)=>{
+    const b=document.createElement('div');b.className='question-block';
+    if(f.type==='choice'){
+      const wrap=document.createElement('div');wrap.className='options-vertical';
+      f.options.forEach((o,j)=>{const x=document.createElement('button');x.type='button';x.className='opt-btn-v'+(st.answers[i]===j?' selected':'');x.textContent=`${String.fromCharCode(65+j)}. ${o}`;x.onclick=()=>{st.answers[i]=j;wrap.querySelectorAll('button').forEach(y=>y.classList.toggle('selected',y===x))};wrap.append(x)});
+      b.innerHTML=`<div class="q-title">${esc(f.q)} <span class="points">（${f.pts}点）</span></div>`;b.append(wrap);
+    }else if(f.type==='triple'){
+      b.innerHTML=`<div class="q-title">${esc(f.q)} <span class="points">（3つ完答で${f.pts}点）</span></div>`;
+      f.labels.forEach((label,j)=>{const sub=document.createElement('div');sub.className='question-block';const title=document.createElement('div');title.className='q-title';title.textContent=label;sub.append(title);const wrap=document.createElement('div');wrap.className='options-vertical';f.options.forEach((o,k)=>{const x=document.createElement('button');x.type='button';x.className='opt-btn-v'+(st.answers[`${i}_${j}`]===k?' selected':'');x.textContent=`${String.fromCharCode(65+k)}. ${o}`;x.onclick=()=>{st.answers[`${i}_${j}`]=k;wrap.querySelectorAll('button').forEach(y=>y.classList.toggle('selected',y===x))};wrap.append(x)});sub.append(wrap);b.append(sub)});
+    }else{
+      b.innerHTML=`<div class="q-title">${esc(f.q)} <span class="points">（${f.pts}点）</span></div><input class="text-input" type="text" data-answer="${i}" value="${esc(st.answers[i]||'')}" placeholder="回答を入力">`;
+    }
+    card.append(b);
+  });
+  const nav=document.createElement('div');nav.className='nav-row';
+  if(si>0){const back=document.createElement('button');back.className='btn';back.textContent='← 前の大問';back.onclick=()=>renderQuestion(si-1);nav.append(back)}else{const spacer=document.createElement('span');spacer.className='nav-placeholder';nav.append(spacer)}
+  const submit=document.createElement('button');submit.className='btn';submit.textContent='回答を採点する →';submit.onclick=()=>gradeSection(si);nav.append(submit);card.append(nav);
+  document.getElementById('quiz').append(card);
+  card.querySelectorAll('[data-answer]').forEach(x=>x.oninput=()=>st.answers[Number(x.dataset.answer)]=x.value);
+}
+function gradeSection(si){const s=sections[si],st=state[si];document.querySelectorAll('.screen [data-answer]').forEach(x=>st.answers[Number(x.dataset.answer)]=x.value);st.score=0;s.fields.forEach((f,i)=>{if(f.type==='choice')st.score+=(st.answers[i]===f.answer?f.pts:0);else if(f.type==='triple')st.score+=(f.answer.every((a,j)=>st.answers[`${i}_${j}`]===a)?f.pts:0)});renderResult(si)}
+function sectionScore(si){const s=sections[si],st=state[si];return st.score+s.fields.reduce((n,f,i)=>n+(f.type==='self'&&st.checks[i]?f.pts:0),0)}
+function renderResult(si){
+  document.querySelectorAll('.screen').forEach(e=>e.remove());const s=sections[si],st=state[si],card=document.createElement('section');card.className='card screen';card.innerHTML=`<h2>大問 ${s.title} 採点結果</h2>`;
+  s.fields.forEach((f,i)=>{
+    const row=document.createElement('div');row.className='result-item';const manual=f.type==='self';let ok=false,user='',answer='';
+    if(f.type==='choice'){ok=st.answers[i]===f.answer;user=st.answers[i]===undefined?'未選択':`${String.fromCharCode(65+st.answers[i])}. ${f.options[st.answers[i]]}`;answer=`${String.fromCharCode(65+f.answer)}. ${f.options[f.answer]}`}
+    else if(f.type==='triple'){ok=f.answer.every((a,j)=>st.answers[`${i}_${j}`]===a);user=f.labels.map((label,j)=>`${label}：${st.answers[`${i}_${j}`]===undefined?'未選択':`${String.fromCharCode(65+st.answers[`${i}_${j}`])}. ${f.options[st.answers[`${i}_${j}`]]}`}`).join('／');answer=f.labels.map((label,j)=>`${label}：${String.fromCharCode(65+f.answer[j])}. ${f.options[f.answer[j]]}`).join('／')}
+    else{user=st.answers[i]||'';answer=f.answer;if(matches(user,f.aliases||[f.answer]))st.checks[i]=true}
+    const earned=manual?(st.checks[i]?f.pts:0):(ok?f.pts:0);row.classList.add(manual?(st.checks[i]?'result-correct':'result-pending'):(ok?'result-correct':'result-wrong'));
+    row.innerHTML=`<span class="badge">${manual?'自己採点':ok?'✓ 正解':'× 不正解'}（${earned}/${f.pts}点）</span><div><strong>${esc(f.q)}</strong></div><div class="answer-key">あなたの回答：${user?esc(user):'未入力'}<br>${manual?'模範解答':'正解'}：${esc(answer)}${manual&&f.note?`<br><br>${esc(f.note)}`:''}</div>${manual?`<label class="self-check"><input type="checkbox" data-check="${i}" ${st.checks[i]?'checked':''}> ${f.complete?'すべての指定項目が合っていた':'模範解答と同等の内容を書けていた'}（${f.pts}点）</label>`:''}`;
+    card.append(row);if(manual)row.querySelector('[data-check]').onchange=ev=>{st.checks[i]=ev.target.checked;row.classList.toggle('result-correct',ev.target.checked);row.classList.toggle('result-pending',!ev.target.checked);row.querySelector('.badge').textContent=`自己採点（${ev.target.checked?f.pts:0}/${f.pts}点）`;document.getElementById('subtotal').textContent=sectionScore(si)};
+  });
+  card.insertAdjacentHTML('beforeend',`<div class="score-banner">大問得点：<span id="subtotal">${sectionScore(si)}</span> / ${s.max}点</div>`);
+  const nav=document.createElement('div');nav.className='nav-row';const back=document.createElement('button');back.className='btn';back.textContent='← 回答を修正';back.onclick=()=>renderQuestion(si);nav.append(back);
+  if(si<sections.length-1){const next=document.createElement('button');next.className='btn';next.textContent='次の大問 →';next.onclick=()=>renderQuestion(si+1);nav.append(next)}else{const final=document.createElement('button');final.className='btn';final.textContent='最終結果を見る →';final.onclick=renderFinal;nav.append(final)}card.append(nav);document.getElementById('quiz').append(card);
+}
+function renderFinal(){
+  document.querySelectorAll('.screen').forEach(e=>e.remove());const total=sections.reduce((n,s,i)=>n+sectionScore(i),0),card=document.createElement('section');card.className='card screen';card.innerHTML=`<h2>最終結果</h2><div class="score-banner">総合得点：${total} / 100点<br><span style="font-size:1rem">${total>=60?'合格':'不合格'}（合格点：60点）</span></div>`;
+  sections.forEach((s,i)=>{const title=document.createElement('div');title.className='summary-title';title.textContent=`大問 ${s.title}：${sectionScore(i)} / ${s.max}点`;card.append(title)});
+  const saveCard=document.createElement('section');saveCard.className='account-card';saveCard.setAttribute('aria-labelledby','account-heading');
+  saveCard.innerHTML=`<h2 id="account-heading">ログイン・新規登録</h2><p id="account-status" class="account-status" role="status" aria-live="polite">ログイン状態を確認しています…</p><div id="signed-out-panel" hidden><form id="account-form" class="account-form" novalidate><label for="account-email">メールアドレス<input id="account-email" name="email" type="email" autocomplete="email" required></label><label for="account-password">パスワード（6文字以上）<input id="account-password" name="password" type="password" autocomplete="current-password" minlength="6" required></label><div class="account-actions"><button id="submit-account" class="account-button primary" type="submit">ログイン</button></div></form><p class="account-switch"><span id="switch-prompt">初めての方はこちら：</span><button id="switch-mode" type="button">新規アカウント作成</button></p></div><div id="signed-in-panel" class="account-signed-in" hidden><p>ログイン中：<strong id="account-user-email"></strong></p><div class="account-actions"><button id="logout-button" class="account-button secondary" type="button">ログアウト</button></div></div><p id="score-save-status" class="account-status" role="status" aria-live="polite">ログインすると、この検定の点数と解答を自動で記録します。</p><button id="retry-score-save" class="account-button secondary" type="button" hidden>保存を再試行</button>`;
+  card.append(saveCard);document.getElementById('quiz').append(card);const home=document.createElement('a');home.className='btn';home.href='https://hena-choco.github.io/index.html';home.textContent='問題一覧へ戻る';card.append(home);setupFinalAccount(total);
+}
+function setupFinalAccount(total){
+  const $=id=>document.getElementById(id),status=$('account-status'),saveStatus=$('score-save-status'),form=$('account-form'),submit=$('submit-account'),retry=$('retry-score-save');let mode='login';
+  const setStatus=(message,kind='')=>{status.textContent=message;status.dataset.kind=kind};
+  const saveFinalScore=async()=>{if(finalScoreSaved){saveStatus.textContent='この検定の点数と解答は保存済みです。';saveStatus.dataset.kind='success';return}if(finalScoreSavePromise)return finalScoreSavePromise;const answers=sections.map((s,i)=>({section:s.title,answers:state[i].answers,selfCheck:state[i].checks,score:sectionScore(i)}));saveStatus.textContent='点数と解答を自動保存しています…';saveStatus.dataset.kind='';finalScoreSavePromise=window.DoraemonAuth.saveScore({quizId:'2018-advanced',quizTitle:'ドラえもん検定 2018年度 上級',score:total,total:100,answers}).then(()=>{finalScoreSaved=true;retry.hidden=true;saveStatus.textContent='点数と解答を保存しました。';saveStatus.dataset.kind='success'}).catch(error=>{finalScoreSavePromise=null;retry.hidden=false;saveStatus.textContent='点数と解答を保存できませんでした。通信状態やFirestoreの設定を確認してください。';saveStatus.dataset.kind='error';console.error('Score save failed',error)});return finalScoreSavePromise};
+  const setMode=next=>{mode=next;const registering=mode==='register';submit.textContent=registering?'アカウントを作成':'ログイン';$('switch-prompt').textContent=registering?'すでにアカウントをお持ちの方はこちら：':'初めての方はこちら：';$('switch-mode').textContent=registering?'ログイン':'新規アカウント作成';$('account-password').autocomplete=registering?'new-password':'current-password';setStatus(registering?'メールアドレスと6文字以上のパスワードで登録できます。':'ログインすると点数を保存できます。')};
+  $('switch-mode').addEventListener('click',()=>setMode(mode==='login'?'register':'login'));
+  form.addEventListener('submit',async event=>{event.preventDefault();if(!form.reportValidity())return;submit.disabled=true;setStatus(mode==='register'?'アカウントを作成しています…':'ログインしています…');try{const email=$('account-email').value.trim(),password=$('account-password').value;if(mode==='register')await window.DoraemonAuth.register(email,password);else await window.DoraemonAuth.login(email,password);form.reset();setStatus(mode==='register'?'登録してログインしました。':'ログインしました。','success')}catch(error){const messages={'auth/email-already-in-use':'このメールアドレスはすでに登録されています。ログインをお試しください。','auth/invalid-email':'メールアドレスの形式を確認してください。','auth/weak-password':'パスワードは6文字以上で入力してください。','auth/invalid-credential':'メールアドレスまたはパスワードを確認してください。','auth/too-many-requests':'試行回数が多いため一時的に制限されています。時間をおいて再度お試しください。'};setStatus(messages[error.code]||'処理に失敗しました。入力内容とFirebaseの設定を確認してください。','error')}finally{submit.disabled=false}});
+  $('logout-button').addEventListener('click',async()=>{try{await window.DoraemonAuth.logout();setStatus('ログアウトしました。','success')}catch{setStatus('ログアウトできませんでした。','error')}});retry.addEventListener('click',saveFinalScore);
+  window.DoraemonAuth.onAuthStateChanged(user=>{$('signed-out-panel').hidden=Boolean(user);$('signed-in-panel').hidden=!user;$('account-user-email').textContent=user?.email||'';if(user){setStatus('ログイン中です。','success');saveFinalScore()}else{setMode(mode);saveStatus.textContent='ログインすると、この検定の点数と解答を自動で記録します。';saveStatus.dataset.kind=''}},error=>{console.error('Firebase auth state error',error);setStatus('ログイン状態を確認できません。ページを再読み込みしてください。','error')});
+}
+renderQuestion(0);
+</script>
+</body>
+</html>
