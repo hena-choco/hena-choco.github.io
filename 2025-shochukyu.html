@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ドラえもん検定 2025年度 初中級</title>
+  <meta name="description" content="ドラえもん検定2025年度初中級の全5大問に挑戦。正誤・選択・記述問題と、ドラえもんえかきうたの並べ替え問題を収録。100点満点・合格点60点です。">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://hena-choco.github.io/2025-shochukyu.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="ドラえもん検定 2025年度 初中級">
+  <meta property="og:description" content="ドラえもん検定2025年度初中級の全5大問に挑戦。100点満点・合格点60点。">
+  <meta property="og:url" content="https://hena-choco.github.io/2025-shochukyu.html">
+  <link rel="icon" href="https://hena-choco.github.io/favicon.png" type="image/png">
+  <style>
+    :root { --main:#6B9DFF; --bg:#f4f7f9; --card:#fff; --text:#333; --accent:#FFD43B; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif; background:var(--bg); color:var(--text); line-height:1.65; padding:20px 12px; }
+    .container { max-width:680px; margin:auto; }
+    .site-nav { position:sticky; top:8px; z-index:5; display:flex; justify-content:flex-start; margin-bottom:10px; }
+    .home-link { display:inline-flex; align-items:center; gap:6px; padding:9px 14px; border-radius:8px; background:#fff; color:#6B9DFF; border:1px solid #d6e3f8; font-weight:700; text-decoration:none; box-shadow:0 2px 8px #0000000d; }
+    header { text-align:center; margin-bottom:20px; padding:18px; background:var(--main); color:#fff; border-radius:12px; }
+    h1 { font-size:1.35rem; }
+    .card { background:var(--card); border-radius:12px; padding:20px; box-shadow:0 2px 8px #0000000d; margin-bottom:18px; }
+    h2 { font-size:1.12rem; margin-bottom:12px; }
+    .reading { white-space:pre-line; background:#f9fbfd; border:1px solid #e1ecff; border-radius:8px; padding:14px; margin-bottom:18px; }
+    .question-block { margin-bottom:20px; padding-bottom:14px; border-bottom:1px dashed #e5e5e5; }
+    .question-block:last-child { border-bottom:0; }
+    .q-title { font-weight:700; margin-bottom:8px; white-space:pre-line; }
+    .options-grid { display:flex; gap:10px; margin-top:8px; }
+    .opt-btn { flex:1; padding:12px; border:2px solid var(--main); background:var(--card); color:var(--main); font-size:1.1rem; font-weight:bold; border-radius:8px; cursor:pointer; }
+    .opt-btn.selected,.opt-btn-v.selected { background:var(--main); color:var(--card); }
+    .options-vertical { display:flex; flex-direction:column; gap:8px; margin-top:8px; }
+    .opt-btn-v { text-align:left; padding:12px 16px; border:2px solid var(--main); background:var(--card); color:var(--text); font-size:1rem; border-radius:8px; cursor:pointer; }
+    .text-input,.score-select { width:100%; padding:11px; font-size:1rem; border:2px solid var(--main); border-radius:8px; margin-top:5px; background:#fff; color:var(--text); }
+    .points,.muted { color:#666; font-size:.88rem; font-weight:400; }
+    .btn { display:block; width:100%; padding:16px; background:var(--main); color:var(--card); border:0; border-radius:8px; font-size:1.05rem; font-weight:bold; cursor:pointer; margin-top:10px; text-align:center; text-decoration:none; }
+    .btn:hover { background:#5689e8; }
+    .nav-row { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:12px; }
+    .nav-row .btn { margin:0; min-height:54px; display:flex; align-items:center; justify-content:center; }
+    .nav-placeholder { visibility:hidden; }
+    .result-item { padding:12px; border-radius:8px; margin:10px 0; font-size:.95rem; border:1px solid #d8dde5; background:#f7f8fa; }
+    .result-item.result-correct { border:0; background:#6B9DFF; color:#fff; }
+    .result-item.result-correct .answer-key { color:#fff; }
+    .result-item.result-correct .badge { background:rgba(255,255,255,.2); color:#fff; }
+    .result-item.result-wrong { border:0; background:#f1f2f4; color:#333; }
+    .result-item.result-wrong .badge { background:transparent; color:#6B9DFF; }
+    .result-item.result-pending { border:1px solid #d8dde5; background:#fff; color:#333; }
+    .badge { display:inline-block; padding:2px 8px; border-radius:4px; font-weight:700; font-size:.8rem; margin-bottom:4px; background:#eaf1ff; color:#335f9e; }
+    .answer-key { margin-top:5px; color:#444; white-space:pre-line; }
+    .score-banner { text-align:center; background:var(--main); color:var(--card); padding:20px; border-radius:12px; font-size:1.3rem; font-weight:700; margin:12px 0 18px; }
+    .score-banner.pass { background:var(--accent); color:var(--text); }
+    .summary-title { border-bottom:2px solid var(--main); padding:0 0 4px; margin:20px 0 10px; font-weight:700; }
+    .account-card { background:#fff; border:1px solid #e4e9f0; border-radius:12px; padding:18px; margin-top:22px; }
+    .account-card h2 { margin-bottom:6px; }
+    .account-status { min-height:1.5em; margin:7px 0 12px; font-size:.9rem; }
+    .account-status[data-kind="error"] { color:#a33; }
+    .account-status[data-kind="success"] { color:#176b45; }
+    .account-form { display:grid; gap:10px; }
+    .account-form[hidden], [hidden] { display:none !important; }
+    .account-form label { display:grid; gap:4px; font-size:.9rem; font-weight:600; }
+    .account-form input { width:100%; padding:11px; border:1px solid #cfd6df; border-radius:7px; font:inherit; }
+    .account-actions { display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
+    .account-button { border:0; border-radius:7px; padding:10px 14px; font:inherit; font-weight:700; cursor:pointer; }
+    .account-button.primary { background:var(--main); color:#fff; }
+    .account-button.secondary { background:#eef3fb; color:#315a9d; }
+    .account-button:disabled { opacity:.55; cursor:not-allowed; }
+    .account-switch { margin-top:10px; font-size:.88rem; }
+    .account-switch button { border:0; background:none; color:#315a9d; text-decoration:underline; font:inherit; font-weight:700; cursor:pointer; }
+    .account-signed-in { padding:10px; background:#f4f8ff; border-radius:7px; overflow-wrap:anywhere; }
+    @media(max-width:480px) { body { padding:12px 8px; } .card { padding:16px; } .nav-row { gap:7px; } .nav-row .btn { padding:12px 8px; font-size:.95rem; } }
+  </style>
+</head>
+<body>
+<main class="container">
+  <nav class="site-nav" aria-label="サイトナビゲーション"><a class="home-link" href="https://hena-choco.github.io/index.html">← 一覧に戻る</a></nav>
+  <header><h1>ドラえもん検定 2025年度 初中級</h1></header>
+  <div id="quiz"></div>
+</main>
+<script type="module">
+import "./firebase-auth.js";
+const PASS_SCORE=60;
+const sections=[
+  {title:'Ⅰ',max:24,reading:`Ⅰ 次の文章を読んで、後の問いに答えよ。
+「ドラえもん」は、ドラえもんとのび太が主人公的存在であるが、脇を固める登場人物も個性豊かである。例えば、①しずか は「しずちゃん」と呼ばれて親しまれている、②のび太の妻 となる人物である。真面目で優しく、正義感に溢れた性格をしている。③好きな食べ物はチーズケーキ など、趣味は④バイオリン や入浴である。スネ夫は、実家がお金持ちであることが特徴である。それをいいことに、たびたび⑤自慢話 をしては、ドラえもんのひみつ道具によって返り討ちに遭っている。ただし、単に金を消費しているのではなく、⑥プラモデル、ラジコン、ジオラマなど様々な趣味 に投資し、興味・関心の幅を広げ、広範な知識を持っていることは強調しておきたい。`,fields:[
+    {q:'問1. 下線部①について、しずかの名字は何か。',type:'text',answer:'源',aliases:['源静香'],pts:4},
+    {q:'問2. 下線部②について、未来が変わるまでの、のび太の妻となるはずだった人物は誰か。',type:'text',answer:'ジャイ子',pts:4},
+    {q:'問3. 下線部③について、「しずちゃんの心の秘密」にて登場したひみつ道具「アンケーター」によれば、チーズケーキは好きな食べ物第2位である。では、第1位は何か。',type:'text',answer:'焼きイモ',aliases:['焼き芋'],pts:4},
+    {q:'問4. 下線部④について、「へたまうちスプレー」にて、のび太にしずかのバイオリンの巧拙（上手い・下手のこと）を、「（5字）の歌といい勝負だよ」と評している。括弧に当てはまる5字を答えよ。',type:'text',answer:'ジャイアン',pts:4},
+    {q:'問5. 下線部⑤について、スネ夫の自慢話によく登場する、スネ夫がクラブの幹部にもなっている女性アイドルは誰か。（名字は不要）',type:'text',answer:'翼',aliases:['伊藤翼','つばさ','つばさちゃん','翼ちゃん'],pts:4},
+    {q:'問6. 下線部⑥について、スネ夫の様々な趣味の師匠的存在である、大学生の従兄の名前は何か。',type:'text',answer:'スネ吉',aliases:['スネ吉兄さん','スネ吉（兄さん）'],pts:4}
+  ]},
+  {title:'Ⅱ',max:18,reading:'Ⅱ 次の文を読み、正しいものには〇、間違っているものには×をつけよ。',fields:[
+    {q:'問1. アンキパンは、メロンパンの形をしたひみつ道具である。',type:'tf',answer:'×',pts:3},
+    {q:'問2. タイムマシンを使うと、時間の移動はできるが空間の移動はできない。',type:'tf',answer:'×',pts:3},
+    {q:'問3. のび太のパパは、自動車の運転が得意である。',type:'tf',answer:'×',pts:3},
+    {q:'問4. 2026年に公開予定の『映画ドラえもん』は『新・のび太の海底鬼岩城』である。',type:'tf',answer:'〇',pts:3},
+    {q:'問5. ドラえもんは生まれたとき、ミニドラと同じ体が緑色だった。',type:'tf',answer:'×',pts:3},
+    {q:'問6. セワシは、ノビスケよりも未来を生きてる。',type:'tf',answer:'〇',pts:3}
+  ]},
+  {title:'Ⅲ',max:24,reading:'Ⅲ 以下の問題について、解答として最も適切な選択肢を一つ選びなさい。',fields:[
+    {q:'問1. 学校の裏山の頂上にそびえる巨大な樹木をとくに何というか。',type:'choice',options:['一本杉','千年杉','二本杉','地魔ケヤキ'],answer:1,pts:4},
+    {q:'問2. のび太が飼ったことがある「恐竜」の名前は何か。',type:'choice',options:['ピー助','ピッポ','クルト','クレア'],answer:0,pts:4},
+    {q:'問3. のび太のパパが、先生に師事しながら目指していたものは何か。',type:'choice',options:['彫刻家','作家','画家','弁護士'],answer:2,pts:4},
+    {q:'問4. ひみつ道具「カムカムキャット」は、何を呼ぶ道具か。',type:'choice',options:['ネズミ','小鳥','お客','幸福'],answer:2,pts:4},
+    {q:'問5. ジャイアンが率いる草野球チームの名前は何か。',type:'choice',options:['チラノルズ','ドラーズ','ホワイターズ','ジャイアンズ'],answer:3,pts:4},
+    {q:'問6. 以下のドラえもんに関するトリビアのうち、正しいものは何か。',type:'choice',options:['足が地面から3mm浮いている','身長が123.9cmである','「ノラミャー子」という姉がいる','お餅が苦手である'],answer:0,pts:4}
+  ]},
+  {title:'Ⅳ',max:16,reading:'Ⅳ 以下は、“藤子・F・不二雄監修・まんが(2013)『ドラえもん 最新ひみつ道具大事典』小学館”に掲載された、ひみつ道具の説明文からの引用である。ひみつ道具の説明文から、正しいひみつ道具の名前を答えよ。引用の都合上、説明文の後に頁数をいれている。',fields:[
+    {q:'問1. このテーブルかけに、食べたい物を言うと、なんでも出てくる。（P104）',type:'text',answer:'グルメテーブルかけ',pts:4},
+    {q:'問2. 過去や未来を見ることができるテレビ。（P36）',type:'text',answer:'タイムテレビ',pts:4},
+    {q:'問3. このライトの光を浴びせると、どんなものでも小さくなる。（P128）',type:'text',answer:'スモールライト',pts:4},
+    {q:'問4. どんな動物でも、これを食べさせると、言うことをきくようになる。（P305）',type:'text',answer:'桃太郎印のきびだんご',aliases:['桃太郎印のキビダンゴ','桃太郎印のきび団子'],pts:4}
+  ]},
+  {title:'Ⅴ',max:18,reading:`Ⅴ 以下は、“橋部工作作『ドラえもんえかきうた』”の歌詞のフレーズである。1～11のフレーズを並べ替えて、正しい歌詞を完成させよ。なお、1と11は、すでに解答用紙に記載されているため解答不要である。解答用紙の「メモ」欄に実際に絵を描きながら解くと分かりやすい。
+
+1 まるかいてちょん
+2 おいけにおふねを うかべたら
+3 おまめにねがでて
+4 あっちいって こっちいって
+5 おそらにみかづき のぼってた
+6 うえきばち うえきばち
+7 おいけがふたつできました
+8 ろくがつついかに ユーフォーが
+9 まるかいてちょん
+10 おっこちて
+11 ひげをつけたら ドラえもん`,fields:[
+    {q:'解答欄（1と11を除いた番号を順に入力）',type:'manual',answer:'9,3,6,8,4,10,7,2,5',pts:18,scoreStep:2}
+  ]}
+];
+const state=sections.map(()=>({answers:{},checks:{},score:0}));
+let finalScoreSavePromise=null,finalScoreSaved=false;
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const normalize=s=>String(s??'').normalize('NFKC').toLowerCase().replace(/[\s。、,，.！!「」『』（）()・：:／/]/g,'');
+const matches=(v,answers=[])=>answers.some(a=>normalize(v)===normalize(a));
+const isManual=f=>f.type==='manual';
+function renderQuestion(si){
+  document.querySelectorAll('.screen').forEach(e=>e.remove());const s=sections[si],st=state[si],card=document.createElement('section');card.className='card screen';card.innerHTML=`<h2>大問 ${s.title} <span class="points">（${s.max}点満点）</span></h2><div class="reading">${esc(s.reading)}</div>`;
+  s.fields.forEach((f,i)=>{const block=document.createElement('div');block.className='question-block';let control='';
+    if(f.type==='tf')control=`<div class="options-grid">${['〇','×'].map((v,j)=>`<button type="button" class="opt-btn ${st.answers[i]===j?'selected':''}" data-choice="${i}" data-value="${j}">${v}</button>`).join('')}</div>`;
+    else if(f.type==='choice')control=`<div class="options-vertical">${f.options.map((o,j)=>`<button type="button" class="opt-btn-v ${st.answers[i]===j?'selected':''}" data-choice="${i}" data-value="${j}">${j+1}. ${esc(o)}</button>`).join('')}</div>`;
+    else control=`<input class="text-input" type="text" data-answer="${i}" value="${esc(st.answers[i]||'')}" placeholder="${f.type==='manual'?'例：9,3,6,8,4,10,7,2,5':'回答を入力'}">`;
+    block.innerHTML=`<div class="q-title">${esc(f.q)} <span class="points">（${f.pts}点）</span></div>${control}`;card.append(block)});
+  const nav=document.createElement('div');nav.className='nav-row';if(si>0){const back=document.createElement('button');back.className='btn';back.textContent='← 前の大問';back.onclick=()=>renderQuestion(si-1);nav.append(back)}else{const spacer=document.createElement('span');spacer.className='nav-placeholder';nav.append(spacer)}const submit=document.createElement('button');submit.className='btn';submit.textContent='回答を採点する →';submit.onclick=()=>gradeSection(si);nav.append(submit);card.append(nav);document.getElementById('quiz').append(card);
+  card.querySelectorAll('[data-choice]').forEach(button=>button.onclick=()=>{st.answers[Number(button.dataset.choice)]=Number(button.dataset.value);button.parentElement.querySelectorAll('button').forEach(other=>other.classList.toggle('selected',other===button))});card.querySelectorAll('[data-answer]').forEach(input=>input.oninput=()=>st.answers[Number(input.dataset.answer)]=input.value);
+}
+function fieldCorrect(f,st,i){if(f.type==='tf')return ['〇','×'][st.answers[i]]===f.answer;if(f.type==='choice')return st.answers[i]===f.answer;if(f.type==='text')return matches(st.answers[i],f.aliases||[f.answer]);return null}
+function sectionScore(si){return state[si].score}
+function gradeSection(si){const s=sections[si],st=state[si];document.querySelectorAll('.screen [data-answer]').forEach(input=>st.answers[Number(input.dataset.answer)]=input.value);st.score=0;s.fields.forEach((f,i)=>{if(f.type==='manual')st.score+=Number(st.checks[i]||0);else if(fieldCorrect(f,st,i))st.score+=f.pts});renderResult(si)}
+function renderResult(si){
+  document.querySelectorAll('.screen').forEach(e=>e.remove());const s=sections[si],st=state[si],card=document.createElement('section');card.className='card screen';card.innerHTML=`<h2>大問 ${s.title} 採点結果</h2>`;
+  s.fields.forEach((f,i)=>{const manual=isManual(f),ok=manual?null:fieldCorrect(f,st,i),row=document.createElement('div');row.className='result-item';const user=f.type==='tf'?(st.answers[i]===undefined?'未選択':['〇','×'][st.answers[i]]):f.type==='choice'?(st.answers[i]===undefined?'未選択':`${st.answers[i]+1}. ${f.options[st.answers[i]]}`):(st.answers[i]||'未入力');const answer=f.type==='tf'?f.answer:f.type==='choice'?`${f.answer+1}. ${f.options[f.answer]}`:f.answer;const earned=manual?Number(st.checks[i]||0):ok?f.pts:0;row.classList.add(manual?'result-pending':ok?'result-correct':'result-wrong');row.innerHTML=`<span class="badge">${manual?'自己採点':ok?'✓ 正解':'× 不正解'}（${earned}/${f.pts}点）</span><div><strong>${esc(f.q)}</strong></div><div class="answer-key">あなたの回答：${esc(user)}<br>${manual?'模範解答':'正解'}：${esc(answer)}</div>${manual?`<label class="self-check">得点を選択（${f.scoreStep}点刻み）<select class="score-select" data-manual="${i}">${Array.from({length:f.pts/f.scoreStep+1},(_,n)=>n*f.scoreStep).map(v=>`<option value="${v}" ${earned===v?'selected':''}>${v}点</option>`).join('')}</select></label>`:''}`;card.append(row);
+    if(manual)row.querySelector('[data-manual]').onchange=event=>{st.checks[i]=Number(event.target.value);st.score=Number(st.checks[i]);row.classList.toggle('result-correct',st.score===f.pts);row.classList.toggle('result-pending',st.score!==f.pts);row.querySelector('.badge').textContent=`自己採点（${st.score}/${f.pts}点）`;document.getElementById('subtotal').textContent=sectionScore(si)}
+  });
+  card.insertAdjacentHTML('beforeend',`<div class="score-banner">大問得点：<span id="subtotal">${sectionScore(si)}</span> / ${s.max}点</div>`);const nav=document.createElement('div');nav.className='nav-row';const back=document.createElement('button');back.className='btn';back.textContent='← 回答を修正';back.onclick=()=>renderQuestion(si);nav.append(back);const next=document.createElement('button');next.className='btn';next.textContent=si<sections.length-1?'次の大問 →':'最終結果を見る →';next.onclick=()=>si<sections.length-1?renderQuestion(si+1):renderFinal();nav.append(next);card.append(nav);document.getElementById('quiz').append(card);
+}
+function renderFinal(){
+  document.querySelectorAll('.screen').forEach(e=>e.remove());const total=sections.reduce((n,s,i)=>n+sectionScore(i),0),card=document.createElement('section');card.className='card screen';card.innerHTML=`<h2>最終結果</h2><div class="score-banner ${total>=PASS_SCORE?'pass':''}">総合得点：${total} / 100点<br><span style="font-size:1rem">${total>=PASS_SCORE?'合格':'不合格'}（合格点：${PASS_SCORE}点）</span></div>`;sections.forEach((s,i)=>{const row=document.createElement('div');row.className='summary-title';row.textContent=`大問 ${s.title}：${sectionScore(i)} / ${s.max}点`;card.append(row)});
+  const account=document.createElement('section');account.className='account-card';account.setAttribute('aria-labelledby','account-heading');account.innerHTML=`<h2 id="account-heading">ログイン・新規登録</h2><p id="account-status" class="account-status" role="status" aria-live="polite">ログイン状態を確認しています…</p><div id="signed-out-panel" hidden><form id="account-form" class="account-form" novalidate><label for="account-email">メールアドレス<input id="account-email" name="email" type="email" autocomplete="email" required></label><label for="account-password">パスワード（6文字以上）<input id="account-password" name="password" type="password" autocomplete="current-password" minlength="6" required></label><div class="account-actions"><button id="submit-account" class="account-button primary" type="submit">ログイン</button></div></form><p class="account-switch"><span id="switch-prompt">初めての方はこちら：</span><button id="switch-mode" type="button">新規アカウント作成</button></p></div><div id="signed-in-panel" class="account-signed-in" hidden><p>ログイン中：<strong id="account-user-email"></strong></p><div class="account-actions"><button id="logout-button" class="account-button secondary" type="button">ログアウト</button></div></div><p id="score-save-status" class="account-status" role="status" aria-live="polite">ログインすると、この検定の点数と解答を自動で記録します。</p><button id="retry-score-save" class="account-button secondary" type="button" hidden>保存を再試行</button>`;card.append(account);const home=document.createElement('a');home.className='btn';home.href='https://hena-choco.github.io/index.html';home.textContent='問題一覧へ戻る';card.append(home);document.getElementById('quiz').append(card);setupFinalAccount(total);
+}
+function setupFinalAccount(total){
+  const $=id=>document.getElementById(id),status=$('account-status'),saveStatus=$('score-save-status'),form=$('account-form'),submit=$('submit-account'),retry=$('retry-score-save');let mode='login';const setStatus=(message,kind='')=>{status.textContent=message;status.dataset.kind=kind};
+  const saveFinalScore=async()=>{if(finalScoreSaved){saveStatus.textContent='この検定の点数と解答は保存済みです。';saveStatus.dataset.kind='success';return}if(finalScoreSavePromise)return finalScoreSavePromise;saveStatus.textContent='点数と解答を自動保存しています…';saveStatus.dataset.kind='';const answers=sections.map((section,si)=>({section:section.title,score:sectionScore(si),answers:section.fields.map((field,i)=>({question:field.q,answer:state[si].answers[i]===undefined?'未回答':field.type==='choice'?`${state[si].answers[i]+1}. ${field.options[state[si].answers[i]]}`:field.type==='tf'?(['〇','×'][state[si].answers[i]]||'未回答'):state[si].answers[i],correctAnswer:field.type==='choice'?`${field.answer+1}. ${field.options[field.answer]}`:field.answer,correct:field.type==='manual'?null:fieldCorrect(field,state[si],i),earned:field.type==='manual'?Number(state[si].checks[i]||0):fieldCorrect(field,state[si],i)?field.pts:0,maxPoints:field.pts,selfCheck:field.type==='manual'}))}));finalScoreSavePromise=window.DoraemonAuth.saveScore({quizId:'2025-shochukyu',quizTitle:'ドラえもん検定 2025年度 初中級',score:total,total:100,passThreshold:PASS_SCORE,answers}).then(()=>{finalScoreSaved=true;retry.hidden=true;saveStatus.textContent='点数と解答を保存しました。';saveStatus.dataset.kind='success'}).catch(error=>{finalScoreSavePromise=null;retry.hidden=false;saveStatus.textContent='点数を保存できませんでした。通信状態やFirestoreの設定を確認してください。';saveStatus.dataset.kind='error';console.error('Score save failed',error)});return finalScoreSavePromise};
+  const setMode=next=>{mode=next;const registering=mode==='register';submit.textContent=registering?'アカウントを作成':'ログイン';$('switch-prompt').textContent=registering?'すでにアカウントをお持ちの方はこちら：':'初めての方はこちら：';$('switch-mode').textContent=registering?'ログイン':'新規アカウント作成';$('account-password').autocomplete=registering?'new-password':'current-password';setStatus(registering?'メールアドレスと6文字以上のパスワードで登録できます。':'ログインすると点数を保存できます。')};$('switch-mode').addEventListener('click',()=>setMode(mode==='login'?'register':'login'));form.addEventListener('submit',async event=>{event.preventDefault();if(!form.reportValidity())return;submit.disabled=true;setStatus(mode==='register'?'アカウントを作成しています…':'ログインしています…');try{const email=$('account-email').value.trim(),password=$('account-password').value;if(mode==='register')await window.DoraemonAuth.register(email,password);else await window.DoraemonAuth.login(email,password);form.reset();setStatus(mode==='register'?'登録してログインしました。':'ログインしました。','success')}catch(error){const messages={'auth/email-already-in-use':'このメールアドレスはすでに登録されています。ログインをお試しください。','auth/invalid-email':'メールアドレスの形式を確認してください。','auth/weak-password':'パスワードは6文字以上で入力してください。','auth/invalid-credential':'メールアドレスまたはパスワードを確認してください。','auth/too-many-requests':'試行回数が多いため一時的に制限されています。時間をおいて再度お試しください。'};setStatus(messages[error.code]||'処理に失敗しました。入力内容とFirebaseの設定を確認してください。','error')}finally{submit.disabled=false}});$('logout-button').addEventListener('click',async()=>{try{await window.DoraemonAuth.logout();setStatus('ログアウトしました。','success')}catch{setStatus('ログアウトできませんでした。','error')}});retry.addEventListener('click',saveFinalScore);window.DoraemonAuth.onAuthStateChanged(user=>{$('signed-out-panel').hidden=Boolean(user);$('signed-in-panel').hidden=!user;$('account-user-email').textContent=user?.email||'';if(user){setStatus('ログイン中です。','success');saveFinalScore()}else{setMode(mode);saveStatus.textContent='ログインすると、この検定の点数と解答を自動で記録します。';saveStatus.dataset.kind=''}},error=>{console.error('Firebase auth state error',error);setStatus('ログイン状態を確認できません。ページを再読み込みしてください。','error')});
+}
+renderQuestion(0);
+</script>
+</body>
+</html>
