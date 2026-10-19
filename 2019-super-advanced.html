@@ -1,81 +1,548 @@
-<!DOCTYPE html><html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>ドラえもん検定 超上級</title><meta name="description" content="ドラえもん検定 超上級。全7大問、100点満点、合格点60点。"><link rel="icon" href="https://hena-choco.github.io/favicon.png" type="image/png"><style>
-    :root { --main:#6B9DFF; --bg:#f4f7f9; --card:#fff; --text:#333; --accent:#FFD43B; }
-    * { box-sizing:border-box; margin:0; padding:0; }
-    body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif; background:var(--bg); color:var(--text); line-height:1.65; padding:20px 12px; }
-    .container { max-width:680px; margin:auto; }
-    .site-nav { position:sticky; top:8px; z-index:5; display:flex; justify-content:flex-start; margin-bottom:10px; }
-    .home-link { display:inline-flex; align-items:center; gap:6px; padding:9px 14px; border-radius:8px; background:#fff; color:#6B9DFF; border:1px solid #d6e3f8; font-weight:700; text-decoration:none; box-shadow:0 2px 8px #0000000d; }
-    header { text-align:center; margin-bottom:20px; padding:18px; background:var(--main); color:#fff; border-radius:12px; }
-    h1 { font-size:1.35rem; }
-    .card { background:var(--card); border-radius:12px; padding:20px; box-shadow:0 2px 8px #0000000d; margin-bottom:18px; }
-    h2 { font-size:1.12rem; margin-bottom:12px; }
-    .reading { white-space:pre-line; background:#f9fbfd; border:1px solid #e1ecff; border-radius:8px; padding:14px; margin-bottom:18px; }
-    .question-block { margin-bottom:20px; padding-bottom:14px; border-bottom:1px dashed #e5e5e5; }
-    .question-block:last-child { border-bottom:0; }
-    .q-title { font-weight:700; margin-bottom:8px; white-space:pre-line; }
-    .options-grid { display:flex; gap:10px; margin-top:8px; }
-    .opt-btn { flex:1; padding:12px; border:2px solid var(--main); background:var(--card); color:var(--main); font-size:1.1rem; font-weight:bold; border-radius:8px; cursor:pointer; }
-    .opt-btn.selected,.opt-btn-v.selected { background:var(--main); color:var(--card); }
-    .options-vertical { display:flex; flex-direction:column; gap:8px; margin-top:8px; }
-    .opt-btn-v { text-align:left; padding:12px 16px; border:2px solid var(--main); background:var(--card); color:var(--text); font-size:1rem; border-radius:8px; cursor:pointer; }
-    .text-input { width:100%; padding:11px; font-size:1rem; border:2px solid var(--main); border-radius:8px; margin-top:5px; }
-    .points,.muted { color:#666; font-size:.88rem; font-weight:400; }
-    .btn { display:block; width:100%; padding:16px; background:var(--main); color:var(--card); border:0; border-radius:8px; font-size:1.05rem; font-weight:bold; cursor:pointer; margin-top:10px; text-align:center; text-decoration:none; }
-    .btn:hover { background:#5689e8; }
-    .nav-row { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:12px; }
-    .nav-row .btn { margin:0; min-height:54px; display:flex; align-items:center; justify-content:center; }
-    .nav-placeholder { visibility:hidden; }
-    .result-item { padding:12px; border-radius:8px; margin:10px 0; font-size:.95rem; border:1px solid #d8dde5; background:#f7f8fa; }
-    .result-item.result-correct { border:0; background:#6B9DFF; color:#fff; }
-    .result-item.result-correct .answer-key { color:#fff; }
-    .result-item.result-correct .badge { background:rgba(255,255,255,.2); color:#fff; }
-    .result-item.result-wrong { border:0; background:#f1f2f4; color:#333; }
-    .result-item.result-wrong .badge { background:transparent; color:#6B9DFF; }
-    .result-item.result-pending { border:1px solid #d8dde5; background:#fff; color:#333; }
-    .badge { display:inline-block; padding:2px 8px; border-radius:4px; font-weight:700; font-size:.8rem; margin-bottom:4px; background:#eaf1ff; color:#335f9e; }
-    .answer-key { margin-top:5px; color:#444; white-space:pre-line; }
-    .self-check { display:block; margin-top:9px; padding:9px; background:#f4f7f9; border-radius:6px; }
-    .score-banner { text-align:center; background:var(--main); color:var(--card); padding:20px; border-radius:12px; font-size:1.3rem; font-weight:700; margin:12px 0 18px; }
-    .summary-title { border-bottom:2px solid var(--main); padding:0 0 4px; margin:20px 0 10px; font-weight:700; }
-    .account-card { background:#fff; border:1px solid #e4e9f0; border-radius:12px; padding:18px; margin-top:22px; }
-    .account-card h2 { margin-bottom:6px; }
-    .account-status { min-height:1.5em; margin:7px 0 12px; font-size:.9rem; }
-    .account-status[data-kind="error"] { color:#a33; }
-    .account-status[data-kind="success"] { color:#176b45; }
-    .account-form { display:grid; gap:10px; }
-    .account-form[hidden], [hidden] { display:none !important; }
-    .account-form label { display:grid; gap:4px; font-size:.9rem; font-weight:600; }
-    .account-form input { width:100%; padding:11px; border:1px solid #cfd6df; border-radius:7px; font:inherit; }
-    .account-actions { display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
-    .account-button { border:0; border-radius:7px; padding:10px 14px; font:inherit; font-weight:700; cursor:pointer; }
-    .account-button.primary { background:var(--main); color:#fff; }
-    .account-button.secondary { background:#eef3fb; color:#315a9d; }
-    .account-button:disabled { opacity:.55; cursor:not-allowed; }
-    .account-switch { margin-top:10px; font-size:.88rem; }
-    .account-switch button { border:0; background:none; color:#315a9d; text-decoration:underline; font:inherit; font-weight:700; cursor:pointer; }
-    .account-signed-in { padding:10px; background:#f4f8ff; border-radius:7px; overflow-wrap:anywhere; }
-    @media(max-width:480px) { body { padding:12px 8px; } .card { padding:16px; } .nav-row { gap:7px; } .nav-row .btn { padding:12px 8px; font-size:.95rem; } }
-</style></head><body><main class="container"><nav class="site-nav" aria-label="サイトナビゲーション"><a class="home-link" href="https://hena-choco.github.io/index.html">← 一覧に戻る</a></nav><header><h1>ドラえもん検定 超上級</h1></header><div id="quiz"></div></main><script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script><script>
-const firebaseConfig={apiKey:"AIzaSyB7lVLCeG_A6spNGvChCf25Fl7GI809Xbg",authDomain:"doraemon-kentei.firebaseapp.com",projectId:"doraemon-kentei",storageBucket:"doraemon-kentei.firebasestorage.app",messagingSenderId:"363044826095",appId:"1:363044826095:web:683b88f5542a5dfb33a41a",measurementId:"G-JCLL9TYZR3"};
-function initializeDoraemonAuth(){if(window.DoraemonAuth)return Promise.resolve(window.DoraemonAuth);if(!window.firebase||!firebase.auth||!firebase.firestore)return Promise.reject(new Error('Firebase SDKを読み込めません'));const app=firebase.apps.length?firebase.app():firebase.initializeApp(firebaseConfig),auth=app.auth(),db=app.firestore();window.DoraemonAuth=Object.freeze({getCurrentUser:()=>auth.currentUser,onAuthStateChanged:callback=>auth.onAuthStateChanged(callback),register:(email,password)=>auth.createUserWithEmailAndPassword(email,password),login:(email,password)=>auth.signInWithEmailAndPassword(email,password),logout:()=>auth.signOut(),saveScore:async({quizId,quizTitle,score,total,answers=null})=>{const user=auth.currentUser;if(!user)throw new Error('ログインしてください');const ref=await db.collection('users').doc(user.uid).collection('scores').add({quizId:String(quizId),quizTitle:quizTitle?String(quizTitle):'',score,total,answers,createdAt:firebase.firestore.FieldValue.serverTimestamp()});return ref.id}});return Promise.resolve(window.DoraemonAuth)}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ドラえもん検定 超上級</title>
+    <meta name="description" content="ドラえもん検定 超上級。全7大問、100点満点、合格点60点。">
+    <link rel="icon" href="https://hena-choco.github.io/favicon.png" type="image/png">
+    <style>
+    :root {
+        --main: #6B9DFF;
+        --bg: #f4f7f9;
+        --card: #fff;
+        --text: #333;
+        --accent: #FFD43B;
+    }
 
-const sections=[
-{title:'1',max:5,reading:'1 22巻、43巻などによると、のび太のお小遣いは月500円である。それを踏まえ、以下の問に答えよ。限定一個のプラモデルがどうしても欲しくなったのび太は、珍しく貯めていたふた月分のお小遣いを全てフエール銀行に預金した。2時間後にそれを取り出したが、そこで税金鳥に税を徴収されてしまい、お金が足りなくなったのでデビルカードで身長を1mm犠牲にして補填した。しかし模型屋に行く途中、そのプラモデルを買いに行くスネ夫を発見したため、ころばし屋で念入りに9回転ばして足止めした。その後、プラモデルを買ったところ、7円余った。さて、プラモデルの値段は何円だったか。',fields:[{q:'プラモデルの値段',kind:'text',answer:'1110 円',aliases:['1110円','1110'],pts:5}]},
-{title:'2',max:5,reading:'2 以下の画像の空欄①〜⑦に当てはまる語句を答えよ。なお、同じ語句が複数の空欄に当てはまることもある。',image:'media/2019-super-advanced.png',fields:[{q:'①',kind:'text',answer:'ウマ',pts:1},{q:'②',kind:'text',answer:'ゾウ',pts:1},{q:'③〜⑦（全問正解で3点）',kind:'group',answers:['のび太','のび太','のび太','のび太','のび太'],pts:3}]},
-{title:'3',max:5,reading:'3 ひみつ道具に関する以下の記述が正しい場合は〇で、間違っている場合は×で答えよ。',fields:[['(1) 桃太郎印のきびだんごはヒトにも効く。','〇'],['(2) お医者さんカバンから出てくる薬は不味い。','×'],['(3) どこでもドアには鍵が付いている。','〇'],['(4) ほんやくコンニャクを食べると動物の言葉も分かる。','〇'],['(5) ゴーホーム・オルゴールからは「家路」のメロディーが流れる。','×']].map(([q,answer])=>({q,kind:'tf',answer,pts:1}))},
-{title:'4',max:25,reading:'4 以下の図は、作中におけるおおまかな時系列を示したものである。グラフ中のそれぞれの時点1〜25に最もふさわしい出来事を、下記の語群ア〜ノから選べ。（※グラフは現実的に正確なものではありません。上部の時代区分は選択肢の時点に該当するものだけを記載しています。）',table:[['1','石炭紀・三畳紀','3億年前','セ'],['2','石炭紀・三畳紀','3億年前','ウ'],['3','白亜紀','1億年前','ネ'],['4','白亜紀','1億年前','タ'],['5','白亜紀','6500万年前','テ'],['6','石器時代','10万年前','シ'],['7','石器時代','7万年前','ケ'],['8','石器時代','2万年前','ニ'],['9','弥生時代','120年ごろ','ス'],['10','飛鳥時代','630年','ア'],['11','平安時代','794年','ヌ'],['12','室町時代','1049年','ノ'],['13','室町時代','1338年','キ'],['14','室町時代','1476年','ク'],['15','安土桃山','1580年','コ'],['16','安土桃山','1600年頃','オ'],['17','江戸時代','17世紀後半','ナ'],['18','江戸時代','1826年','ソ'],['19','明治','1880年','ツ'],['20','明治','1910年','イ'],['21','昭和','1945年','ト'],['22','昭和','1948年','エ'],['23','10年前','','カ'],['24','10年前','','チ'],['25','未来','2112年','サ']],options:'ア 三蔵法師と出会い、牛魔王と戦う／イ のび吉が子孫のために庭に浮き輪を埋める／ウ ネコジャラと対決し、ワンニャン国民が他の星へ移住する／エ のび太のママがダイヤを無くす／オ 宮本武蔵に名刀電光丸を渡してしまう／カ おばあちゃんに会ってランドセル姿を見せる／キ 桃太郎伝説の謎を解く／ク ミュンヒハウゼン男爵をこの時代から現代に連れてくる／ケ ギガゾンビと戦い、ヒカリ族を日本へ案内する／コ ドラミが少年山賊団と過ごす／サ ドラえもん誕生／シ 南極でブリザーガと戦い、ヒョーガヒョーガ星の氷が解ける／ス ヤマタノオロチを退治する／セ 「ゴキブリカバー」で増えたゴキブリがこの時代に送られる／ソ のび佐エ門が息子 のび作のために小遣いを埋める／タ ピー助をめぐり恐竜ハンターと対決する／チ 酔いつぶれたパパを叱ってもらうために、この時代からおばあちゃんに来てもらう／ツ モルグシティでのび太がガンマンとして活躍する／テ 地底人たちに風雲ドラえもん城で対抗する／ト のび太のパパが「白百合のような女の子」に出会う／ナ カリブ海で海賊たちと共に時間犯罪者と戦う／ニ この時代のホテルで過ごすも、火山の噴火に巻き込まれる／ヌ 砂漠の中でシンドバッドと出会う／ネ この時代の中国から「招待錠」で恐竜を連れてこようとするも、失敗する／ノ 海岸で浦島太郎を見つけ、竜宮へ行く船を尾行する',fields:[{q:'時点1〜25の出来事を選択',kind:'table',pts:25}]},
-{title:'5',max:34,reading:'5 以下の問の答えを記述せよ。',fields:[{q:'(1) 以下の選択肢は、大長編に登場したマスコット的キャラクターの特徴的な鳴き声である。それぞれの名前を答えよ。 A「ピューイ」 B「ポルポル」 C「フーン」',kind:'group',answers:['ピー助','ポポル','フー子'],pts:2},{q:'(2) 以下の文章をミニドラが話した場合、どのような文章になるか答えよ。「どこでもドアで高井山に行こう」',kind:'text',answer:'ドードー・ターター・イーイー',aliases:['ドードーターターイーイー'],pts:3},{q:'(3) のび太は、作中時点から100年後にある出来事が起きることが確定している。それは何か。',kind:'text',answer:'百苦タイマーの7回目以降が来る。',pts:2},{q:'(4) 以下の映画・大長編の冒頭の元ネタとなった短編のタイトルをそれぞれ答えよ。A『南極カチコチ大冒険』 B『ワンニャン時空伝』 C『月面探査記』',kind:'group',answers:['大氷山の小さな家','のら犬「イチ」の国','異説クラブメンバーズバッジ'],pts:3},{q:'(5) 「コエカタマリン」が作中で使用された際、それぞれの場合においてどのような文字が使われたか。A. 高井山まで空を飛んでいった時 B. どろぼう猫を捕まえた時 C. ジャイアンとスネ夫を捕まえた時 D. ジャイアンを吹っ飛ばした時',kind:'group',answers:['ワ','コラ','ロ（ロロも可）','バカ／マヌケ／トンマ／ウスラデブ／ノータリン／イタ'],pts:4},{q:'(6) 「新宿区北新宿二○一くずれ荘五号室」に居住していた人物',kind:'text',answer:'土路坊太',pts:2},{q:'(7) シャーロック・ホームズセットを構成する4つのひみつ道具を答えよ。',kind:'group',answers:['手がかりレンズ','レーダーステッキ','推理ぼう','ズバリパイプ'],pts:4},{q:'(8) 「真実の旗印」を解答用紙に描画せよ。',kind:'text',answer:'正正正',pts:2},{q:'(9) 今年公開の映画『のび太の月面探査記』において新しく誕生したひみつ道具を答えよ。',kind:'text',answer:'定説クラブメンバーズバッジ',pts:2},{q:'(10) 「ザ・ドラえもんズ」のメンバー、ドラ・ザ・キッドが尊敬している人物を答えよ。',kind:'text',answer:'チャック・イェーガー',pts:2},{q:'(11) 「ドラミちゃん」から置き換えられた人物 Aのび太 Bジャイアン',kind:'group',answers:['のび太郎','カバ田（ゴリブリ）'],pts:2},{q:'(12) 入り込み鏡と出入り鏡の効果の違い',kind:'text',answer:'入り込み鏡は現実に影響がない。出入り鏡は影響がある。',pts:2},{q:'(13) 11月3日の記念日',kind:'text',answer:'のび太のパパとママの婚約記念日',pts:2},{q:'(14) 『空飛ぶうす手じゅうたん』で道具が反応した歌詞',kind:'text',answer:'空を自由に飛びたいな',pts:2}]},
-{title:'6',max:18,reading:'6 以下の問の答えとなる記号を記せ。',fields:[{q:'(1) 「ミニドラSOS！」のスポーツ',kind:'choice',options:['野球','サッカー','ラグビー','テニス'],answer:2,pts:1},{q:'(2) 出木杉の作業効率はジャイアンの何倍か',kind:'choice',options:['8倍','16倍','24倍','32倍'],answer:2,pts:1},{q:'(3) スネ夫の自慢が真実(T)かホラ話(F)か A「軽井沢の別荘」 B「トンちゃんとか千葉県一」 C「空飛ぶイルカ」 D「スネちゃんつうちゃん」',kind:'group',answers:['F','F','T','F'],pts:4},{q:'(4) 人型でないロボット',kind:'choice',options:['骨組みロボット','テレパスロボット','ヤメサセロボット','ハウスロボット'],answer:3,pts:1},{q:'(5) 以下の映画・大長編の中で、登場人物が自身を映画の中のキャラクターだと認識しているかのようなメタフィクショナルな発言をしたものを全て選べ。 A.『海底鬼岩城』 B.『鉄人兵団』 C.『銀河超特急』 D.『翼の勇者たち』',kind:'multiChoice',options:['海底鬼岩城','鉄人兵団','銀河超特急','翼の勇者たち'],answers:[1,2],pts:2},{q:'(6) 雑誌掲載時の前話との繋がりがあるものを時系列順に並べよ。 A「しかしユーレイは出た！」 B「またまた先生が来た！」 C「本人ビデオ」 D「ゆうどう足あとスタンプ」',kind:'group',answers:['D','B'],pts:2},{q:'(7) 以下の暗号を、それが示すもののありかがのび太の家から近い順に並べよ。 A「千人の年より 杉山家の窓の下」 B「あたたかい池の近くにすむ ふたごの家にかくしてある」 C「死神山のどくろが見つめる一本杉の根元に埋めてある」',kind:'group',answers:['B','A','C'],pts:2},{q:'(8) リメイク版映画のとどめを刺したキャラクター。『のび太の日本誕生』旧⇒ア 新⇒イ、『のび太の魔界大冒険』旧⇒ウ 新⇒エ。Aドラえもん Bのび太 Cスネ夫 Dジャイアン Eしずか Fタイムパトロール。',kind:'group',answers:['D','B','A','B'],pts:5}]},
-{title:'7',max:8,reading:'7 以下の状況を、ひみつ道具以外の手段を使わずにどう解決するか、考えて記述しなさい。\n「夏休みに中国の西安で兵馬俑を見てきた」とスネ夫に自慢されたのび太は、つい「自分も見たことがある」と嘘をついてしまう。証拠写真を要求するスネ夫に対し「2時間で写真を持ってくる」と約束してドラえもんに相談したのび太だったが、あいにくと、どこでもドアを含め殆どの道具が修理中だった。さらに、焦りだすのび太を尻目に、ドラえもんはスペアポケットだけを渡し、近くの公園へタマちゃんとのデートに行ってしまった。さて、この状況で、今あるひみつ道具をどのように使えば、のび太は2時間で中国・西安に行って兵馬俑とのツーショットを撮ってくることが出来るだろうか？\n北緯40度、東京、西安、2800kmの地図情報。東京〜西安間の距離は約2800km。図中の経線は地球一周360度のうち東経110度から140度まで10度ごと。緯線は赤道を0度、北極点を北緯90度とする。写真撮影や地理的な微妙なズレなど細かいことは考えなくてよい。ひみつ道具の効果はTVシリーズを除いた作品中の描写に準じる。スペアポケットの道具：タケコプター、ネンドロン、快速シューズ、断層ビジョン、リニアモーターカーごっこ、コピーロボット、スピード増感ゴーグル、道路光線、天地逆転オイル、地球下車マシン、テキオー灯、三倍時計ペタンコ、電車ごっこロープ。',fields:[{q:'解決策と道具の使い方・所要時間を説明する',kind:'essay',answer:'地球下車マシンを使って西安まで行く（2時間）。スペアポケットからドラえもんのポケットにワープ（0分）。地球下車マシンは同緯度のラインに沿って24時間で地球を一周する。東京〜西安はほぼ東経140度〜110度の移動で経度30度分なので、360÷30＝12、1日の1/12＝2時間で移動できる。南北移動分の誤差は他の移動系道具を併用して解消する。',pts:8}]}
-];
-const state=sections.map(s=>({answers:{},checks:{},score:0}));let finalScoreSavePromise=null,finalScoreSaved=false,screen=0;
-const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));const normalize=s=>String(s??'').normalize('NFKC').toLowerCase().replace(/[\s。、,，.！!「」『』（）()・：:／/ー]/g,'');
-function renderQuestion(si){screen=si;const s=sections[si],st=state[si],card=document.createElement('section');card.className='card screen';card.innerHTML=`<h2>大問 ${s.title} <span class="points">（${s.max}点満点）</span></h2><div class="reading"></div>`;card.querySelector('.reading').textContent=s.reading;if(s.image){const img=document.createElement('img');img.src=s.image;img.alt='問題2の画像';img.style.cssText='max-width:100%;height:auto;display:block;margin:12px auto';card.querySelector('.reading').append(img)}if(s.options){const p=document.createElement('div');p.className='reading';p.textContent='語群：'+s.options;card.append(p)}if(s.table){const table=document.createElement('table');table.style.cssText='width:100%;border-collapse:collapse';table.innerHTML='<thead><tr><th>番号</th><th>時代区分</th><th>年代・時点</th><th>解答記号</th></tr></thead>';const body=document.createElement('tbody');s.table.forEach((r,i)=>{const tr=document.createElement('tr');tr.innerHTML=`<td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td>`;const td=document.createElement('td');const select=document.createElement('select');select.className='text-input';select.innerHTML='<option value="">選択</option>'+Array.from('アイウエオカキクケコサシスセソタチツテトナニヌノ').map(x=>`<option>${x}</option>`).join('');select.value=st.answers[i]||'';select.onchange=()=>st.answers[i]=select.value;td.append(select);tr.append(td);body.append(tr)});table.append(body);card.append(table)}s.fields.forEach((f,i)=>{const b=document.createElement('div');b.className='question-block';b.innerHTML=`<div class="q-title">${esc(f.q)} <span class="points">（${f.pts}点）</span></div>`;if(f.kind==='tf'||f.kind==='choice'){const opts=f.kind==='tf'?['〇','×']:f.options;const wrap=document.createElement('div');wrap.className=f.kind==='tf'?'options-grid':'options-vertical';opts.forEach((o,j)=>{const x=document.createElement('button');x.className=(f.kind==='tf'?'opt-btn':'opt-btn-v')+(st.answers[i]===j?' selected':'');x.textContent=f.kind==='choice'?`${String.fromCharCode(65+j)}. ${o}`:o;x.onclick=()=>{st.answers[i]=j;wrap.querySelectorAll('button').forEach(z=>z.classList.toggle('selected',z===x))};wrap.append(x)});b.append(wrap)}else if(f.kind==='multiChoice'){f.options.forEach((o,j)=>{const label=document.createElement('label');label.className='self-check';const input=document.createElement('input');input.type='checkbox';input.checked=Boolean(st.answers[`${i}_${j}`]);input.onchange=()=>st.answers[`${i}_${j}`]=input.checked;label.append(input,document.createTextNode(` ${String.fromCharCode(65+j)}. ${o}`));b.append(label)})}else if(f.kind==='group'){f.answers.forEach((_,j)=>{const inp=document.createElement('input');inp.className='text-input';inp.placeholder=`(${j+1}) 回答`;inp.value=st.answers[`${i}_${j}`]||'';inp.oninput=()=>st.answers[`${i}_${j}`]=inp.value;b.append(inp)})}else{const inp=f.kind==='essay'?document.createElement('textarea'):document.createElement('input');inp.className='text-input';if(f.kind==='essay')inp.rows=7;else inp.type='text';inp.value=st.answers[i]||'';inp.placeholder='回答を入力';inp.oninput=()=>st.answers[i]=inp.value;b.append(inp)}card.append(b)});const nav=document.createElement('div');nav.className='nav-row';if(si>0){const back=document.createElement('button');back.className='btn';back.textContent='← 前の大問';back.onclick=()=>renderQuestion(si-1);nav.append(back)}else{const spacer=document.createElement('span');spacer.className='nav-placeholder';nav.append(spacer)}const submit=document.createElement('button');submit.className='btn';submit.textContent='回答を採点する →';submit.onclick=()=>gradeSection(si);nav.append(submit);card.append(nav);document.querySelectorAll('.screen').forEach(x=>x.remove());document.getElementById('quiz').append(card)}
-function earnedField(s,st,i){const f=s.fields[i];if(f.kind==='tf')return(['〇','×'][st.answers[i]]===f.answer?f.pts:0);if(f.kind==='choice')return(st.answers[i]===f.answer?f.pts:0);if(f.kind==='multiChoice')return(((f.answers||[]).filter(j=>st.answers[`${i}_${j}`]).length===f.answers.length&&(f.answers||[]).every(j=>st.answers[`${i}_${j}`]))?f.pts:0));if(f.kind==='group')return(st.checks[i]?f.pts:0);if(f.kind==='essay'||f.kind==='text')return(st.checks[i]?f.pts:0);return 0}
-function sectionScore(si){const s=sections[si],st=state[si];let score=s.fields.reduce((n,_,i)=>n+earnedField(s,st,i),0);if(s.table)score+=s.table.reduce((n,r,i)=>n+(st.checks[`table${i}`]?1:0),0);return score}
-function gradeSection(si){const s=sections[si],st=state[si];if(s.table)s.table.forEach((r,i)=>{st.checks[`table${i}`]=st.answers[i]===r[3]});s.fields.forEach((f,i)=>{if(f.kind==='text'||f.kind==='essay')st.checks[i]=normalize(st.answers[i])===normalize(f.answer);if(f.kind==='group'){st.checks[i]=f.answers.every((a,j)=>normalize(st.answers[`${i}_${j}`])===normalize(a))}});renderResult(si)}
-function renderResult(si){const s=sections[si],st=state[si],card=document.createElement('section');card.className='card screen';card.innerHTML=`<h2>大問 ${s.title} 採点結果</h2>`;s.fields.forEach((f,i)=>{const row=document.createElement('div');row.className='result-item';const manual=['text','essay','group'].includes(f.kind);let user=st.answers[i]??'',key=f.answer||'';if(f.kind==='tf'){user=st.answers[i]===undefined?'未選択':['〇','×'][st.answers[i]];key=f.answer}else if(f.kind==='choice'){user=st.answers[i]===undefined?'未選択':`${String.fromCharCode(65+st.answers[i])}. ${f.options[st.answers[i]]}`;key=`${String.fromCharCode(65+f.answer)}. ${f.options[f.answer]}`}else if(f.kind==='group'){user=f.answers.map((_,j)=>st.answers[`${i}_${j}`]||'未入力').join(' ／ ');key=f.answers.join(' ／ ')}else if(f.kind==='multiChoice'){user=f.options.map((o,j)=>st.answers[`${i}_${j}`]?String.fromCharCode(65+j):'').filter(Boolean).join(', ');key=f.answers.map(j=>String.fromCharCode(65+j)).join('・')}const earned=earnedField(s,st,i);row.classList.add(manual?(st.checks[i]?'result-correct':'result-pending'):(earned?'result-correct':'result-wrong'));row.innerHTML=`<span class="badge">${manual?'自己採点':earned?'✓ 正解':'× 不正解'}（${earned}/${f.pts}点）</span><div><strong>${esc(f.q)}</strong></div><div class="answer-key">あなたの回答：${esc(user||'未入力')}<br>${manual?'模範解答':'正解'}：${esc(key)}</div>`;if(manual){const label=document.createElement('label');label.className='self-check';const box=document.createElement('input');box.type='checkbox';box.checked=Boolean(st.checks[i]);box.onchange=()=>{st.checks[i]=box.checked;row.classList.toggle('result-correct',box.checked);row.classList.toggle('result-pending',!box.checked);row.querySelector('.badge').textContent=`自己採点（${box.checked?f.pts:0}/${f.pts}点）`;document.getElementById('subtotal').textContent=sectionScore(si)};label.append(box,document.createTextNode(` 模範解答と同等の内容を書けていた（${f.pts}点）`));row.append(label)}card.append(row)});if(s.table){s.table.forEach((r,i)=>{const x=document.createElement('div');x.className='result-item';x.innerHTML=`<strong>${r[0]} ${r[2]}</strong><br>あなたの回答：${st.answers[i]||'未回答'}　正解：${r[3]} <label class="self-check"><input type="checkbox" ${st.checks[`table${i}`]?'checked':''}> 正解（1点）</label>`;x.querySelector('input').onchange=e=>{st.checks[`table${i}`]=e.target.checked;document.getElementById('subtotal').textContent=sectionScore(si)};card.append(x)})}card.insertAdjacentHTML('beforeend',`<div class="score-banner">大問得点：<span id="subtotal">${sectionScore(si)}</span> / ${s.max}点</div>`);const nav=document.createElement('div');nav.className='nav-row';const back=document.createElement('button');back.className='btn';back.textContent='← 回答を修正';back.onclick=()=>renderQuestion(si);nav.append(back);const next=document.createElement('button');next.className='btn';next.textContent=si<sections.length-1?'次の大問 →':'最終結果を見る →';next.onclick=()=>si<sections.length-1?renderQuestion(si+1):renderFinal();nav.append(next);card.append(nav);document.querySelectorAll('.screen').forEach(x=>x.remove());document.getElementById('quiz').append(card)}
-function renderFinal(){const total=sections.reduce((n,s,i)=>n+sectionScore(i),0),card=document.createElement('section');card.className='card screen';card.innerHTML=`<h2>最終結果</h2><div class="score-banner">総合得点：${total} / 100点<br><span style="font-size:1rem">${total>=60?'合格':'不合格'}（合格点：60点）</span></div>`;sections.forEach((s,i)=>{const d=document.createElement('div');d.className='summary-title';d.textContent=`大問 ${s.title}：${sectionScore(i)} / ${s.max}点`;card.append(d)});const save=document.createElement('section');save.className='account-card';save.innerHTML=`<h2 id="account-heading">ログイン・新規登録</h2><p id="account-status" class="account-status" role="status" aria-live="polite">ログイン状態を確認しています…</p><div id="signed-out-panel" hidden><form id="account-form" class="account-form" novalidate><label for="account-email">メールアドレス<input id="account-email" type="email" required></label><label for="account-password">パスワード（6文字以上）<input id="account-password" type="password" minlength="6" required></label><div class="account-actions"><button id="submit-account" class="account-button primary" type="submit">ログイン</button></div></form><p class="account-switch"><span id="switch-prompt">初めての方はこちら：</span><button id="switch-mode" type="button">新規アカウント作成</button></p></div><div id="signed-in-panel" class="account-signed-in" hidden>ログイン中：<strong id="account-user-email"></strong><button id="logout-button" class="account-button secondary" type="button">ログアウト</button></div><p id="score-save-status" class="account-status" role="status">ログインすると、この検定の点数と解答を自動で記録します。</p><button id="retry-score-save" class="account-button secondary" type="button" hidden>保存を再試行</button>`;card.append(save);const home=document.createElement('a');home.className='btn';home.href='https://hena-choco.github.io/index.html';home.textContent='問題一覧へ戻る';card.append(home);document.querySelectorAll('.screen').forEach(x=>x.remove());document.getElementById('quiz').append(card);setupFinal(total)}
-function setupFinal(total){const $=id=>document.getElementById(id),form=$('account-form'),submit=$('submit-account'),status=$('account-status'),saveStatus=$('score-save-status'),retry=$('retry-score-save');let mode='login';const setStatus=(s,k='')=>{status.textContent=s;status.dataset.kind=k};const save=async()=>{if(finalScoreSaved)return;if(finalScoreSavePromise)return finalScoreSavePromise;const answers=sections.map((s,i)=>({section:s.title,answers:state[i].answers,selfCheck:state[i].checks,score:sectionScore(i)}));saveStatus.textContent='点数と解答を自動保存しています…';finalScoreSavePromise=initializeDoraemonAuth().then(api=>api.saveScore({quizId:'2019-super-advanced',quizTitle:'ドラえもん検定 超上級',score:total,total:100,answers})).then(()=>{finalScoreSaved=true;saveStatus.textContent='点数と解答を保存しました。';retry.hidden=true}).catch(e=>{finalScoreSavePromise=null;retry.hidden=false;saveStatus.textContent='保存できませんでした。GitHub Pages上で開き、再試行してください。';console.error(e)});return finalScoreSavePromise};const modeSet=m=>{mode=m;const reg=m==='register';submit.textContent=reg?'アカウントを作成':'ログイン';$('switch-prompt').textContent=reg?'すでにアカウントをお持ちの方はこちら：':'初めての方はこちら：';$('switch-mode').textContent=reg?'ログイン':'新規アカウント作成';setStatus(reg?'メールアドレスと6文字以上のパスワードで登録できます。':'ログインすると点数を保存できます。')};$('switch-mode').onclick=()=>modeSet(mode==='login'?'register':'login');form.onsubmit=async e=>{e.preventDefault();if(!form.reportValidity())return;submit.disabled=true;try{const api=await initializeDoraemonAuth();if(mode==='register')await api.register($('account-email').value,$('account-password').value);else await api.login($('account-email').value,$('account-password').value);setStatus('ログインしました。','success')}catch(err){setStatus('ログインまたは登録に失敗しました。通信状態と入力内容をご確認ください。','error')}finally{submit.disabled=false}};$('logout-button').onclick=async()=>{try{const api=await initializeDoraemonAuth();await api.logout()}catch{setStatus('ログアウトできませんでした。','error')}};retry.onclick=save;initializeDoraemonAuth().then(api=>api.onAuthStateChanged(u=>{$('signed-out-panel').hidden=!!u;$('signed-in-panel').hidden=!u;$('account-user-email').textContent=u?.email||'';if(u){setStatus('ログイン中です。','success');save()}else modeSet(mode)})).catch(()=>{$('signed-out-panel').hidden=false;modeSet(mode);setStatus('ローカル表示中です。アカウント保存はGitHub Pages上で利用できます。','')})}
-renderQuestion(0);
-</script></body></html>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.65;
+        padding: 20px 12px;
+    }
+
+    .container {
+        max-width: 680px;
+        margin: auto;
+    }
+
+    .site-nav {
+        position: sticky;
+        top: 8px;
+        z-index: 5;
+        display: flex;
+        justify-content: flex-start;
+        margin-bottom: 10px;
+    }
+
+    .home-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 9px 14px;
+        border-radius: 8px;
+        background: #fff;
+        color: #6B9DFF;
+        border: 1px solid #d6e3f8;
+        font-weight: 700;
+        text-decoration: none;
+        box-shadow: 0 2px 8px #0000000d;
+    }
+
+    header {
+        text-align: center;
+        margin-bottom: 20px;
+        padding: 18px;
+        background: var(--main);
+        color: #fff;
+        border-radius: 12px;
+    }
+
+    h1 {
+        font-size: 1.35rem;
+    }
+
+    .card {
+        background: var(--card);
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0 2px 8px #0000000d;
+        margin-bottom: 18px;
+    }
+
+    h2 {
+        font-size: 1.12rem;
+        margin-bottom: 12px;
+    }
+
+    .reading {
+        white-space: pre-line;
+        background: #f9fbfd;
+        border: 1px solid #e1ecff;
+        border-radius: 8px;
+        padding: 14px;
+        margin-bottom: 18px;
+    }
+
+    .question-block {
+        margin-bottom: 20px;
+        padding-bottom: 14px;
+        border-bottom: 1px dashed #e5e5e5;
+    }
+
+    .question-block:last-child {
+        border-bottom: 0;
+    }
+
+    .q-title {
+        font-weight: 700;
+        margin-bottom: 8px;
+        white-space: pre-line;
+    }
+
+    .options-grid {
+        display: flex;
+        gap: 10px;
+        margin-top: 8px;
+    }
+
+    .opt-btn {
+        flex: 1;
+        padding: 12px;
+        border: 2px solid var(--main);
+        background: var(--card);
+        color: var(--main);
+        font-size: 1.1rem;
+        font-weight: bold;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+
+    .opt-btn.selected, .opt-btn-v.selected {
+        background: var(--main);
+        color: var(--card);
+    }
+
+    .options-vertical {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-top: 8px;
+    }
+
+    .opt-btn-v {
+        text-align: left;
+        padding: 12px 16px;
+        border: 2px solid var(--main);
+        background: var(--card);
+        color: var(--text);
+        font-size: 1rem;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+
+    .text-input {
+        width: 100%;
+        padding: 11px;
+        font-size: 1rem;
+        border: 2px solid var(--main);
+        border-radius: 8px;
+        margin-top: 5px;
+    }
+
+    .points, .muted {
+        color: #666;
+        font-size: .88rem;
+        font-weight: 400;
+    }
+
+    .btn {
+        display: block;
+        width: 100%;
+        padding: 16px;
+        background: var(--main);
+        color: var(--card);
+        border: 0;
+        border-radius: 8px;
+        font-size: 1.05rem;
+        font-weight: bold;
+        cursor: pointer;
+        margin-top: 10px;
+        text-align: center;
+        text-decoration: none;
+    }
+
+    .btn:hover {
+        background: #5689e8;
+    }
+
+    .nav-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-top: 12px;
+    }
+
+    .nav-row .btn {
+        margin: 0;
+        min-height: 54px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .nav-placeholder {
+        visibility: hidden;
+    }
+
+    .result-item {
+        padding: 12px;
+        border-radius: 8px;
+        margin: 10px 0;
+        font-size: .95rem;
+        border: 1px solid #d8dde5;
+        background: #f7f8fa;
+    }
+
+    .result-item.result-correct {
+        border: 0;
+        background: #6B9DFF;
+        color: #fff;
+    }
+
+    .result-item.result-correct .answer-key {
+        color: #fff;
+    }
+
+    .result-item.result-correct .badge {
+        background: rgba(255, 255, 255, .2);
+        color: #fff;
+    }
+
+    .result-item.result-wrong {
+        border: 0;
+        background: #f1f2f4;
+        color: #333;
+    }
+
+    .result-item.result-wrong .badge {
+        background: transparent;
+        color: #6B9DFF;
+    }
+
+    .result-item.result-pending {
+        border: 1px solid #d8dde5;
+        background: #fff;
+        color: #333;
+    }
+
+    .badge {
+        display: inline-block;
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-weight: 700;
+        font-size: .8rem;
+        margin-bottom: 4px;
+        background: #eaf1ff;
+        color: #335f9e;
+    }
+
+    .answer-key {
+        margin-top: 5px;
+        color: #444;
+        white-space: pre-line;
+    }
+
+    .self-check {
+        display: block;
+        margin-top: 9px;
+        padding: 9px;
+        background: #f4f7f9;
+        border-radius: 6px;
+    }
+
+    .score-banner {
+        text-align: center;
+        background: var(--main);
+        color: var(--card);
+        padding: 20px;
+        border-radius: 12px;
+        font-size: 1.3rem;
+        font-weight: 700;
+        margin: 12px 0 18px;
+    }
+
+    .summary-title {
+        border-bottom: 2px solid var(--main);
+        padding: 0 0 4px;
+        margin: 20px 0 10px;
+        font-weight: 700;
+    }
+
+    .account-card {
+        background: #fff;
+        border: 1px solid #e4e9f0;
+        border-radius: 12px;
+        padding: 18px;
+        margin-top: 22px;
+    }
+
+    .account-card h2 {
+        margin-bottom: 6px;
+    }
+
+    .account-status {
+        min-height: 1.5em;
+        margin: 7px 0 12px;
+        font-size: .9rem;
+    }
+
+    .account-status[data-kind="error"] {
+        color: #a33;
+    }
+
+    .account-status[data-kind="success"] {
+        color: #176b45;
+    }
+
+    .account-form {
+        display: grid;
+        gap: 10px;
+    }
+
+    .account-form[hidden], [hidden] {
+        display: none !important;
+    }
+
+    .account-form label {
+        display: grid;
+        gap: 4px;
+        font-size: .9rem;
+        font-weight: 600;
+    }
+
+    .account-form input {
+        width: 100%;
+        padding: 11px;
+        border: 1px solid #cfd6df;
+        border-radius: 7px;
+        font: inherit;
+    }
+
+    .account-actions {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-top: 10px;
+    }
+
+    .account-button {
+        border: 0;
+        border-radius: 7px;
+        padding: 10px 14px;
+        font: inherit;
+        font-weight: 700;
+        cursor: pointer;
+    }
+
+    .account-button.primary {
+        background: var(--main);
+        color: #fff;
+    }
+
+    .account-button.secondary {
+        background: #eef3fb;
+        color: #315a9d;
+    }
+
+    .account-button:disabled {
+        opacity: .55;
+        cursor: not-allowed;
+    }
+
+    .account-switch {
+        margin-top: 10px;
+        font-size: .88rem;
+    }
+
+    .account-switch button {
+        border: 0;
+        background: none;
+        color: #315a9d;
+        text-decoration: underline;
+        font: inherit;
+        font-weight: 700;
+        cursor: pointer;
+    }
+
+    .account-signed-in {
+        padding: 10px;
+        background: #f4f8ff;
+        border-radius: 7px;
+        overflow-wrap: anywhere;
+    }
+
+    @media (max-width: 480px) {
+        body {
+            padding: 12px 8px;
+        }
+
+        .card {
+            padding: 16px;
+        }
+
+        .nav-row {
+            gap: 7px;
+        }
+
+        .nav-row .btn {
+            padding: 12px 8px;
+            font-size: .95rem;
+        }
+    }
+    </style>
+</head>
+<body>
+    <main class="container">
+        <nav class="site-nav" aria-label="サイトナビゲーション">
+            <a class="home-link" href="https://hena-choco.github.io/index.html">← 一覧に戻る</a>
+        </nav>
+        <header>
+            <h1>ドラえもん検定 超上級</h1>
+        </header>
+        <div id="quiz"></div>
+    </main>
+    <script type="module">
+    import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyB7lVLCe_GA6spNGvChCf25Fl7GI809Xbg",
+      authDomain: "doraemon-kentei.firebaseapp.com",
+      projectId: "doraemon-kentei",
+      storageBucket: "doraemon-kentei.firebasestorage.app",
+      messagingSenderId: "363044826095",
+      appId: "1:363044826095:web:683b88f5542a5dfb33a41a",
+      measurementId: "G-JCLL9TYZR3"
+    };
+
+    const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    async function saveScore({ quizId, quizTitle, score, total, answers = null }) {
+      const user = auth.currentUser;
+      if (!user) throw new Error("点数を保存するにはログインしてください。");
+      if (!quizId || !Number.isFinite(score) || !Number.isFinite(total)) {
+        throw new TypeError("quizId、score、totalを指定してください。");
+      }
+      const ref = await addDoc(collection(db, "users", user.uid, "scores"), {
+        quizId: String(quizId), quizTitle: quizTitle ? String(quizTitle) : "",
+        score, total, answers, createdAt: serverTimestamp()
+      });
+      return ref.id;
+    }
+
+    window.DoraemonAuth = Object.freeze({
+      getCurrentUser: () => auth.currentUser,
+      onAuthStateChanged: (callback) => onAuthStateChanged(auth, callback),
+      register: (email, password) => createUserWithEmailAndPassword(auth, email, password),
+      login: (email, password) => signInWithEmailAndPassword(auth, email, password),
+      logout: () => signOut(auth),
+      saveScore
+    });
+
+    const sections=[
+    {title:'1',max:5,reading:'1 22巻、43巻などによると、のび太のお小遣いは月500円である。それを踏まえ、以下の問に答えよ。限定一個のプラモデルがどうしても欲しくなったのび太は、珍しく貯めていたふた月分のお小遣いを全てフエール銀行に預金した。2時間後にそれを取り出したが、そこで税金鳥に税を徴収されてしまい、お金が足りなくなったのでデビルカードで身長を1mm犠牲にして補填した。しかし模型屋に行く途中、そのプラモデルを買いに行くスネ夫を発見したため、ころばし屋で念入りに9回転ばして足止めした。その後、プラモデルを買ったところ、7円余った。さて、プラモデルの値段は何円だったか。',fields:[{q:'プラモデルの値段',kind:'text',answer:'1110 円',aliases:['1110円','1110'],pts:5}]},
+    {title:'2',max:5,reading:'2 以下の画像の空欄①〜⑦に当てはまる語句を答えよ。なお、同じ語句が複数の空欄に当てはまることもある。',image:'media/2019-super-advanced.png',fields:[{q:'①',kind:'text',answer:'ウマ',pts:1},{q:'②',kind:'text',answer:'ゾウ',pts:1},{q:'③〜⑦（全問正解で3点）',kind:'group',answers:['のび太','のび太','のび太','のび太','のび太'],pts:3}]},
+    {title:'3',max:5,reading:'3 ひみつ道具に関する以下の記述が正しい場合は〇で、間違っている場合は×で答えよ。',fields:[['(1) 桃太郎印のきびだんごはヒトにも効く。','〇'],['(2) お医者さんカバンから出てくる薬は不味い。','×'],['(3) どこでもドアには鍵が付いている。','〇'],['(4) ほんやくコンニャクを食べると動物の言葉も分かる。','〇'],['(5) ゴーホーム・オルゴールからは「家路」のメロディーが流れる。','×']].map(([q,answer])=>({q,kind:'tf',answer,pts:1}))},
+    {title:'4',max:25,reading:'4 以下の図は、作中におけるおおまかな時系列を示したものである。グラフ中のそれぞれの時点1〜25に最もふさわしい出来事を、下記の語群ア〜ノから選べ。（※グラフは現実的に正確なものではありません。上部の時代区分は選択肢の時点に該当するものだけを記載しています。）',table:[['1','石炭紀・三畳紀','3億年前','セ'],['2','石炭紀・三畳紀','3億年前','ウ'],['3','白亜紀','1億年前','ネ'],['4','白亜紀','1億年前','タ'],['5','白亜紀','6500万年前','テ'],['6','石器時代','10万年前','シ'],['7','石器時代','7万年前','ケ'],['8','石器時代','2万年前','ニ'],['9','弥生時代','120年ごろ','ス'],['10','飛鳥時代','630年','ア'],['11','平安時代','794年','ヌ'],['12','室町時代','1049年','ノ'],['13','室町時代','1338年','キ'],['14','室町時代','1476年','ク'],['15','安土桃山','1580年','コ'],['16','安土桃山','1600年頃','オ'],['17','江戸時代','17世紀後半','ナ'],['18','江戸時代','1826年','ソ'],['19','明治','1880年','ツ'],['20','明治','1910年','イ'],['21','昭和','1945年','ト'],['22','昭和','1948年','エ'],['23','10年前','','カ'],['24','10年前','','チ'],['25','未来','2112年','サ']],options:'ア 三蔵法師と出会い、牛魔王と戦う／イ のび吉が子孫のために庭に浮き輪を埋める／ウ ネコジャラと対決し、ワンニャン国民が他の星へ移住する／エ のび太のママがダイヤを無くす／オ 宮本武蔵に名刀電光丸を渡してしまう／カ おばあちゃんに会ってランドセル姿を見せる／キ 桃太郎伝説の謎を解く／ク ミュンヒハウゼン男爵をこの時代から現代に連れてくる／ケ ギガゾンビと戦い、ヒカリ族を日本へ案内する／コ ドラミが少年山賊団と過ごす／サ ドラえもん誕生／シ 南極でブリザーガと戦い、ヒョーガヒョーガ星の氷が解ける／ス ヤマタノオロチを退治する／セ 「ゴキブリカバー」で増えたゴキブリがこの時代に送られる／ソ のび佐エ門が息子 のび作のために小遣いを埋める／タ ピー助をめぐり恐竜ハンターと対決する／チ 酔いつぶれたパパを叱ってもらうために、この時代からおばあちゃんに来てもらう／ツ モルグシティでのび太がガンマンとして活躍する／テ 地底人たちに風雲ドラえもん城で対抗する／ト のび太のパパが「白百合のような女の子」に出会う／ナ カリブ海で海賊たちと共に時間犯罪者と戦う／ニ この時代のホテルで過ごすも、火山の噴火に巻き込まれる／ヌ 砂漠の中でシンドバッドと出会う／ネ この時代の中国から「招待錠」で恐竜を連れてこようとするも、失敗する／ノ 海岸で浦島太郎を見つけ、竜宮へ行く船を尾行する',fields:[{q:'時点1〜25の出来事を選択',kind:'table',pts:25}]},
+    {title:'5',max:34,reading:'5 以下の問の答えを記述せよ。',fields:[{q:'(1) 以下の選択肢は、大長編に登場したマスコット的キャラクターの特徴的な鳴き声である。それぞれの名前を答えよ。 A「ピューイ」 B「ポルポル」 C「フーン」',kind:'group',answers:['ピー助','ポポル','フー子'],pts:2},{q:'(2) 以下の文章をミニドラが話した場合、どのような文章になるか答えよ。「どこでもドアで高井山に行こう」',kind:'text',answer:'ドードー・ターター・イーイー',aliases:['ドードーターターイーイー'],pts:3},{q:'(3) のび太は、作中時点から100年後にある出来事が起きることが確定している。それは何か。',kind:'text',answer:'百苦タイマーの7回目以降が来る。',pts:2},{q:'(4) 以下の映画・大長編の冒頭の元ネタとなった短編のタイトルをそれぞれ答えよ。A『南極カチコチ大冒険』 B『ワンニャン時空伝』 C『月面探査記』',kind:'group',answers:['大氷山の小さな家','のら犬「イチ"の国','異説クラブメンバーズバッジ'],pts:3},{q:'(5) 「コエカタマリン」が作中で使用された際、それぞれの場合においてどのような文字が使われたか。A. 高井山まで空を飛んでいった時 B. どろぼう猫を捕まえた時 C. ジャイアンとスネ夫を捕まえた時 D. ジャイアンを吹っ飛ばした時',kind:'group',answers:['ワ','コラ','ロ（ロロも可）','バカ／マヌケ／トンマ／ウスラデブ／ノータリン／イタ'],pts:4},{q:'(6) 「新宿区北新宿二○一くずれ荘五号室」に居住していた人物',kind:'text',answer:'土路坊太',pts:2},{q:'(7) シャーロック・ホームズセットを構成する4つのひみつ道具を答えよ。',kind:'group',answers:['手がかりレンズ','レーダーステッキ','推理ぼう','ズバリパイプ'],pts:4},{q:'(8) 「真実の旗印」を解答用紙に描画せよ。',kind:'text',answer:'正正正',pts:2},{q:'(9) 今年公開の映画『のび太の月面探査記』において新しく誕生したひみつ道具を答えよ。',kind:'text',answer:'定説クラブメンバーズバッジ',pts:2},{q:'(10) 「ザ・ドラえもんズ」のメンバー、ドラ・ザ・キッドが尊敬している人物を答えよ。',kind:'text',answer:'チャック・イェーガー',pts:2},{q:'(11) 「ドラミちゃん」から置き換えられた人物 Aのび太 Bジャイアン',kind:'group',answers:['のび太郎','カバ田（ゴリブリ）'],pts:2},{q:'(12) 入り込み鏡と出入り鏡の効果の違い',kind:'text',answer:'入り込み鏡は現実に影響がない。出入り鏡は影響がある。',pts:2},{q:'(13) 11月3日の記念日',kind:'text',answer:'のび太のパパとママの婚約記念日',pts:2},{q:'(14) 『空飛ぶうす手じゅうたん』で道具が反応した歌詞',kind:'text',answer:'空を自由に飛びたいな',pts:2}]},
+    {title:'6',max:18,reading:'6 以下の問の答えとなる記号を記せ。',fields:[{q:'(1) 「ミニドラSOS！」のスポーツ',kind:'choice',options:['野球','サッカー','ラグビー','テニス'],answer:2,pts:1},{q:'(2) 出木杉の作業効率はジャイアンの何倍か',kind:'choice',options:['8倍','16倍','24倍','32倍'],answer:2,pts:1},{q:'(3) スネ夫の自慢が真実(T)かホラ話(F)か A「軽井沢の別荘」 B「トンちゃんとか千葉県一」 C「空飛ぶイルカ」 D「スネちゃんつうちゃん」',kind:'group',answers:['F','F','T','F'],pts:4},{q:'(4) 人型でないロボット',kind:'choice',options:['骨組みロボット','テレパスロボット','ヤメサセロボット','ハウスロボット'],answer:3,pts:1},{q:'(5) 以下の映画・大長編の中で、登場人物が自身を映画の中のキャラクターだと認識しているかのようなメタフィクショナルな発言をしたものを全て選べ。 A.『海底鬼岩城』 B.『鉄人兵団』 C.『銀河超特急』 D.『翼の勇者たち』',kind:'multiChoice',options:['海底鬼岩城','鉄人兵団','銀河超特急','翼の勇者たち'],answers:[1,2],pts:2},{q:'(6) 雑誌掲載時の前話との繋がりがあるものを時系列順に並べよ。 A「しかしユーレイは出た！」 B「またまた先生が来た！」 C「本人ビデオ」 D「ゆうどう足あとスタンプ」',kind:'group',answers:['D','B'],pts:2},{q:'(7) 以下の暗号を、それが示すもののありかがのび太の家から近い順に並べよ。 A「千人の年より 杉山家の窓の下」 B「あたたかい池の近くにすむ ふたごの家にかくしてある」 C「死神山のどくろが見つめる一本杉の根元に埋めてある」',kind:'group',answers:['B','A','C'],pts:2},{q:'(8) リメイク版映画のとどめを刺したキャラクター。『のび太の日本誕生』旧⇒ア 新⇒イ、『のび太の魔界大冒険』旧⇒ウ 新⇒エ。Aドラえもん Bのび太 Cスネ夫 Dジャイアン Eしずか Fタイムパトロール。',kind:'group',answers:['D','B','A','B'],pts:5}]},
+    {title:'7',max:8,reading:'7 以下の状況を、ひみつ道具以外の手段を使わずにどう解決するか、考えて記述しなさい。\n「夏休みに中国の西安で兵馬俑を見てきた」とスネ夫に自慢されたのび太は、つい「自分も見たことがある」と嘘をついてしまう。証拠写真を要求するスネ夫に対し「2時間で写真を持ってくる」と約束してドラえもんに相談したのび太だったが、あいにくと、どこでもドアを含め殆どの道具が修理中だった。さらに、焦りだすのび太を尻目に、ドラえもんはスペアポケットだけを渡し、近くの公園へタマちゃんとのデートに行ってしまった。さて、この状況で、今あるひみつ道具をどのように使えば、のび太は2時間で中国・西安に行って兵馬俑とのツーショットを撮ってくることが出来るだろうか？\n北緯40度、東京、西安、2800kmの地図情報。東京〜西安間の距離は約2800km。図中の経線は地球一周360度のうち東経110度から140度まで10度ごと。緯線は赤道を0度、北極点を北緯90度とする。写真撮影や地理的な微妙なズレなど細かいことは考えなくてよい。ひみつ道具の効果はTVシリーズを除いた作品中の描写に準じる。スペアポケットの道具：タケコプター、ネンドロン、快速シューズ、断層ビジョン、リニアモーターカーごっこ、コピーロボット、スピード増感ゴーグル、道路光線、天地逆転オイル、地球下車マシン、テキオー灯、三倍時計ペタンコ、電車ごっこロープ。',fields:[{q:'解決策と道具の使い方・所要時間を説明する',kind:'essay',answer:'地球下車マシンを使って西安まで行く（2時間）。スペアポケットからドラえもんのポケットにワープ（0分）。地球下車マシンは同緯度のラインに沿って24時間で地球を一周する。東京〜西安はほぼ東経140度〜110度の移動で経度30度分なので、360÷30＝12、1日の1/12＝2時間で移動できる。南北移動分の誤差は他の移動系道具を併用して解消する。',pts:8}]}
+    ];
+    const state=sections.map(s=>({answers:{},checks:{},score:0}));let finalScoreSavePromise=null,finalScoreSaved=false,screen=0;
+    const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));const normalize=s=>String(s??'').normalize('NFKC').toLowerCase().replace(/[\s。、,，.！!「」『』（）()・：:／/ー]/g,'');
+    
+    function renderQuestion(si){
+      screen=si;
+      const s=sections[si],st=state[si],card=document.createElement('section');
+      card.className='card screen';
+      card.innerHTML=`<h2>大問 ${s.title} <span class="points">（${s.max}点満点）</span></h2><div class="reading"></div>`;
+      card.querySelector('.reading').textContent=s.reading;
+      if(s.image){const img=document.createElement('img');img.src=s.image;img.alt='問題2の画像';img.style.cssText='max-width:100%;height:auto;display:block;margin:12px auto';card.querySelector('.reading').append(img)}
+      if(s.options){const p=document.createElement('div');p.className='reading';p.textContent='語群：'+s.options;card.append(p)}
+      if(s.table){const table=document.createElement('table');table.style.cssText='width:100%;border-collapse:collapse';table.innerHTML='<thead><tr><th>番号</th><th>時代区分</th><th>年代・時点</th><th>解答記号</th></tr></thead>';const body=document.createElement('tbody');s.table.forEach((r,i)=>{const tr=document.createElement('tr');tr.innerHTML=`<td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td>`;const td=document.createElement('td');const select=document.createElement('select');select.className='text-input';select.innerHTML='<option value="">選択</option>'+Array.from('アイウエオカキクケコサシスセソタチツテトナニヌノ').map(x=>`<option>${x}</option>`).join('');select.value=st.answers[i]||'';select.onchange=()=>st.answers[i]=select.value;td.append(select);tr.append(td);body.append(tr)});table.append(body);card.append(table)}
+      s.fields.forEach((f,i)=>{const b=document.createElement('div');b.className='question-block';b.innerHTML=`<div class="q-title">${esc(f.q)} <span class="points">（${f.pts}点）</span></div>`;if(f.kind==='tf'||f.kind==='choice'){const opts=f.kind==='tf'?['〇','×']:f.options;const wrap=document.createElement('div');wrap.className=f.kind==='tf'?'options-grid':'options-vertical';opts.forEach((o,j)=>{const x=document.createElement('button');x.type='button';x.className=(f.kind==='tf'?'opt-btn':'opt-btn-v')+(st.answers[i]===j?' selected':'');x.textContent=f.kind==='choice'?`${String.fromCharCode(65+j)}. ${o}`:o;x.onclick=()=>{st.answers[i]=j;wrap.querySelectorAll('button').forEach(z=>z.classList.toggle('selected',z===x))};wrap.append(x)});b.append(wrap)}else if(f.kind==='multiChoice'){f.options.forEach((o,j)=>{const label=document.createElement('label');label.className='self-check';const input=document.createElement('input');input.type='checkbox';input.checked=Boolean(st.answers[`${i}_${j}`]);input.onchange=()=>st.answers[`${i}_${j}`]=input.checked;label.append(input,document.createTextNode(` ${String.fromCharCode(65+j)}. ${o}`));b.append(label)})}else if(f.kind==='group'){f.answers.forEach((_,j)=>{const inp=document.createElement('input');inp.className='text-input';inp.placeholder=`(${j+1}) 回答`;inp.value=st.answers[`${i}_${j}`]||'';inp.oninput=()=>st.answers[`${i}_${j}`]=inp.value;b.append(inp)})}else{const inp=f.kind==='essay'?document.createElement('textarea'):document.createElement('input');inp.className='text-input';if(f.kind==='essay')inp.rows=7;else inp.type='text';inp.value=st.answers[i]||'';inp.placeholder='回答を入力';inp.oninput=()=>st.answers[i]=inp.value;b.append(inp)}card.append(b)});
+      
+      const nav=document.createElement('div');nav.className='nav-row';
+      if(si>0){const back=document.createElement('button');back.type='button';back.className='btn';back.textContent='← 前の大問';back.onclick=()=>renderQuestion(si-1);nav.append(back)}else{const spacer=document.createElement('span');spacer.className='nav-placeholder';nav.append(spacer)}
+      const submit=document.createElement('button');submit.type='button';submit.className='btn';submit.textContent='回答を採点する →';submit.onclick=()=>gradeSection(si);nav.append(submit);
+      card.append(nav);
+      document.querySelectorAll('.screen').forEach(x=>x.remove());document.getElementById('quiz').append(card)
+    }
+
+    function earnedField(s,st,i){const f=s.fields[i];if(f.kind==='tf')return(['〇','×'][st.answers[i]]===f.answer?f.pts:0);if(f.kind==='choice')return(st.answers[i]===f.answer?f.pts:0);if(f.kind==='multiChoice')return(((f.answers||[]).filter(j=>st.answers[`${i}_${j}`]).length===f.answers.length&&(f.answers||[]).every(j=>st.answers[`${i}_${j}`]))?f.pts:0));if(f.kind==='group')return(st.checks[i]?f.pts:0);if(f.kind==='essay'||f.kind==='text')return(st.checks[i]?f.pts:0);return 0}
+    function sectionScore(si){const s=sections[si],st=state[si];let score=s.fields.reduce((n,_,i)=>n+earnedField(s,st,i),0);if(s.table)score+=s.table.reduce((n,r,i)=>n+(st.checks[`table${i}`]?1:0),0);return score}
+    function gradeSection(si){const s=sections[si],st=state[si];if(s.table)s.table.forEach((r,i)=>{st.checks[`table${i}`]=st.answers[i]===r[3]});s.fields.forEach((f,i)=>{if(f.kind==='text'||f.kind==='essay')st.checks[i]=normalize(st.answers[i])===normalize(f.answer);if(f.kind==='group'){st.checks[i]=f.answers.every((a,j)=>normalize(st.answers[`${i}_${j}`])===normalize(a))}});renderResult(si)}
+    
+    function renderResult(si){
+      const s=sections[si],st=state[si],card=document.createElement('section');
+      card.className='card screen';
+      card.innerHTML=`<h2>大問 ${s.title} 採点結果</h2>`;
+      s.fields.forEach((f,i)=>{const row=document.createElement('div');row.className='result-item';const manual=['text','essay','group'].includes(f.kind);let user=st.answers[i]??'',key=f.answer||'';if(f.kind==='tf'){user=st.answers[i]===undefined?'未選択':['〇','×'][st.answers[i]];key=f.answer}else if(f.kind==='choice'){user=st.answers[i]===undefined?'未選択':`${String.fromCharCode(65+st.answers[i])}. ${f.options[st.answers[i]]}`;key=`${String.fromCharCode(65+f.answer)}. ${f.options[f.answer]}`}else if(f.kind==='group'){user=f.answers.map((_,j)=>st.answers[`${i}_${j}`]||'未入力').join(' ／ ');key=f.answers.join(' ／ ')}else if(f.kind==='multiChoice'){user=f.options.map((o,j)=>st.answers[`${i}_${j}`]?String.fromCharCode(65+j):'').filter(Boolean).join(', ');key=f.answers.map(j=>String.fromCharCode(65+j)).join('・')}const earned=earnedField(s,st,i);row.classList.add(manual?(st.checks[i]?'result-correct':'result-pending'):(earned?'result-correct':'result-wrong'));row.innerHTML=`<span class="badge">${manual?'自己採点':earned?'✓ 正解':'× 不正解'}（${earned}/${f.pts}点）</span><div><strong>${esc(f.q)}</strong></div><div class="answer-key">あなたの回答：${esc(user||'未入力')}<br>${manual?'模範解答':'正解'}：${esc(key)}</div>`;if(manual){const label=document.createElement('label');label.className='self-check';const box=document.createElement('input');box.type='checkbox';box.checked=Boolean(st.checks[i]);box.onchange=()=>{st.checks[i]=box.checked;row.classList.toggle('result-correct',box.checked);row.classList.toggle('result-pending',!box.checked);row.querySelector('.badge').textContent=`自己採点（${box.checked?f.pts:0}/${f.pts}点）`;document.getElementById('subtotal').textContent=sectionScore(si)};label.append(box,document.createTextNode(` 模範解答と同等の内容を書けていた（${f.pts}点）`));row.append(label)}card.append(row)});
+      if(s.table){s.table.forEach((r,i)=>{const x=document.createElement('div');x.className='result-item';x.innerHTML=`<strong>${r[0]} ${r[2]}</strong><br>あなたの回答：${st.answers[i]||'未回答'} 正解：${r[3]} <label class="self-check"><input type="checkbox" ${st.checks[`table${i}`]?'checked':''}> 正解（1点）</label>`;x.querySelector('input').onchange=e=>{st.checks[`table${i}`]=e.target.checked;document.getElementById('subtotal').textContent=sectionScore(si)};card.append(x)})}
+      card.insertAdjacentHTML('beforeend',`<div class="score-banner">大問得点：<span id="subtotal">${sectionScore(si)}</span> / ${s.max}点</div>`);
+      
+      const nav=document.createElement('div');nav.className='nav-row';
+      const back=document.createElement('button');back.type='button';back.className='btn';back.textContent='← 回答を修正';back.onclick=()=>renderQuestion(si);nav.append(back);
+      const next=document.createElement('button');next.type='button';next.className='btn';next.textContent=si<sections.length-1?'次の大問 →':'最終結果を見る →';next.onclick=()=>si<sections.length-1?renderQuestion(si+1):renderFinal();nav.append(next);
+      card.append(nav);
+      document.querySelectorAll('.screen').forEach(x=>x.remove());document.getElementById('quiz').append(card)
+    }
+
+    function renderFinal(){
+      const total=sections.reduce((n,s,i)=>n+sectionScore(i),0),card=document.createElement('section');
+      card.className='card screen';
+      card.innerHTML=`<h2>最終結果</h2><div class="score-banner">総合得点：${total} / 100点<br><span style="font-size:1rem">${total>=60?'合格':'不合格'}（合格点：60点）</span></div>`;
+      sections.forEach((s,i)=>{const d=document.createElement('div');d.className='summary-title';d.textContent=`大問 ${s.title}：${sectionScore(i)} / ${s.max}点`;card.append(d)});
+      const save=document.createElement('section');save.className='account-card';save.innerHTML=`<h2 id="account-heading">ログイン・新規登録</h2><p id="account-status" class="account-status" role="status" aria-live="polite">ログイン状態を確認しています…</p><div id="signed-out-panel" hidden><form id="account-form" class="account-form" novalidate><label for="account-email">メールアドレス<input id="account-email" type="email" required></label><label for="account-password">パスワード（6文字以上）<input id="account-password" type="password" minlength="6" required></label><div class="account-actions"><button id="submit-account" class="account-button primary" type="submit">ログイン</button></div></form><p class="account-switch"><span id="switch-prompt">初めての方はこちら：</span><button id="switch-mode" type="button">新規アカウント作成</button></p></div><div id="signed-in-panel" class="account-signed-in" hidden>ログイン中：<strong id="account-user-email"></strong><button id="logout-button" class="account-button secondary" type="button">ログアウト</button></div><p id="score-save-status" class="account-status" role="status">ログインすると、この検定の点数と解答を自動で記録します。</p><button id="retry-score-save" class="account-button secondary" type="button" hidden>保存を再試行</button>`;card.append(save);
+      const home=document.createElement('a');home.className='btn';home.href='https://hena-choco.github.io/index.html';home.textContent='問題一覧へ戻る';card.append(home);
+      document.querySelectorAll('.screen').forEach(x=>x.remove());document.getElementById('quiz').append(card);
+      setupFinal(total)
+    }
+
+    function setupFinal(total){
+      const $=id=>document.getElementById(id),form=$('account-form'),submit=$('submit-account'),status=$('account-status'),saveStatus=$('score-save-status'),retry=$('retry-score-save');
+      let mode='login';
+      const setStatus=(s,k='')=>{status.textContent=s;status.dataset.kind=k};
+      const save=async()=>{
+        if(finalScoreSaved)return;
+        if(finalScoreSavePromise)return finalScoreSavePromise;
+        const answers=sections.map((s,i)=>({section:s.title,answers:state[i].answers,selfCheck:state[i].checks,score:sectionScore(i)}));
+        saveStatus.textContent='点数を自動保存しています…';
+        finalScoreSavePromise=window.DoraemonAuth.saveScore({quizId:'2019-super-advanced',quizTitle:'ドラえもん検定 超上級',score:total,total:100,answers}).then(()=>{finalScoreSaved=true;saveStatus.textContent='点数と解答を保存しました。';retry.hidden=true}).catch(e=>{finalScoreSavePromise=null;retry.hidden=false;saveStatus.textContent='保存できませんでした。再試行してください。';console.error(e)});
+        return finalScoreSavePromise
+      };
+      const modeSet=m=>{mode=m;const reg=m==='register';submit.textContent=reg?'アカウントを作成':'ログイン';$('switch-prompt').textContent=reg?'すでにアカウントをお持ちの方はこちら：':'初めての方はこちら：';$('switch-mode').textContent=reg?'ログイン':'新規アカウント作成';setStatus(reg?'メールアドレスと6文字以上のパスワードで登録できます。':'ログインすると点数を保存できます。')};
+      $('switch-mode').onclick=()=>modeSet(mode==='login'?'register':'login');
+      form.onsubmit=async e=>{e.preventDefault();if(!form.reportValidity())return;submit.disabled=true;try{if(mode==='register')await window.DoraemonAuth.register($('account-email').value,$('account-password').value);else await window.DoraemonAuth.login($('account-email').value,$('account-password').value);setStatus('ログインしました。','success')}catch(err){setStatus('ログインまたは登録に失敗しました。入力内容をご確認ください。','error')}finally{submit.disabled=false}};
+      $('logout-button').onclick=()=>window.DoraemonAuth.logout();
+      retry.onclick=save;
+      window.DoraemonAuth.onAuthStateChanged(u=>{$('signed-out-panel').hidden=!!u;$('signed-in-panel').hidden=!u;$('account-user-email').textContent=u?.email||'';if(u){setStatus('ログイン中です。','success');save()}else modeSet(mode)})
+    }
+
+    // 最初に問題を表示する
+    renderQuestion(0);
+    </script>
+</body>
+</html>
