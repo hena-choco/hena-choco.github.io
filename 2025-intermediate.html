@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ドラえもん検定 2025年度 中級</title>
+  <meta name="description" content="ドラえもん検定2025年度中級の全7大問に挑戦。映画・原作・ひみつ道具・作品知識の問題を収録。100点満点・合格点60点です。">
+  <meta name="robots" content="index,follow">
+  <link rel="canonical" href="https://hena-choco.github.io/2025-intermediate.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="ドラえもん検定 2025年度 中級">
+  <meta property="og:description" content="ドラえもん検定2025年度中級の全7大問に挑戦。100点満点・合格点60点。">
+  <meta property="og:url" content="https://hena-choco.github.io/2025-intermediate.html">
+  <link rel="icon" href="https://hena-choco.github.io/favicon.png" type="image/png">
+  <style>
+    :root { --main:#6B9DFF; --bg:#f4f7f9; --card:#fff; --text:#333; --accent:#FFD43B; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif; background:var(--bg); color:var(--text); line-height:1.65; padding:20px 12px; }
+    .container { max-width:680px; margin:auto; }
+    .site-nav { position:sticky; top:8px; z-index:5; display:flex; justify-content:flex-start; margin-bottom:10px; }
+    .home-link { display:inline-flex; align-items:center; gap:6px; padding:9px 14px; border-radius:8px; background:#fff; color:#6B9DFF; border:1px solid #d6e3f8; font-weight:700; text-decoration:none; box-shadow:0 2px 8px #0000000d; }
+    header { text-align:center; margin-bottom:20px; padding:18px; background:var(--main); color:#fff; border-radius:12px; }
+    h1 { font-size:1.35rem; }
+    .card { background:var(--card); border-radius:12px; padding:20px; box-shadow:0 2px 8px #0000000d; margin-bottom:18px; }
+    h2 { font-size:1.12rem; margin-bottom:12px; }
+    .reading { white-space:pre-line; background:#f9fbfd; border:1px solid #e1ecff; border-radius:8px; padding:14px; margin-bottom:18px; }
+    .question-block { margin-bottom:20px; padding-bottom:14px; border-bottom:1px dashed #e5e5e5; }
+    .question-block:last-child { border-bottom:0; }
+    .q-title { font-weight:700; margin-bottom:8px; white-space:pre-line; }
+    .options-grid { display:flex; gap:10px; margin-top:8px; }
+    .opt-btn { flex:1; padding:12px; border:2px solid var(--main); background:var(--card); color:var(--main); font-size:1.1rem; font-weight:bold; border-radius:8px; cursor:pointer; }
+    .opt-btn.selected,.opt-btn-v.selected { background:var(--main); color:var(--card); }
+    .options-vertical { display:flex; flex-direction:column; gap:8px; margin-top:8px; }
+    .opt-btn-v { text-align:left; padding:12px 16px; border:2px solid var(--main); background:var(--card); color:var(--text); font-size:1rem; border-radius:8px; cursor:pointer; }
+    .text-input,.score-select { width:100%; padding:11px; font-size:1rem; border:2px solid var(--main); border-radius:8px; margin-top:5px; background:#fff; color:var(--text); }
+    .points,.muted { color:#666; font-size:.88rem; font-weight:400; }
+    .btn { display:block; width:100%; padding:16px; background:var(--main); color:var(--card); border:0; border-radius:8px; font-size:1.05rem; font-weight:bold; cursor:pointer; margin-top:10px; text-align:center; text-decoration:none; }
+    .btn:hover { background:#5689e8; }
+    .nav-row { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:12px; }
+    .nav-row .btn { margin:0; min-height:54px; display:flex; align-items:center; justify-content:center; }
+    .nav-placeholder { visibility:hidden; }
+    .result-item { padding:12px; border-radius:8px; margin:10px 0; font-size:.95rem; border:1px solid #d8dde5; background:#f7f8fa; }
+    .result-item.result-correct { border:0; background:#6B9DFF; color:#fff; }
+    .result-item.result-correct .answer-key { color:#fff; }
+    .result-item.result-correct .badge { background:rgba(255,255,255,.2); color:#fff; }
+    .result-item.result-wrong { border:0; background:#f1f2f4; color:#333; }
+    .result-item.result-wrong .badge { background:transparent; color:#6B9DFF; }
+    .result-item.result-pending { border:1px solid #d8dde5; background:#fff; color:#333; }
+    .badge { display:inline-block; padding:2px 8px; border-radius:4px; font-weight:700; font-size:.8rem; margin-bottom:4px; background:#eaf1ff; color:#335f9e; }
+    .answer-key { margin-top:5px; color:#444; white-space:pre-line; }
+    .score-banner { text-align:center; background:var(--main); color:var(--card); padding:20px; border-radius:12px; font-size:1.3rem; font-weight:700; margin:12px 0 18px; }
+    .score-banner.pass { background:var(--accent); color:var(--text); }
+    .summary-title { border-bottom:2px solid var(--main); padding:0 0 4px; margin:20px 0 10px; font-weight:700; }
+    .account-card { background:#fff; border:1px solid #e4e9f0; border-radius:12px; padding:18px; margin-top:22px; }
+    .account-card h2 { margin-bottom:6px; }
+    .account-status { min-height:1.5em; margin:7px 0 12px; font-size:.9rem; }
+    .account-status[data-kind="error"] { color:#a33; }
+    .account-status[data-kind="success"] { color:#176b45; }
+    .account-form { display:grid; gap:10px; }
+    .account-form[hidden], [hidden] { display:none !important; }
+    .account-form label { display:grid; gap:4px; font-size:.9rem; font-weight:600; }
+    .account-form input { width:100%; padding:11px; border:1px solid #cfd6df; border-radius:7px; font:inherit; }
+    .account-actions { display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
+    .account-button { border:0; border-radius:7px; padding:10px 14px; font:inherit; font-weight:700; cursor:pointer; }
+    .account-button.primary { background:var(--main); color:#fff; }
+    .account-button.secondary { background:#eef3fb; color:#315a9d; }
+    .account-button:disabled { opacity:.55; cursor:not-allowed; }
+    .account-switch { margin-top:10px; font-size:.88rem; }
+    .account-switch button { border:0; background:none; color:#315a9d; text-decoration:underline; font:inherit; font-weight:700; cursor:pointer; }
+    .account-signed-in { padding:10px; background:#f4f8ff; border-radius:7px; overflow-wrap:anywhere; }
+    @media(max-width:480px) { body { padding:12px 8px; } .card { padding:16px; } .nav-row { gap:7px; } .nav-row .btn { padding:12px 8px; font-size:.95rem; } }
+  </style></head>
+<body>
+<main class="container">
+  <nav class="site-nav" aria-label="サイトナビゲーション"><a class="home-link" href="https://hena-choco.github.io/index.html">← 一覧に戻る</a></nav>
+  <header><h1>ドラえもん検定 2025年度 中級</h1></header>
+  <div id="quiz"></div>
+</main>
+<script type="module">
+import "./firebase-auth.js";
+const PASS_SCORE=60;
+const sections=[
+{title:'Ⅰ',max:13,reading:`2025年に①45周年を迎えた『映画ドラえもん』シリーズには、原作マンガ『ドラえもん』とつながりのある作品も多い。例えば、2003年公開『映画ドラえもん のび太□ふしぎ風使い』にて、のび太が出会った (A) は、原作マンガ「台風の (A) 」においては、のび太が卵からかえしたキャラクターとして登場する。翌年に公開された③『のび太のワンニャン時空伝』も、原作マンガ「のら犬 (B) の国」とのつながりが密接である。『映画ドラえもん』には、過去の『映画ドラえもん』のリメイク作品も多い。例えば、④『のび太の恐竜』や『のび太の日本誕生』は、これらを原作にリメイクが行われている。こうした重層的な作品構造が、『映画ドラえもん』のもつ大きな特徴といえよう。`,fields:[
+{q:'問1. （A）、（B）に入るキャラクター名を答えよ。\n（A）',type:'text',answer:'フー子',pts:2},{q:'（B）',type:'text',answer:'イチ',pts:2},
+{q:'問2. 2025年公開の映画のタイトルを答えよ（「映画ドラえもん」を除く）。',type:'text',answer:'のび太の絵世界物語',pts:2},
+{q:'問3. □に入る助詞を答えよ。',type:'text',answer:'と',pts:2},
+{q:'問4. 「のび太のワンニャン時空伝」でドラえもんの声を担当した声優は誰か。',type:'text',answer:'大山のぶ代',pts:3},
+{q:'問5. 2006年公開のリメイク作品のタイトルを答えよ（「映画ドラえもん」を除く）。',type:'text',answer:'のび太の恐竜2006',pts:2}
+]},
+{title:'Ⅱ',max:10,reading:'Ⅱ 以下の文章が正しい場合は〇を、誤っている場合は×を書きなさい。',fields:[
+{q:'(1) しずかが飼っている犬の名前はムクである。',type:'tf',answer:'×',pts:2},{q:'(2) 人生やりなおし機で4歳時にも戻れる。',type:'tf',answer:'〇',pts:2},{q:'(3) 「スズメバチの巣」は「ハチにたのめばなんとかなるさ」に登場する。',type:'tf',answer:'×',pts:2},{q:'(4) 「ガッコー仮面登場」には、中学生・高校生になったのび太が登場する。',type:'tf',answer:'〇',pts:2},{q:'(5) のび太のママの旧姓は高岡である。',type:'tf',answer:'×',pts:2}
+]},
+{title:'Ⅲ',max:20,reading:'Ⅲ 以下の問いに答えよ。',fields:[
+{q:'(1) 「しずちゃんのはごろも」に登場する道具はどれか。',type:'choice',options:['フワフワオビ','トイレットペーパー','フワフワタスキ','ふわふわぐすり'],answer:0,pts:2},
+{q:'(2) 「〇〇恐怖症」にて開催された、のび太を怖がらせるコンクールの第一等は誰か。',type:'choice',options:['学校の先生','ジャイアン','スネ夫','のび太のママ'],answer:1,pts:2},
+{q:'(3) 「にっくきあいつ」とは誰か。',type:'choice',options:['出木杉','野球部のキャプテン','しずかの家庭教師','学校の先生'],answer:2,pts:2},
+{q:'(4) 「ペッター」は何に対して使用する道具か。',type:'choice',options:['掃除機','ほうき','紙相撲','椅子'],answer:0,pts:2},
+{q:'(5) 「やりすぎ！のぞみ実現機」でテストを受けずに済んだ理由は何か。',type:'choice',options:['大地震','ジャイアンの歌','先生がテストを忘れた','遅刻'],answer:3,pts:2},
+{q:'(6) ジャイアンの頭に「タイヤ」と「木」が当たる原因となった道具はどれか。',type:'choice',options:['人間あやつり機','ねがい星','とりよせバッグ','タケコプター'],answer:1,pts:2},
+{q:'(7) 音楽いもで探したのは誰のおしりか。',type:'choice',options:['のび太','しずか','スネ夫','ジャイアン'],answer:2,pts:2},
+{q:'(8) 「ふきかえ糸電話」にて、のび太が阻止したかったことは何か。',type:'choice',options:['ジャイアンリサイタル','弱い者いじめ','スネ夫の自慢話','先生の家庭訪問'],answer:3,pts:2},
+{q:'(9) 「チョージャワラシベ」にて、のび太が欲しかった物は何か。',type:'choice',options:['グローブ','サッカーボール','マンガ','出木杉の宿題'],answer:0,pts:2},
+{q:'(10) 「念録マイク」で風邪をひいていたジャイアンがリサイタルを開催できた理由は何か。',type:'choice',options:['お医者さんカバンで治した','みんなに歌わせた','念録マイクを使わせた','テープに吹き込んでいた'],answer:3,pts:2}
+]},
+{title:'Ⅳ',max:18,reading:'Ⅳ 以下の問いに答えよ。',fields:[
+{q:'(1) 「のび太の海底鬼岩城」で、しずかは水中バギーを何と呼んでいたか。6字で答えよ。',type:'text',answer:'バギーちゃん',aliases:['バギーちゃん'],pts:3},
+{q:'(2) 「うちのプールは太平洋」で、ドラえもんは野比家の何をプールにしたか。',type:'text',answer:'お風呂',aliases:['お風呂','浴槽','湯船'],pts:3},
+{q:'(3) ようろうおつまみは水を何に変えるか。',type:'text',answer:'お酒',aliases:['お酒','酒','ウイスキー'],pts:3},
+{q:'(4) 「キンシひょうしき」で、のび太のパパがやめようとしていたことは何か。',type:'text',answer:'たばこ',aliases:['たばこ','タバコ','喫煙'],pts:3},
+{q:'(5) 「ポラマップスコープ」と地図を使って探した乗り物は何か。',type:'text',answer:'気球',pts:3},
+{q:'(6) 「大富豪ののび太」で、のび太が物価を安くするために使った道具は何か。',type:'text',answer:'もしもボックス',pts:3}
+]},
+{title:'Ⅴ',max:12,reading:`Ⅴ 以下は、“藤子・F・不二雄監修・まんが(2013)『ドラえもん 最新ひみつ道具大事典』小学館”に掲載された、ひみつ道具の説明文からの引用である。説明文から、正しいひみつ道具の名前を答えよ。引用の都合上、説明文の後に頁数を入れている。`,fields:[
+{q:'(1) 過去や未来と連絡がとれる、便利な電話。（P36）',type:'text',answer:'タイム電話',pts:2},{q:'(2) 何時間も前の声が、山びこになって返ってくる。（P308）',type:'text',answer:'山びこ山',pts:2},{q:'(3) 本人に直接聞かなくても、本人の意見をしゃべってくれる。（P70）',type:'text',answer:'アンケーター',pts:2},{q:'(4) これを飲んで寝ると、魂が抜け出して、一時的に幽霊になる。（P330）',type:'text',answer:'うらめしドロップ',pts:2},{q:'(5) この薬を飲むと、人のことを信じなくなる。（P340）',type:'text',answer:'ギシンアンキ',pts:2},{q:'(6) 忠実な友達になってくれる、ロボット犬。（P143）',type:'text',answer:'チューケンパー',pts:2}
+]},
+{title:'Ⅵ',max:17,reading:`Ⅵ 以下の文章を読み、続く問いに答えよ。
+
+近年、生成AIは急速に進展しているが、利用者の言動や思考を無批判に肯定する仕組みを持つAIに依存することの危険性も指摘されている。こうした依存の問題を先取りするようなテーマは、『ドラえもん』の作品にも描かれている。
+例えば、「（1）ロボット」という作品が挙げられる。茶碗を割ってしょげてしまったのび太のために、ドラえもんが（1）ロボットを出す。ロボットは「毎日買いたての新鮮な茶碗でお茶が飲めるなんてすばらしい」と言ってのび太を慰めた。やがて、のび太はロボットへの依存を深めてしまう。見かねたドラえもんが（2）を出して、みすぼらしくなったのび太を見せ、成長には厳しく叱る人も必要、と説得した。のび太は理解し、厳しいロボットをドラえもんにも出してもらうが、ドラえもんが出した（3）は逆に厳しすぎた、というオチである。
+また、「ロボ子が愛してる」という作品も重要である。のび太が女の子の前で得意の（4）の投げ食いを披露している際に、やってきた（5）に女の子をとられてしまった。可哀想に思ったドラえもんが出したのが、（6）ロボットのロボ子だった。彼女はのび太だけが好きになるように設定されており、のび太を全肯定する。加減を知らないロボ子は、のび太に嫌なことが起きれば（7）の力で過剰に対応して、周囲を困らせる。`,fields:[
+{q:'(1) 空欄（1）に入る言葉。',type:'choice',options:['かぐや','トモダチ','ハゲマシ','いたわり'],answer:3,pts:2},
+{q:'(2) 空欄（2）に入るひみつ道具。',type:'choice',options:['具象化鏡','進化退化放射線源','きせかえカメラ','タイムテレビ'],answer:3,pts:2},
+{q:'(3) 空欄（3）に入るロボット。',type:'choice',options:['しごきロボット','多目的おまもり','スパルタコーチ','強いイシ'],answer:0,pts:2},
+{q:'(4) 空欄（4）に入る食べ物。',type:'choice',options:['レーズン','ピーナッツ','マシュマロ','こんぺいとう'],answer:1,pts:2},
+{q:'(5) 空欄（5）に入る人物。',type:'choice',options:['出木杉','子犬','スネ夫','ジャイアン'],answer:2,pts:2},
+{q:'(6) 空欄（6）に入る言葉。',type:'choice',options:['かぐや','トモダチ','ハゲマシ','いたわり'],answer:1,pts:2},
+{q:'(7) 空欄（7）に入る力。',type:'choice',options:['一万馬力','十万馬力','百万馬力','一千万馬力'],answer:2,pts:2},
+{q:'(8) ドラえもんのお説教の中で語ったことはどれか。',type:'choice',options:['毎日勉強もせず…成績があがらんのだ','いちばんいけないのは自分なんかだめだと思いこむことだよ','つらいことくるしいことに、ドンとぶつかっていけ！！','はじめから計画的にやっていれば、こんなことにならなかったんだぞ'],answer:3,pts:3}
+]},
+{title:'Ⅶ',max:10,reading:`Ⅶ 以下の表は、テレビアニメ『ドラえもん』のオープニングテーマをまとめたものである。空欄①〜⑤に当てはまる曲名を答えよ。`,passage:`1973年｜ドラえもん｜内藤はるみと劇団NLT
+1979年｜①｜大杉久美子
+1979年｜ぼくドラえもん｜大山のぶ代、こおろぎ’73
+1992年｜②｜山野さと子
+2003年｜③｜渡辺美里
+2004年｜④｜AJI
+2005年｜⑤｜女子十二楽坊（演奏）
+2005年｜ハグしちゃお｜夏川りみ
+2007年｜夢をかなえてドラえもん｜mao
+2019年｜ドラえもん｜星野源`,fields:[1,2,3,4,5].map(n=>({q:`空欄（${n}）の曲名`,type:'text',answer:'ドラえもんのうた',pts:2}))}
+];
+const state=sections.map(()=>({answers:{},score:0}));let finalScoreSavePromise=null,finalScoreSaved=false;
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const normalize=s=>String(s??'').normalize('NFKC').toLowerCase().replace(/[\s。、,，.！!「」『』（）()・：:／/]/g,'');
+const matches=(v,answers=[])=>answers.some(a=>normalize(v)===normalize(a));
+function correct(f,st,i){if(f.type==='tf')return ['〇','×'][st.answers[i]]===f.answer;if(f.type==='choice')return st.answers[i]===f.answer;return matches(st.answers[i],f.aliases||[f.answer])}
+function sectionScore(si){return state[si].score}
+function renderQuestion(si){document.querySelectorAll('.screen').forEach(e=>e.remove());const s=sections[si],st=state[si],card=document.createElement('section');card.className='card screen';card.innerHTML=`<h2>大問 ${s.title} <span class="points">（${s.max}点満点）</span></h2><div class="reading">${esc(s.reading)}${s.passage?`\n\n${esc(s.passage)}`:''}</div>`;
+s.fields.forEach((f,i)=>{const b=document.createElement('div');b.className='question-block';let ctl;if(f.type==='tf')ctl=`<div class="options-grid">${['〇','×'].map((x,j)=>`<button type="button" class="opt-btn ${st.answers[i]===j?'selected':''}" data-choice="${i}" data-value="${j}">${x}</button>`).join('')}</div>`;else if(f.type==='choice')ctl=`<div class="options-vertical">${f.options.map((x,j)=>`<button type="button" class="opt-btn-v ${st.answers[i]===j?'selected':''}" data-choice="${i}" data-value="${j}">${j+1}. ${esc(x)}</button>`).join('')}</div>`;else ctl=`<input class="text-input" type="text" data-answer="${i}" value="${esc(st.answers[i]||'')}" placeholder="回答を入力">`;b.innerHTML=`<div class="q-title">${esc(f.q)} <span class="points">（${f.pts}点）</span></div>${ctl}`;card.append(b)});
+const nav=document.createElement('div');nav.className='nav-row';if(si){const back=document.createElement('button');back.className='btn';back.textContent='← 前の大問';back.onclick=()=>renderQuestion(si-1);nav.append(back)}else{const x=document.createElement('span');x.className='nav-placeholder';nav.append(x)}const go=document.createElement('button');go.className='btn';go.textContent='回答を採点する →';go.onclick=()=>grade(si);nav.append(go);card.append(nav);document.getElementById('quiz').append(card);
+card.querySelectorAll('[data-choice]').forEach(x=>x.onclick=()=>{st.answers[+x.dataset.choice]=+x.dataset.value;x.parentElement.querySelectorAll('button').forEach(y=>y.classList.toggle('selected',y===x))});card.querySelectorAll('[data-answer]').forEach(x=>x.oninput=()=>st.answers[+x.dataset.answer]=x.value)}
+function grade(si){const s=sections[si],st=state[si];document.querySelectorAll('.screen [data-answer]').forEach(x=>st.answers[+x.dataset.answer]=x.value);st.score=0;s.fields.forEach((f,i)=>{if(correct(f,st,i))st.score+=f.pts});renderResult(si)}
+function renderResult(si){document.querySelectorAll('.screen').forEach(e=>e.remove());const s=sections[si],st=state[si],card=document.createElement('section');card.className='card screen';card.innerHTML=`<h2>大問 ${s.title} 採点結果</h2>`;s.fields.forEach((f,i)=>{const ok=correct(f,st,i),user=f.type==='tf'?(st.answers[i]===undefined?'未選択':['〇','×'][st.answers[i]]):f.type==='choice'?(st.answers[i]===undefined?'未選択':`${st.answers[i]+1}. ${f.options[st.answers[i]]}`):(st.answers[i]||'未入力'),answer=f.type==='choice'?`${f.answer+1}. ${f.options[f.answer]}`:f.answer,row=document.createElement('div');row.className=`result-item ${ok?'result-correct':'result-wrong'}`;row.innerHTML=`<span class="badge">${ok?'✓ 正解':'× 不正解'}（${ok?f.pts:0}/${f.pts}点）</span><div><strong>${esc(f.q)}</strong></div><div class="answer-key">あなたの回答：${esc(user)}<br>正解：${esc(answer)}</div>`;card.append(row)});card.insertAdjacentHTML('beforeend',`<div class="score-banner">大問得点：${sectionScore(si)} / ${s.max}点</div>`);const nav=document.createElement('div');nav.className='nav-row';const edit=document.createElement('button');edit.className='btn';edit.textContent='← 回答を修正';edit.onclick=()=>renderQuestion(si);nav.append(edit);const next=document.createElement('button');next.className='btn';next.textContent=si<sections.length-1?'次の大問 →':'最終結果を見る →';next.onclick=()=>si<sections.length-1?renderQuestion(si+1):renderFinal();nav.append(next);card.append(nav);document.getElementById('quiz').append(card)}
+function renderFinal(){document.querySelectorAll('.screen').forEach(e=>e.remove());const total=sections.reduce((a,s,i)=>a+sectionScore(i),0),card=document.createElement('section');card.className='card screen';card.innerHTML=`<h2>最終結果</h2><div class="score-banner ${total>=PASS_SCORE?'pass':''}">総合得点：${total} / 100点<br><span style="font-size:1rem">${total>=PASS_SCORE?'合格':'不合格'}（合格点：${PASS_SCORE}点）</span></div>`;sections.forEach((s,i)=>{const d=document.createElement('div');d.className='summary-title';d.textContent=`大問 ${s.title}：${sectionScore(i)} / ${s.max}点`;card.append(d)});const a=document.createElement('section');a.className='account-card';a.innerHTML=`<h2 id="account-heading">ログイン・新規登録</h2><p id="account-status" class="account-status" role="status" aria-live="polite">ログイン状態を確認しています…</p><div id="signed-out-panel" hidden><form id="account-form" class="account-form" novalidate><label for="account-email">メールアドレス<input id="account-email" type="email" autocomplete="email" required></label><label for="account-password">パスワード（6文字以上）<input id="account-password" type="password" autocomplete="current-password" minlength="6" required></label><div class="account-actions"><button id="submit-account" class="account-button primary" type="submit">ログイン</button></div></form><p class="account-switch"><span id="switch-prompt">初めての方はこちら：</span><button id="switch-mode" type="button">新規アカウント作成</button></p></div><div id="signed-in-panel" class="account-signed-in" hidden><p>ログイン中：<strong id="account-user-email"></strong></p><div class="account-actions"><button id="logout-button" class="account-button secondary" type="button">ログアウト</button></div></div><p id="score-save-status" class="account-status" role="status" aria-live="polite">ログインすると、この検定の点数と解答を自動で記録します。</p><button id="retry-score-save" class="account-button secondary" type="button" hidden>保存を再試行</button>`;card.append(a);document.getElementById('quiz').append(card);setupAccount(total)}
+function setupAccount(total){const $=id=>document.getElementById(id),status=$('account-status'),saveStatus=$('score-save-status'),form=$('account-form'),submit=$('submit-account'),retry=$('retry-score-save');let mode='login';const setStatus=(m,k='')=>{status.textContent=m;status.dataset.kind=k};const save=async()=>{if(finalScoreSaved){saveStatus.textContent='点数と解答は保存済みです。';return}if(finalScoreSavePromise)return finalScoreSavePromise;saveStatus.textContent='点数と解答を自動保存しています…';const answers=sections.map((s,si)=>({section:s.title,score:sectionScore(si),answers:s.fields.map((f,i)=>({question:f.q,answer:state[si].answers[i]===undefined?'未回答':f.type==='choice'?`${state[si].answers[i]+1}. ${f.options[state[si].answers[i]]}`:f.type==='tf'?(['〇','×'][state[si].answers[i]]||'未回答'):state[si].answers[i],correctAnswer:f.type==='choice'?`${f.answer+1}. ${f.options[f.answer]}`:f.answer,correct:correct(f,state[si],i),earned:correct(f,state[si],i)?f.pts:0,maxPoints:f.pts}))}));finalScoreSavePromise=window.DoraemonAuth.saveScore({quizId:'2025-intermediate',quizTitle:'ドラえもん検定 2025年度 中級',score:total,total:100,passThreshold:PASS_SCORE,answers}).then(()=>{finalScoreSaved=true;retry.hidden=true;saveStatus.textContent='点数と解答を保存しました。';saveStatus.dataset.kind='success'}).catch(e=>{finalScoreSavePromise=null;retry.hidden=false;saveStatus.textContent='点数を保存できませんでした。通信状態やFirestoreの設定を確認してください。';saveStatus.dataset.kind='error';console.error(e)});return finalScoreSavePromise};const setMode=m=>{mode=m;const reg=m==='register';submit.textContent=reg?'アカウントを作成':'ログイン';$('switch-prompt').textContent=reg?'すでにアカウントをお持ちの方はこちら：':'初めての方はこちら：';$('switch-mode').textContent=reg?'ログイン':'新規アカウント作成';$('account-password').autocomplete=reg?'new-password':'current-password';setStatus(reg?'メールアドレスと6文字以上のパスワードで登録できます。':'ログインすると点数を保存できます。')};$('switch-mode').onclick=()=>setMode(mode==='login'?'register':'login');form.onsubmit=async e=>{e.preventDefault();if(!form.reportValidity())return;submit.disabled=true;setStatus(mode==='register'?'アカウントを作成しています…':'ログインしています…');try{const email=$('account-email').value.trim(),password=$('account-password').value;await window.DoraemonAuth[mode==='register'?'register':'login'](email,password);form.reset();setStatus('ログインしました。','success')}catch(error){setStatus(error.code==='auth/invalid-credential'?'メールアドレスまたはパスワードを確認してください。':'処理に失敗しました。入力内容とFirebaseの設定を確認してください。','error')}finally{submit.disabled=false}};$('logout-button').onclick=async()=>{try{await window.DoraemonAuth.logout();setStatus('ログアウトしました。','success')}catch{setStatus('ログアウトできませんでした。','error')}};retry.onclick=save;window.DoraemonAuth.onAuthStateChanged(user=>{$('signed-out-panel').hidden=!!user;$('signed-in-panel').hidden=!user;$('account-user-email').textContent=user?.email||'';if(user){setStatus('ログイン中です。','success');save()}else{setMode(mode);saveStatus.textContent='ログインすると、この検定の点数と解答を自動で記録します。'}},()=>setStatus('ログイン状態を確認できません。ページを再読み込みしてください。','error'))}
+renderQuestion(0);
+
+</script>
+</body>
+</html>
