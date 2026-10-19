@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ドラえもん検定 過去問題集</title>
+  <meta name="description" content="早稲田大学ドラえもん研究会で行われている「ドラえもん検定」の過去問題を一覧にしています。2024年に出版された、公式の赤本を元に制作しました。クイズ形式になっており、回答を入力すると正誤判定と答えが表示されます。">
+  <link rel="icon" href="favicon.png" type="image/png">
+  <meta name="google-site-verification" content="vVDG6eSvIIY_GEsIIaB9RL92yBBk40uIAui3EJz0GaY">
+  <style>
+    :root { --main-color:#6B9DFF; --bg-color:#f4f7f9; --card-bg:#fff; --text-color:#333; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif; background:var(--bg-color); color:var(--text-color); line-height:1.6; padding:20px 12px; }
+    .container { max-width:600px; margin:0 auto; }
+    header { text-align:center; margin-bottom:20px; padding:24px 20px; background:var(--main-color); color:#fff; border-radius:16px; box-shadow:0 4px 12px rgba(0,0,0,.05); }
+    h1 { font-size:1.5rem; color:#fff; margin-bottom:4px; }
+    p.subtitle { font-size:.9rem; color:rgba(255,255,255,.9); }
+    .account-card { background:var(--card-bg); border-radius:12px; margin-bottom:24px; padding:20px; box-shadow:0 2px 8px rgba(0,0,0,.05); }
+    .account-card h2 { font-size:1.12rem; margin-bottom:5px; }
+    .account-copy { color:#555; font-size:.9rem; margin-bottom:14px; }
+    .account-status { font-size:.9rem; margin:8px 0 12px; min-height:1.45em; }
+    .account-status[data-kind="error"] { color:#b42318; }
+    .account-status[data-kind="success"] { color:#16794b; }
+    .account-form { display:grid; gap:10px; }
+    .account-form[hidden], [hidden] { display:none !important; }
+    .account-form label { display:grid; gap:4px; font-size:.85rem; font-weight:600; }
+    .account-form input { width:100%; border:1px solid #cfd6df; border-radius:8px; padding:11px 12px; font:inherit; color:var(--text-color); }
+    .account-form input:focus { outline:3px solid rgba(107,157,255,.25); border-color:var(--main-color); }
+    .account-actions { display:flex; flex-wrap:wrap; gap:9px; margin-top:12px; }
+    .account-button { border:0; border-radius:8px; padding:10px 14px; font:inherit; font-weight:700; cursor:pointer; }
+    .account-button.primary { background:var(--main-color); color:#fff; }
+    .account-button.secondary { background:#eef3fb; color:#315a9d; }
+    .account-button:disabled { opacity:.6; cursor:wait; }
+    .account-switch { margin-top:12px; font-size:.85rem; color:#555; }
+    .account-switch button { border:0; background:none; color:#315a9d; font:inherit; font-weight:700; text-decoration:underline; cursor:pointer; }
+    .account-signed-in { padding:12px; background:#f4f8ff; border-radius:8px; overflow-wrap:anywhere; }
+    .movie-banner { height:112px; background:var(--movie-color); }
+    .year-card { background:var(--card-bg); border-radius:12px; margin-bottom:12px; box-shadow:0 2px 8px rgba(0,0,0,.04); overflow:hidden; }
+    details { width:100%; }
+    summary { font-size:1.1rem; font-weight:bold; padding:16px; cursor:pointer; background:#fff; color:var(--text-color); list-style:none; display:flex; justify-content:space-between; align-items:center; user-select:none; }
+    summary::-webkit-details-marker { display:none; }
+    summary::after { content:"＋"; font-size:1.2rem; color:var(--main-color); transition:transform .2s; }
+    details[open] summary::after { content:"－"; }
+    details[open] summary { border-bottom:1px solid #eee; background:#fff; }
+    .level-list { display:flex; flex-direction:column; gap:10px; padding:16px; background:#fff; }
+    .level-btn { display:block; text-align:center; padding:14px; text-decoration:none; background:var(--main-color); color:#fff; font-weight:bold; font-size:1rem; border-radius:8px; transition:transform .1s,opacity .2s; box-shadow:0 2px 4px rgba(0,0,0,.08); }
+    .level-btn:active { transform:scale(.98); opacity:.9; }
+    footer { text-align:center; margin-top:32px; font-size:.75rem; color:#888; }
+    @media (max-width:420px) { .account-card { padding:16px; } }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>ドラえもん検定 過去問題集</h1>
+      <p class="subtitle">早稲田大学ドラえもん研究会 赤本</p>
+    </header>
+
+    <section class="account-card" aria-labelledby="account-heading">
+      <h2 id="account-heading">検定の点数を記録しよう</h2>
+      <p class="account-copy">アカウントを作成・ログインすると、各検定ページから点数を保存して、あとから振り返ることができます。</p>
+      <p id="account-status" class="account-status" role="status" aria-live="polite">ログイン状態を確認しています…</p>
+      <div id="signed-out-panel" hidden>
+        <form id="account-form" class="account-form" novalidate>
+          <label for="account-email">メールアドレス<input id="account-email" name="email" type="email" autocomplete="email" required></label>
+          <label for="account-password">パスワード（6文字以上）<input id="account-password" name="password" type="password" autocomplete="current-password" minlength="6" required></label>
+          <div class="account-actions">
+            <button id="submit-account" class="account-button primary" type="submit">ログイン</button>
+          </div>
+        </form>
+        <p class="account-switch"><span id="switch-prompt">初めての方はこちら：</span><button id="switch-mode" type="button">新規アカウント作成</button></p>
+      </div>
+      <div id="signed-in-panel" class="account-signed-in" hidden>
+        <p>ログイン中：<strong id="account-user-email"></strong></p>
+        <div class="account-actions"><button id="logout-button" class="account-button secondary" type="button">ログアウト</button></div>
+      </div>
+    </section>
+
+    <!-- 2025年 -->
+    <div class="year-card"><div class="movie-banner" style="--movie-color:#EADCC9" aria-hidden="true"></div><details open><summary>2025年</summary><div class="level-list"><a href="./2025-beginner.html" class="level-btn">初級</a><a href="./2025-shochukyu.html" class="level-btn">初中級</a><a href="./2025-intermediate.html" class="level-btn">中級</a><a href="./2025-advanced.html" class="level-btn">上級</a></div></details></div>
+    <!-- 2024年 -->
+    <div class="year-card"><div class="movie-banner" style="--movie-color:#C4B5FD" aria-hidden="true"></div><details><summary>2024年</summary><div class="level-list"><a href="./2024-beginner.html" class="level-btn">初級</a><a href="./2024-intermediate.html" class="level-btn">中級</a><a href="./2024-advanced.html" class="level-btn">上級</a></div></details></div>
+    <!-- 2023年 -->
+    <div class="year-card"><div class="movie-banner" style="--movie-color:#93C5FD" aria-hidden="true"></div><details><summary>2023年</summary><div class="level-list"><a href="./2023-beginner.html" class="level-btn">初級</a><a href="./2023-intermediate.html" class="level-btn">中級</a><a href="./2023-advanced.html" class="level-btn">上級</a></div></details></div>
+    <!-- 2022年 -->
+    <div class="year-card"><div class="movie-banner" style="--movie-color:#D8B4FE" aria-hidden="true"></div><details><summary>2022年</summary><div class="level-list"><a href="./2022-beginner.html" class="level-btn">初級</a><a href="./2022-intermediate.html" class="level-btn">中級</a><a href="./2022-advanced.html" class="level-btn">上級</a></div></details></div>
+    <!-- 2021年 -->
+    <div class="year-card"><div class="movie-banner" style="--movie-color:#CBD5E1" aria-hidden="true"></div><details><summary>2021年</summary><div class="level-list"><a href="./2021-beginner.html" class="level-btn">初級</a><a href="./2021-intermediate.html" class="level-btn">中級</a><a href="./2021-advanced.html" class="level-btn">上級</a></div></details></div>
+    <!-- 2020年 -->
+    <div class="year-card"><div class="movie-banner" style="--movie-color:#A7F3D0" aria-hidden="true"></div><details><summary>2020年</summary><div class="level-list"><a href="./2020-beginner.html" class="level-btn">初級</a><a href="./2020-intermediate.html" class="level-btn">中級</a><a href="./2020-advanced.html" class="level-btn">上級</a></div></details></div>
+    <!-- 2019年 -->
+    <div class="year-card"><div class="movie-banner" style="--movie-color:#FEF08A" aria-hidden="true"></div><details><summary>2019年</summary><div class="level-list"><a href="./2019-intermediate.html" class="level-btn">中級</a><a href="./2019-advanced.html" class="level-btn">上級</a><a href="./2019-super-advanced.html" class="level-btn">超上級</a></div></details></div>
+    <!-- 2018年 -->
+    <div class="year-card"><div class="movie-banner" style="--movie-color:#FCA5A5" aria-hidden="true"></div><details><summary>2018年</summary><div class="level-list"><a href="./2018-intermediate.html" class="level-btn">中級</a><a href="./2018-advanced.html" class="level-btn">上級</a><a href="./2018-super-advanced.html" class="level-btn">超上級</a></div></details></div>
+    <!-- 2017年 -->
+    <div class="year-card"><div class="movie-banner" style="--movie-color:#CFFAFE" aria-hidden="true"></div><details><summary>2017年</summary><div class="level-list"><a href="./2017-intermediate.html" class="level-btn">中級</a><a href="./2017-advanced.html" class="level-btn">上級</a></div></details></div>
+    <!-- 2016年 -->
+    <div class="year-card"><div class="movie-banner" style="--movie-color:#FED7AA" aria-hidden="true"></div><details><summary>2016年</summary><div class="level-list"><a href="./2016-intermediate.html" class="level-btn">中級</a><a href="./2016-advanced.html" class="level-btn">上級</a></div></details></div>
+    <footer><p>へなちょこ / Hazel Nuts Chocolate</p></footer>
+  </div>
+
+  <script type="module">
+    import { auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "./firebase-auth.js";
+    const db = getFirestore(app);
+    const $ = (id) => document.getElementById(id);
+    const form = $("account-form");
+    const submitButton = $("submit-account");
+    const status = $("account-status");
+    let mode = "login";
+
+    function setStatus(message, kind = "") {
+      status.textContent = message;
+      status.dataset.kind = kind;
+    }
+    function setMode(nextMode) {
+      mode = nextMode;
+      const creating = mode === "register";
+      submitButton.textContent = creating ? "アカウントを作成" : "ログイン";
+      $("switch-prompt").textContent = creating ? "すでにアカウントをお持ちの方はこちら：" : "初めての方はこちら：";
+      $("switch-mode").textContent = creating ? "ログイン" : "新規アカウント作成";
+      $("account-password").autocomplete = creating ? "new-password" : "current-password";
+      setStatus(creating ? "メールアドレスと6文字以上のパスワードで登録できます。" : "ログインすると検定の点数を記録できます。");
+    }
+    $("switch-mode").addEventListener("click", () => setMode(mode === "login" ? "register" : "login"));
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      if (!form.reportValidity()) return;
+      const email = $("account-email").value.trim();
+      const password = $("account-password").value;
+      submitButton.disabled = true;
+      setStatus(mode === "register" ? "アカウントを作成しています…" : "ログインしています…");
+      try {
+        if (mode === "register") await createUserWithEmailAndPassword(auth, email, password);
+        else await signInWithEmailAndPassword(auth, email, password);
+        form.reset();
+        setStatus(mode === "register" ? "アカウントを作成しました。ログインしました。" : "ログインしました。", "success");
+      } catch (error) {
+        const messages = {
+          "auth/email-already-in-use": "このメールアドレスはすでに登録されています。ログインをお試しください。",
+          "auth/invalid-email": "メールアドレスの形式を確認してください。",
+          "auth/weak-password": "パスワードは6文字以上で入力してください。",
+          "auth/invalid-credential": "メールアドレスまたはパスワードを確認してください。",
+          "auth/too-many-requests": "試行回数が多いため一時的に制限されています。しばらくしてから再度お試しください。",
+          "auth/network-request-failed": "通信に失敗しました。接続を確認して再度お試しください。"
+        };
+        setStatus(messages[error.code] || "処理に失敗しました。入力内容とFirebaseの設定を確認してください。", "error");
+      } finally { submitButton.disabled = false; }
+    });
+
+    $("logout-button").addEventListener("click", async () => {
+      try { await signOut(auth); setStatus("ログアウトしました。", "success"); }
+      catch { setStatus("ログアウトできませんでした。再度お試しください。", "error"); }
+    });
+
+    onAuthStateChanged(auth, (user) => {
+      $("signed-out-panel").hidden = Boolean(user);
+      $("signed-in-panel").hidden = !user;
+      $("account-user-email").textContent = user?.email || "";
+      if (user) setStatus("ログイン中です。検定ページから点数を記録できます。", "success");
+      else setMode(mode);
+    }, (error) => {
+      console.error("Firebase auth state error", error);
+      setStatus("ログイン状態を確認できません。ページを再読み込みしてください。", "error");
+    });
+
+  </script>
+</body>
+</html>
