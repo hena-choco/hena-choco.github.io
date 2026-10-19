@@ -113,7 +113,6 @@
   </script>
   <script type="module">
     import { auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "./firebase-auth.js";
-    const db = getFirestore(app);
     const $ = (id) => document.getElementById(id);
     const form = $("account-form");
     const submitButton = $("submit-account");
