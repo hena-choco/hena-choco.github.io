@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ドラえもん検定 2020年度 上級</title>
+  <meta name="description" content="ドラえもん検定2020年度上級の過去問題。短編エピソードやひみつ道具、のび太の商売、出木杉の人物像、大長編作品、名台詞、並べ替え問題まで全8大問を収録しています。記述の空欄ごとに採点し、100点満点・合格点60点で挑戦できます。">
+  <link rel="icon" href="https://hena-choco.github.io/favicon.png" type="image/png">
+  <style>
+    :root { --main:#6B9DFF; --bg:#f4f7f9; --card:#fff; --text:#333; --accent:#FFD43B; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif; background:var(--bg); color:var(--text); line-height:1.65; padding:20px 12px; }
+    .container { max-width:680px; margin:auto; }
+    header { text-align:center; margin-bottom:20px; padding:18px; background:var(--main); color:#fff; border-radius:12px; }
+    h1 { font-size:1.35rem; }
+    .card { background:var(--card); border-radius:12px; padding:20px; box-shadow:0 2px 8px #0000000d; margin-bottom:18px; }
+    h2 { font-size:1.12rem; margin-bottom:12px; }
+    .reading { white-space:pre-line; background:#f9fbfd; border:1px solid #e1ecff; border-radius:8px; padding:14px; margin-bottom:18px; }
+    .question-block { margin-bottom:20px; padding-bottom:14px; border-bottom:1px dashed #e5e5e5; }
+    .question-block:last-child { border-bottom:0; }
+    .q-title { font-weight:700; margin-bottom:8px; white-space:pre-line; }
+    .options-grid { display:flex; gap:10px; margin-top:8px; }
+    .opt-btn { flex:1; padding:12px; border:2px solid var(--main); background:var(--card); color:var(--main); font-size:1.1rem; font-weight:bold; border-radius:8px; cursor:pointer; }
+    .opt-btn.selected,.opt-btn-v.selected { background:var(--main); color:var(--card); }
+    .options-vertical { display:flex; flex-direction:column; gap:8px; margin-top:8px; }
+    .opt-btn-v { text-align:left; padding:12px 16px; border:2px solid var(--main); background:var(--card); color:var(--text); font-size:1rem; border-radius:8px; cursor:pointer; }
+    .text-input { width:100%; padding:11px; font-size:1rem; border:2px solid var(--main); border-radius:8px; margin-top:5px; }
+    .points,.muted { color:#666; font-size:.88rem; font-weight:400; }
+    .btn { display:block; width:100%; padding:16px; background:var(--main); color:var(--card); border:0; border-radius:8px; font-size:1.05rem; font-weight:bold; cursor:pointer; margin-top:10px; text-align:center; text-decoration:none; }
+    .btn:hover { background:#5689e8; }
+    .result-item { padding:12px; border-radius:8px; margin:10px 0; font-size:.95rem; border:2px solid var(--main); background:#fff; }
+    .result-correct { background:var(--main); color:#fff; }
+    .result-wrong { background:#fff; color:var(--main); }
+    .result-wrong strong,.result-wrong div { color:var(--text); }
+    .badge { display:inline-block; padding:2px 8px; border-radius:4px; font-weight:700; font-size:.8rem; margin-bottom:4px; background:#eaf1ff; color:#335f9e; }
+    .result-correct .badge { background:rgba(255,255,255,.3); color:#fff; }
+    .answer-key { margin-top:5px; color:#444; white-space:pre-line; }
+    .score-banner { text-align:center; background:var(--main); color:var(--card); padding:20px; border-radius:12px; font-size:1.3rem; font-weight:700; margin:12px 0 18px; }
+    .summary-title { border-bottom:2px solid var(--main); padding:0 0 4px; margin:20px 0 10px; font-weight:700; }
+    @media(max-width:480px) { body { padding:12px 8px; } .card { padding:16px; } }
+  </style>
+</head>
+<body>
+<main class="container">
+  <header><h1>ドラえもん検定 2020年度 上級</h1></header>
+  <div id="quiz"></div>
+</main>
+<script>
+const sections=[
+  {title:'1',max:5,reading:'1 以下の文章が正しい場合は〇を、誤っている場合は×を書きなさい。',fields:[
+    {q:'(1) のび太には漫画を見る目がない。',type:'tf',answer:'×',pts:1},
+    {q:'(2) 花賀さき子さんはのび太の高校でのクラスメートである。',type:'tf',answer:'×',pts:1},
+    {q:'(3) のび吉はのび太の曽祖父である。',type:'tf',answer:'〇',pts:1},
+    {q:'(4) しずかわちゃんの叔父は画家である。',type:'tf',answer:'×',pts:1},
+    {q:'(5) スネ夫には野球が得意ないとこがいる。',type:'tf',answer:'〇',pts:1}
+  ]},
+  {title:'2',max:5,reading:'2 以下の問いに答えよ。',fields:[
+    {q:'(1) てんコミ27巻「しあわせトランプの恐怖」に登場した他の藤子作品のガキ大将は次のうち誰？',type:'choice',options:['A. ゴジラ','B. ブタゴリラ','C. タイガー','D. カバ夫'],answer:0,pts:1},
+    {q:'(2) 地球ではありふれているがハルカ星ではダイヤモンド以上の価値があるものは何か？',type:'choice',options:['A. アルミ','B. 鉄','C. ガラス','D. 銅'],answer:2,pts:1},
+    {q:'(3) 巻末にドラえもん百科が載っているのは何巻か？',type:'choice',options:['A. 3巻','B. 6巻','C. 11巻','D. 21巻'],answer:1,pts:1},
+    {q:'(4) 「無人島に家出」でのび太が無人島に家出していた期間は？',type:'choice',options:['A. 5年','B. 10年','C. 15年','D. 20年'],answer:1,pts:1},
+    {q:'(5) 「拳銃王コンテスト」でのび太が最初に倒したのは誰？',type:'choice',options:['A. ジャイアン','B. スネ夫','C. はる夫','D. 安雄'],answer:2,pts:1}
+  ]},
+  {title:'3',max:20,reading:'3 以下の問いに答えよ。',fields:[
+    {q:'(1) 「天井裏の宇宙戦争」でアカンベーダーが基地を作っていたのは誰の家？',type:'text',answer:'ジャイアン',aliases:['ジャイアン','剛田家'],pts:2},
+    {q:'(2) 「な、なんと!!のび太が百点取った」でのび太が百点をとったテストの科目はなに？',type:'text',answer:'算数',aliases:['算数'],pts:2},
+    {q:'(3) 「大ピンチ！スネ夫の答案」で「思ってたより良かった」と語ったのび太のテストの点数は何点？',type:'text',answer:'10点',aliases:['10点','10','十点'],pts:2},
+    {q:'(4) ころばし屋のとりけし料はいくら？',type:'text',answer:'100円',aliases:['100円','100','百円'],pts:2},
+    {q:'(5) メルヘンランドでしずかちゃんが変身した動物は？',type:'text',answer:'ウサギ',aliases:['ウサギ','うさぎ','兎'],pts:2},
+    {q:'(6) 夏休みにどこへも遊びに行けないセワシが公園でしていたゲームの名前は？',type:'text',answer:'立体インベーダーゲーム',aliases:['立体インベーダーゲーム','立体インベーダー'],pts:2},
+    {q:'(7) のび太が発明した新作あやとりの名前は？',type:'text',answer:'おどるチョウ',aliases:['おどるチョウ','踊るチョウ','おどる蝶','踊る蝶'],pts:2},
+    {q:'(8) 税金鳥から49000円も徴税されてしまった出木杉。彼は何のためにお金を貯金していた？',type:'text',answer:'顕微鏡購入',aliases:['顕微鏡購入','顕微鏡を買うため','顕微鏡を購入するため'],pts:2},
+    {q:'(9) 「のび太と竜の騎士」でバンホーたちと戦うため、ドラえもんたちが作った城の名前は？',type:'text',answer:'風雲ドラえもん城',aliases:['風雲ドラえもん城'],pts:2},
+    {q:'(10) 「のび太とアニマル惑星」でジャイアンはゴリ郎と何回間違えられた？',type:'text',answer:'3回',aliases:['3回','3','三回'],pts:2}
+  ]},
+  {title:'4',max:14,reading:`4 次の文章を読んで以下の問いに答えなさい。
+
+「ドラえもん」の第1話「未来の国からはるばると」で就職に失敗し会社を立ち上げたことが明かされたのび太。就職に失敗してのこととはいえ、そこで見せた起業するという行動力は意外に思われるかもしれない。
+
+しかし、「ドラえもん」作中でもそのような商魂のたくましさを見せることがしばしばある。ここではそんなのび太の商売通歴を振り返っていこう。1てんとう虫コミックス10巻の「夜を売ります」ではつけると暗くなる電球を使い時間（A）円で夜を販売している。また、17巻「驚音波発振機」では（ア）を使い、一回（B）円で害虫駆除会社を始めたこともある。特に前者はドラえもんが捨てようとしていたひみつ道具だった。のび太の発想力はドラえもん以上ということができるだろう。
+
+しばしば（主にジャイアンによって）無理矢理セールスをさせられる場合もある。39巻2「虹のビオレッタ」ではジャイ子が出費出版した漫画を一冊（C）円で販売させられたほか、41巻「恐怖のディナーショー」ではマツ席（D）円、タケ席（E）円でディナーショーの席の販売を押し付けられている。
+
+ドラえもんが来て変わった未来ではのび太は普通のサラリーマンになったようである。しかし、以上のような経験を積んだのび太はサラリーマンにしておくには惜しい、経営者向きの人材だったのかもしれない。`,fields:[
+    {q:'(1) (A)〜(E)に入る語句を記入しなさい。\n(A)',type:'text',answer:'10',aliases:['10','10円'],pts:1},
+    {q:'(B)',type:'text',answer:'100',aliases:['100','100円'],pts:1},
+    {q:'(C)',type:'text',answer:'500',aliases:['500','500円'],pts:1},
+    {q:'(D)',type:'text',answer:'100',aliases:['100','100円'],pts:1},
+    {q:'(E)',type:'text',answer:'50',aliases:['50','50円'],pts:1},
+    {q:'(2) (ア)に入るひみつ道具の名前を書きなさい。',type:'text',answer:'驚音波発振式ネズミ・ゴキブリ・南京虫・家ダニ・白アリ退治機',aliases:['驚音波発振式ネズミ・ゴキブリ・南京虫・家ダニ・白アリ退治機','狂音波発振式ネズミ・ゴキブリ・南京虫・家ダニ・白アリ退治機'],pts:3},
+    {q:'(3) 下線部1の表紙に描かれているキャラクターを全て書きなさい。',type:'text',answer:'ドラえもん',aliases:['ドラえもん'],pts:2},
+    {q:'(4) 下線部2の漫画を読んだマンガコレクターは将来この漫画がいくらぐらいの値打ちが出ると予想したか書きなさい。',type:'text',answer:'10万円',aliases:['10万円','10万','十万円'],pts:2},
+    {q:'(5) 下線部3のキャラクターのペンネームを次のうちから選びなさい。',type:'choice',options:['A. ソルボンヌ剛田','B. クリスチーネ剛田','C. ハロルド剛田','D. ジャイアン剛田'],answer:1,pts:2}
+  ]},
+  {title:'5',max:20,reading:`5 次の文章を読んで以下の問いに答えなさい。
+
+ドラえもんのレギュラーキャラクターと言えばドラえもん、のび太、しずか、スネ夫、ジャイアンの5人だろう。だが、ドラえもんにはその5人につぐ準レギュラーともいうべきキャラクターがいる。ここではそんな準レギュラーキャラクターの代表格である1出木杉について見ていこう。
+
+出木杉の学力は高く、しずかが30分、スネ夫が3時間、のび太が朝までかかる宿題を10分で終わらせてしまう。また、2「のび太の創世日記」では（A）の水源から海までを辿り、いくつかのポイントで川の様子や水質を調べ、（A）絵巻を作るという小学生とは思えない自由研究をしており、のび太からは「りっぱすぎてなんの参考にもならん」と評されている。
+
+学力が高いだけでなく多彩な趣味も持つ。「超大作特撮映画『宇宙大魔神』」では8ミリでアニメを撮影したいと考え、宇宙大魔神と（B）部隊との冒険物語3「宇宙大魔神」の脚本を書いていた。また、この話では（C）を使い、大魔王の宇宙戦艦を作るなど工作の才能を見せている。
+
+また、出木杉は能力が高いだけでなく大変な人格者でもある。「恐怖のディナーショー」では、誰もが理由をつけ4ジャイアンのディナーショーのチケットを買わず、チケット販売を押し付けられたのび太たちが困っている中で出木杉だけがチケットを購入している。
+
+そんな完璧超人の出木杉だが「しずちゃんをとりもどせ」では未来でものび太と家族ぐるみの付き合いがあり、火星出張中には野比家に5息子を預けていることが分かる。実は出木杉の一番の友達はのび太なのかもしれない。`,fields:[
+    {q:'(1) (A)〜(C)に入る語句を記入しなさい。\n(A)',type:'text',answer:'多摩川',aliases:['多摩川'],pts:2},
+    {q:'(B)',type:'text',answer:'少年レインジャー',aliases:['少年レインジャー','少年レンジャー'],pts:2},
+    {q:'(C)',type:'text',answer:'ラジコンねんど',aliases:['ラジコンねんど','ラジコン粘土'],pts:2},
+    {q:'(2) 下線部1の人物の下の名前を漢字で書きなさい。',type:'text',answer:'英才',aliases:['英才','太郎'],pts:2},
+    {q:'(3) のび太の結婚式前夜祭の参加者は下線部1の人物とのび太と誰か？すべて記述しなさい。',type:'text',answer:'ジャイアン・スネ夫',aliases:['ジャイアン・スネ夫','ジャイアン、スネ夫','ジャイアンとスネ夫'],complete:true,pts:2},
+    {q:'(4) 次のうち、下線部1の人物が登場していない映画作品を選びなさい。',type:'choice',options:['A. のび太と奇跡の島','B. のび太の大魔境','C. のび太の恐竜','D. のび太のパラレル西遊記'],answer:2,pts:2},
+    {q:'(5) 大長編ドラえもんにおける下線部2の作品の次回作を答えなさい。',type:'text',answer:'のび太と銀河超特急',aliases:['のび太と銀河超特急'],pts:2},
+    {q:'(6) 下線部3の作品で宇宙大魔王を演じたのは誰か答えなさい。',type:'text',answer:'ジャイアン',aliases:['ジャイアン'],pts:2},
+    {q:'(7) 下線部4はジャイアンが倒れたため中止された。なぜジャイアンが倒れたか記述しなさい。',type:'text',answer:'自分自身のつくった料理を味見したため',aliases:['自分自身のつくった料理を味見したため','自分で作った料理を味見したため','自分が作った料理を味見したため'],pts:2},
+    {q:'(8) 下線部5の人物の下の名前を書きなさい。',type:'text',answer:'ヒデヨ',aliases:['ヒデヨ'],pts:2}
+  ]},
+  {title:'6',max:20,reading:'6 次のドラえもん劇中の台詞を埋めなさい。',fields:[
+    {q:'(1) のびちゃんの（A）のすがたをみたら、（B）が出ちゃったよ。あんたの（C）を、ひと目見たいねぇ。（おばあちゃんのおもいで）\n（A）',type:'text',answer:'小学生',aliases:['小学生'],pts:2},
+    {q:'（B）',type:'text',answer:'よく',aliases:['よく'],pts:2},
+    {q:'（C）',type:'text',answer:'およめさん',aliases:['およめさん','お嫁さん'],pts:2},
+    {q:'(2) いちばんいけないのは（A）思いこむことだよ。（好きでたまらニャい）\n（A）',type:'text',answer:'自分なんかだめだと',aliases:['自分なんかだめだと'],pts:2},
+    {q:'(3) ドラえもんがいるわけ無いでしょ。ドラえもんは（A）んだから。もう二度と、（B）んだから。（帰ってきたドラえもん）\n（A）',type:'text',answer:'帰ってこない',aliases:['帰ってこない'],pts:2},
+    {q:'（B）',type:'text',answer:'あえない',aliases:['あえない','会えない'],pts:2},
+    {q:'(4) （A）なんて面白いもんじゃないからね。（B）やると、このまんがの人気がおちる。いいや（C）ほどやる！！（くろうみそ）\n（A）',type:'text',answer:'お説教',aliases:['お説教','おせっきょう'],pts:2},
+    {q:'（B）',type:'text',answer:'長なが',aliases:['長なが','ながなが','長々'],pts:2},
+    {q:'（C）',type:'text',answer:'二ページ',aliases:['二ページ','2ページ'],pts:2},
+    {q:'(5) のび太はだいじょうぶだった？あたりまえさ！（A）だったよ。（ドラえもんに休日を）\n（A）',type:'text',answer:'平和な一日',aliases:['平和な一日','平和な１日','平和な1日'],pts:2}
+  ]},
+  {title:'7',max:6,reading:'7 次のことを叶えるのに必要な行動を答えなさい。必要に応じてひみつ道具を使っても良い。',fields:[
+    {q:'(1) 日本が真冬の時に30時間連続で日光カメラに日光を当て続ける。',type:'text',answer:'どこでもドアで南極に行く。',aliases:['どこでもドアで南極に行く','どこでもドアで南極へ行く'],pts:2},
+    {q:'(2) 目の前の大根をパソコンに変える。',type:'text',answer:'物体変換銃を使う。',aliases:['物体変換銃を使う','物体変換銃'],pts:2},
+    {q:'(3) 富士山より高くジャンプする。',type:'text',answer:'その場で飛ぶだけで良い／タケコプターを使う',aliases:['その場で飛ぶだけで良い','その場で飛ぶだけでいい','タケコプターを使う','タケコプター'],pts:2}
+  ]},
+  {title:'8',max:10,reading:'8 以下の問いに答えよ。',fields:[
+    {q:'(1) 次の映画作品を公開順に並びかえなさい。\nA. のび太と雲の王国　B. のび太のパラレル西遊記　C. のび太とブリキの迷宮　D. のび太と竜の騎士',type:'text',answer:'D→B→A→C',aliases:['D→B→A→C','DBAC'],pts:2},
+    {q:'(2) 次のキャラクターを映画初登場順に並び替えなさい。\nA. スネ夫のママ　B. ドラミ　C. 出木杉　D. パオパオ',type:'text',answer:'A→D→C→B',aliases:['A→D→C→B','ADCB'],pts:2},
+    {q:'(3) 次のキャラクターを原作での登場が遅い順に並び替えなさい。\nA. 出木杉　B. ドラミ　C. しずか　D. のび太の先生',type:'text',answer:'A→B→D→C',aliases:['A→B→D→C','ABDC'],pts:2},
+    {q:'(4) 次のキャラクターの生まれた年代を過去から未来へ順に並び替えよ。\nA. ヒャッコイ博士　B. ハチ　C. クルト　D. ペティ',type:'text',answer:'A→D→B→C',aliases:['A→D→B→C','ADBC'],pts:2},
+    {q:'(5) 以下の出来事を、日付順に並べ替えよ。\nA. ドラミの誕生日　B. のび太の誕生日　C. のび太のパパとママの結婚記念日　D. ぐうたら感謝の日',type:'text',answer:'D→B→C→A',aliases:['D→B→C→A','DBCA'],pts:2}
+  ]}
+];
+const state=sections.map(()=>({answers:{},score:0}));
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const normalize=s=>String(s??'').normalize('NFKC').toLowerCase().replace(/[\s。、,，.！!「」『』（）()・：:／/→⇢>‐-]/g,'');
+const matches=(v,answers=[])=>answers.some(a=>normalize(v)===normalize(a));
+function renderQuestion(si){document.querySelectorAll('.screen').forEach(e=>e.remove());const s=sections[si],st=state[si],card=document.createElement('section');card.className='card screen';card.innerHTML=`<h2>大問 ${s.title} <span class="points">（${s.max}点満点）</span></h2><div class="reading">${esc(s.reading)}${s.passage?`\n\n${esc(s.passage)}`:''}</div>`;s.fields.forEach((f,i)=>{const b=document.createElement('div');b.className='question-block';let control='';if(f.type==='tf')control=`<div class="options-grid">${['〇','×'].map((o,j)=>`<button type="button" class="opt-btn ${st.answers[i]===j?'selected':''}" data-choice="${i}" data-value="${j}">${o}</button>`).join('')}</div>`;else if(f.type==='choice')control=`<div class="options-vertical">${f.options.map((o,j)=>`<button type="button" class="opt-btn-v ${st.answers[i]===j?'selected':''}" data-choice="${i}" data-value="${j}">${esc(o)}</button>`).join('')}</div>`;else control=`<input class="text-input" type="text" data-answer="${i}" value="${esc(st.answers[i]||'')}" placeholder="回答を入力">`;b.innerHTML=`<div class="q-title">${esc(f.q)} <span class="points">（${f.pts}点）</span></div>${control}`;card.appendChild(b)});const submit=document.createElement('button');submit.className='btn';submit.textContent='回答を採点する';submit.onclick=()=>gradeSection(si);card.appendChild(submit);if(si>0){const back=document.createElement('button');back.className='btn';back.textContent='前の大問へ戻る';back.onclick=()=>renderQuestion(si-1);card.appendChild(back)}document.getElementById('quiz').appendChild(card);card.querySelectorAll('[data-choice]').forEach(x=>x.onclick=()=>{st.answers[Number(x.dataset.choice)]=Number(x.dataset.value);x.parentElement.querySelectorAll('button').forEach(y=>y.classList.toggle('selected',y===x))});card.querySelectorAll('[data-answer]').forEach(x=>x.oninput=()=>st.answers[Number(x.dataset.answer)]=x.value)}
+function gradeSection(si){const s=sections[si],st=state[si];document.querySelectorAll('.screen [data-answer]').forEach(x=>st.answers[Number(x.dataset.answer)]=x.value);st.score=0;s.fields.forEach((f,i)=>{let ok=false;if(f.type==='tf')ok=['〇','×'][st.answers[i]]===f.answer;else if(f.type==='choice')ok=st.answers[i]===f.answer;else ok=matches(st.answers[i],f.aliases||[f.answer]);if(ok)st.score+=f.pts});renderResult(si)}
+function renderResult(si){document.querySelectorAll('.screen').forEach(e=>e.remove());const s=sections[si],st=state[si],card=document.createElement('section');card.className='card screen';card.innerHTML=`<h2>大問 ${s.title} 採点結果</h2>`;s.fields.forEach((f,i)=>{let ok=false,user='',answer='';if(f.type==='tf'){ok=['〇','×'][st.answers[i]]===f.answer;user=st.answers[i]===undefined?'未選択':['〇','×'][st.answers[i]];answer=f.answer}else if(f.type==='choice'){ok=st.answers[i]===f.answer;user=st.answers[i]===undefined?'未選択':f.options[st.answers[i]];answer=f.options[f.answer]}else{user=st.answers[i]||'';answer=f.answer;ok=matches(user,f.aliases||[f.answer])}const row=document.createElement('div');row.className=`result-item ${ok?'result-correct':'result-wrong'}`;row.innerHTML=`<span class="badge">${ok?'正解':'不正解'}（${ok?f.pts:0}/${f.pts}点）</span><div><strong>${esc(f.q)}</strong></div><div class="answer-key">あなたの回答：${user?esc(user):'未入力'}<br>正解：${esc(answer)}</div>`;card.appendChild(row)});card.insertAdjacentHTML('beforeend',`<div class="score-banner">大問得点：${st.score} / ${s.max}点</div>`);const back=document.createElement('button');back.className='btn';back.textContent=`大問 ${s.title} の回答に戻る`;back.onclick=()=>renderQuestion(si);card.appendChild(back);if(si<sections.length-1){const next=document.createElement('button');next.className='btn';next.textContent=`大問 ${sections[si+1].title} へ進む`;next.onclick=()=>renderQuestion(si+1);card.appendChild(next)}else{const final=document.createElement('button');final.className='btn';final.textContent='最終結果を見る';final.onclick=renderFinal;card.appendChild(final)}document.getElementById('quiz').appendChild(card)}
+function renderFinal(){document.querySelectorAll('.screen').forEach(e=>e.remove());const total=state.reduce((n,s)=>n+s.score,0),card=document.createElement('section');card.className='card screen';card.innerHTML=`<h2>最終結果</h2><div class="score-banner">総合得点：${total} / 100点<br><span style="font-size:1rem">${total>=60?'合格':'不合格'}（合格点：60点）</span></div>`;sections.forEach((s,i)=>{const title=document.createElement('div');title.className='summary-title';title.textContent=`大問 ${s.title}：${state[i].score} / ${s.max}点`;card.appendChild(title)});const home=document.createElement('a');home.className='btn';home.href='https://hena-choco.github.io';home.textContent='問題一覧へ戻る';card.appendChild(home);document.getElementById('quiz').appendChild(card)}
+renderQuestion(0);
+</script>
+</body>
+</html>
