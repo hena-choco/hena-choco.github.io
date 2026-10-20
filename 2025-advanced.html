@@ -264,10 +264,10 @@ Array.from({length:14},(_,i)=>`問${i+1} 解答欄`),
 ];
 // 問題文（reading）と設問（各 item.q）を分離し、各入力欄の直前に設問を表示する。
 function separateReadingAndQuestions(block){
-  const starts=[...block.matchAll(/(?:^|\n\n)(問\d+\.)/g)].map(m=>m.index+m[0].lastIndexOf('問'));
+  const starts=[...block.matchAll(/(?:^|[\r\n\u2028\u2029]+)(問\d+\.)/g)].map(m=>m.index+m[0].lastIndexOf('問'));
   if(!starts.length)return{reading:block.trim(),questions:[]};
   const reading=block.slice(0,starts[0]).trim();
-  const questions=starts.map((start,i)=>block.slice(start,starts[i+1]??block.length).trim().split(/\n\n(?=(?:[1-4][.．]|①|A[.．]))/)[0].trim());
+  const questions=starts.map((start,i)=>block.slice(start,starts[i+1]??block.length).trim().split(/[\r\n\u2028\u2029]+(?=(?:[1-4][.．]|①|A[.．]))/)[0].trim());
   return{reading,questions};
 }
 const separated=sourceBlocks.map(separateReadingAndQuestions);
@@ -275,7 +275,7 @@ sections.forEach((section,si)=>{section.reading=separated[si].reading});
 sections[0].items.forEach((item,i)=>item.q=separated[0].questions[i]);
 sections[1].items.forEach((item,i)=>{
   const q=separated[1].questions;
-  const splitSub=(text,marker)=>{const at=text.indexOf(marker);return at<0?[text,'']: [text.slice(0,at).trim(),text.slice(at+marker.length).trim()]};
+  const splitSub=(text,marker)=>{text=String(text??'');const at=text.indexOf(marker);return at<0?[text,'']: [text.slice(0,at).trim(),text.slice(at+marker.length).trim()]};
   const q4=splitSub(q[3],'(ii)'),q8=splitSub(q[7],'(ii)');
   item.q=i===3?q4[0]:i===4?`問4(ii). ${q4[1]}`:i===8?q8[0]:i===9?`問8(ii). ${q8[1]}`:q[i<3?i:i-1<7?i-1:i-2];
 });
