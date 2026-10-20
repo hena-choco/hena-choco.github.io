@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://hena-choco.github.io/sitemap.xml
