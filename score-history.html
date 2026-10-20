@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>得点履歴 | ドラえもん検定 過去問題集</title>
+  <meta name="description" content="ドラえもん検定の年別・級別の受験回数と最高得点、受験履歴を確認できます。">
+  <link rel="icon" href="https://hena-choco.github.io/favicon.png" type="image/png">
+  <style>
+    :root { --main-color:#6B9DFF; --bg-color:#f4f7f9; --card-bg:#fff; --text-color:#333; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif; background:var(--bg-color); color:var(--text-color); line-height:1.6; padding:20px 12px; }
+    .container { max-width:600px; margin:0 auto; }
+    .top-nav { margin-bottom:10px; }
+    .home-link { display:inline-flex; padding:8px 12px; color:var(--main-color); background:var(--card-bg); border:1px solid #d6e3f8; border-radius:8px; text-decoration:none; font-weight:700; }
+    header { text-align:center; margin-bottom:20px; padding:18px 20px; background:var(--main-color); color:#fff; border-radius:16px; box-shadow:0 4px 12px rgba(0,0,0,.05); }
+    h1 { font-size:1.35rem; }
+    .card { background:var(--card-bg); border-radius:12px; margin-bottom:14px; padding:16px; box-shadow:0 2px 8px rgba(0,0,0,.05); }
+    .card h2 { font-size:1.05rem; margin-bottom:10px; }
+    .status { min-height:1.4em; color:var(--text-color); font-size:.9rem; }
+    .auth-row { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:10px; }
+    .account-email { overflow-wrap:anywhere; font-weight:700; }
+    .button { border:0; border-radius:8px; padding:9px 13px; font:inherit; font-weight:700; color:#fff; background:var(--main-color); cursor:pointer; }
+    .button:disabled { opacity:.6; cursor:wait; }
+    [hidden] { display:none !important; }
+    .year-card { background:var(--card-bg); border-radius:12px; margin:10px 0; box-shadow:0 2px 8px rgba(0,0,0,.04); overflow:hidden; }
+    .year-heading { padding:10px 14px; background:var(--year-color); color:#FFFFFF; font-size:1rem; font-weight:700; }
+    .level-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0; }
+    .level-item { min-width:0; padding:10px 12px; background:var(--card-bg); color:var(--text-color); border-top:1px solid #e8edf4; }
+    .level-item:nth-child(odd):not(:last-child) { border-right:1px solid #e8edf4; }
+    .level-name { font-weight:700; }
+    .level-stats { display:flex; justify-content:space-between; gap:8px; margin-top:3px; font-size:.86rem; }
+    .records { display:grid; gap:8px; }
+    .record { padding:11px 12px; border-radius:9px; background:var(--card-bg); color:var(--text-color); border:1px solid #e5eaf1; }
+    .record-title { font-weight:700; }
+    .record-date { margin-top:1px; font-size:.83rem; }
+    .record-score { margin-top:3px; font-weight:800; }
+    .record-result { font-size:.88rem; }
+    details { margin-top:7px; padding-top:6px; border-top:1px solid #e5eaf1; }
+    summary { color:var(--text-color); font-size:.88rem; font-weight:700; cursor:pointer; }
+    .detail-content { margin-top:7px; display:grid; gap:7px; }
+    .detail-section { padding:8px; border-radius:6px; background:var(--card-bg); color:var(--text-color); border:1px solid #e5eaf1; }
+    .detail-section h3 { font-size:.88rem; margin-bottom:4px; }
+    .answer-row { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:8px; padding:4px 0; border-top:1px solid #e5eaf1; font-size:.82rem; overflow-wrap:anywhere; }
+    .answer-row:first-of-type { border-top:0; }
+    .empty { padding:14px 8px; text-align:center; color:var(--text-color); }
+    @media(max-width:440px) { body { padding:12px 8px; } .level-grid { grid-template-columns:1fr; } .level-item:nth-child(odd):not(:last-child) { border-right:0; } .answer-row { grid-template-columns:1fr; gap:1px; } }
+  </style>
+</head>
+<body>
+<main class="container">
+  <nav class="top-nav"><a class="home-link" href="https://hena-choco.github.io/index.html">← 検定一覧へ戻る</a></nav>
+  <header><h1>得点履歴</h1></header>
+  <section class="card" id="auth-card">
+    <div class="auth-row"><div><h2>アカウント</h2><p id="auth-status" class="status" role="status" aria-live="polite">ログイン状態を確認しています…</p><p id="signed-in-email" class="account-email" hidden></p></div><button id="logout-button" class="button" type="button" hidden>ログアウト</button></div>
+    <div id="signed-out" hidden><p class="status">得点履歴を見るには、検定ページで使用しているアカウントにログインしてください。</p><a class="home-link" href="https://hena-choco.github.io/index.html">一覧ページでログイン</a></div>
+  </section>
+  <section id="history-area" hidden>
+    <section class="card"><h2>年別・級別の記録</h2><div id="year-summary"></div></section>
+    <section class="card"><h2>受験履歴</h2><p id="history-status" class="status" role="status" aria-live="polite"></p><div id="records" class="records"></div></section>
+  </section>
+</main>
+<script type="module">
+import { auth, onAuthStateChanged, signOut, listScores } from "./firebase-auth.js";
+const $ = id => document.getElementById(id);
+const esc = value => String(value ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const YEAR_COLORS = {"2013":"#E8D9A6","2014":"#D2DAB4","2015":"#C9BCE8","2016":"#FED7AA","2017":"#CFFAFE","2018":"#FCA5A5","2019":"#BFDBFE","2020":"#A7F3D0","2021":"#CBD5E1","2022":"#D8B4FE","2023":"#86C1B2","2024":"#C4B5FD","2025":"#EADCC9"};
+const LEVEL_LABELS = {beginner:"初級",shochukyu:"初中級",intermediate:"中級",advanced:"上級",super:"超上級"};
+const YEAR_LEVELS = {
+  "2013":["intermediate","advanced"],"2014":["intermediate","advanced"],"2015":["intermediate","advanced"],
+  "2016":["intermediate","advanced"],"2017":["intermediate","advanced"],"2018":["intermediate","advanced","super"],
+  "2019":["intermediate","advanced","super"],"2020":["beginner","intermediate","advanced"],
+  "2021":["beginner","intermediate","advanced"],"2022":["beginner","intermediate","advanced"],
+  "2023":["beginner","intermediate","advanced"],"2024":["beginner","intermediate","advanced"],
+  "2025":["beginner","shochukyu","intermediate","advanced"]
+};
+function quizMeta(record) {
+  const id=String(record.quizId||"").toLowerCase(), title=String(record.quizTitle||"");
+  const year=(id.match(/20\d{2}/)||title.match(/20\d{2}/)||[])[0];
+  const level=/super-advanced|超上級/i.test(id+" "+title)?"super":/shochukyu|初中級/i.test(id+" "+title)?"shochukyu":/advanced|上級/i.test(id+" "+title)?"advanced":/intermediate|中級/i.test(id+" "+title)?"intermediate":/beginner|初級/i.test(id+" "+title)?"beginner":null;
+  return year&&level?{year,level}:null;
+}
+function dateText(value) {
+  const date=value?.toDate?value.toDate():value instanceof Date?value:null;
+  return date?new Intl.DateTimeFormat("ja-JP",{year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",hourCycle:"h23"}).format(date):"日時情報なし";
+}
+function answerText(value) {
+  if(value==null||value==="")return "未回答";
+  if(Array.isArray(value))return value.map(answerText).join("、");
+  if(typeof value==="object")return Object.entries(value).map(([k,v])=>`${k}: ${answerText(v)}`).join(" / ");
+  return String(value);
+}
+function passLine(record) {
+  if(Number.isFinite(record.passThreshold))return record.passThreshold;
+  if(record.quizId==="2016-advanced")return 45;
+  if(record.quizId==="2025-beginner")return 80;
+  return record.total*.6;
+}
+function answerDetails(record) {
+  if(!record.answers||(Array.isArray(record.answers)&&!record.answers.length))return "この受験記録には解答データが保存されていません。得点のみ表示しています。";
+  const sections=Array.isArray(record.answers)?record.answers:[record.answers];
+  return sections.map((section,index)=>{
+    const name=section.section??section.title??`大問 ${index+1}`,points=Number.isFinite(section.score)?`（${section.score}点）`:"",answers=section.answers;
+    let rows="";
+    if(Array.isArray(answers))rows=answers.map((item,i)=>{
+      if(item&&typeof item==="object"&&( "question" in item||"answer" in item)){
+        const checked=item.selfCheck??section.selfCheck?.[i],verdict=item.correct===true||checked===true?"✓":item.correct===false?"×":"";
+        return `<div class="answer-row"><span>${esc(item.question||`設問 ${i+1}`)}</span><span>${esc(answerText(item.answer))}${verdict?`　${verdict}`:""}${item.correctAnswer?`<br>正解：${esc(answerText(item.correctAnswer))}`:""}</span></div>`;
+      }
+      return `<div class="answer-row"><span>設問 ${i+1}</span><span>${esc(answerText(item))}</span></div>`;
+    }).join("");
+    else if(answers&&typeof answers==="object")rows=Object.entries(answers).map(([k,v])=>`<div class="answer-row"><span>${esc(k)}</span><span>${esc(answerText(v))}</span></div>`).join("");
+    return `<div class="detail-section"><h3>${esc(name)} ${esc(points)}</h3>${rows||'<p>解答の詳細はありません。</p>'}</div>`;
+  }).join("");
+}
+function renderYearSummary(records) {
+  const grouped=new Map();
+  records.forEach(record=>{const meta=quizMeta(record);if(!meta||!YEAR_LEVELS[meta.year]?.includes(meta.level))return;const key=`${meta.year}-${meta.level}`;if(!grouped.has(key))grouped.set(key,[]);grouped.get(key).push(record)});
+  $("year-summary").innerHTML=Object.entries(YEAR_LEVELS).sort((a,b)=>Number(b[0])-Number(a[0])).map(([year,levels])=>{
+    const items=levels.map(level=>{
+      const attempts=grouped.get(`${year}-${level}`)||[],best=attempts.reduce((top,r)=>!top||r.score>top.score?r:top,null);
+      return `<div class="level-item"><div class="level-name">${LEVEL_LABELS[level]}</div><div class="level-stats"><span>受験 ${attempts.length}回</span><span>最高 ${best?`${esc(best.score)} / ${esc(best.total)}点`:"—"}</span></div></div>`;
+    }).join("");
+    return `<section class="year-card" style="--year-color:${YEAR_COLORS[year]}"><h3 class="year-heading">${year}年</h3><div class="level-grid">${items}</div></section>`;
+  }).join("");
+}
+function renderRecords(records) {
+  const holder=$("records");
+  const valid=records.filter(r=>Number.isFinite(r.score)&&Number.isFinite(r.total)&&r.total>0).sort((a,b)=>{
+    const time=r=>r.createdAt?.toDate?r.createdAt.toDate().getTime():r.createdAt instanceof Date?r.createdAt.getTime():0;
+    return time(b)-time(a);
+  });
+  if(!valid.length){holder.innerHTML='<p class="empty">まだ得点履歴がありません。ログインした状態で検定を受けると、ここに記録されます。</p>';return;}
+  holder.innerHTML=valid.map(record=>{
+    const meta=quizMeta(record),title=meta?`ドラえもん検定 ${meta.year} ${LEVEL_LABELS[meta.level]}`:record.quizTitle||record.quizId||"ドラえもん検定";
+    const passed=record.score>=passLine(record),details=answerDetails(record);
+    const detailsBlock=record.answers&&(!Array.isArray(record.answers)||record.answers.length)?`<details><summary>解答・採点内容を見る</summary><div class="detail-content">${details}</div></details>`:"";
+    return `<article class="record"><div class="record-title">${esc(title)}</div><div class="record-date">${esc(dateText(record.createdAt))}</div><div class="record-score">${esc(record.score)} / ${esc(record.total)}点</div><div class="record-result">${passed?"合格":"不合格"}（合格基準 ${esc(passLine(record))}点）</div>${detailsBlock}</article>`;
+  }).join("");
+}
+$("logout-button").addEventListener("click",async()=>{try{await signOut(auth);}catch(error){$("auth-status").textContent="ログアウトできませんでした。再度お試しください。";console.error(error);}});
+onAuthStateChanged(auth,async user=>{
+  $("history-area").hidden=!user;$("signed-out").hidden=Boolean(user);$("logout-button").hidden=!user;$("signed-in-email").hidden=!user;
+  $("auth-status").textContent=user?"ログイン中":"ログインしていません。";$("signed-in-email").textContent=user?.email||"";
+  if(!user)return;
+  $("history-status").textContent="履歴を読み込んでいます…";
+  try{const records=await listScores();renderYearSummary(records);renderRecords(records);$("history-status").textContent="";}
+  catch(error){console.error("Score history load failed",error);$("history-status").textContent="履歴を読み込めませんでした。通信状態とFirestoreの読み取りルールを確認してください。";}
+},error=>{console.error("Firebase auth state error",error);$("auth-status").textContent="ログイン状態を確認できません。ページを再読み込みしてください。";});
+</script>
+</body>
+</html>
