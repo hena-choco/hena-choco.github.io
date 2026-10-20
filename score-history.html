@@ -66,7 +66,7 @@
 import { auth, onAuthStateChanged, signOut, listScores } from "./firebase-auth.js";
 const $ = id => document.getElementById(id);
 const esc = value => String(value ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const YEAR_COLORS = {"2013":"#FEF3C7","2014":"#D2DAB4","2015":"#C9BCE8","2016":"#FED7AA","2017":"#CFFAFE","2018":"#FCA5A5","2019":"#BFDBFE","2020":"#A7F3D0","2021":"#CBD5E1","2022":"#D8B4FE","2023":"#86C1B2","2024":"#C4B5FD","2025":"#EADCC9"};
+const YEAR_COLORS = {"2013":"#FEF3C7","2014":"#D2DAB4","2015":"#C9BCE8","2016":"#FED7AA","2017":"#CFFAFE","2018":"#FCA5A5","2019":"#BFDBFE","2020":"#A7F3D0","2021":"#CBD5E1","2022":"#D8B4FE","2023":"#86C1B2","2024":"#E0E7FF","2025":"#EADCC9"};
 const LEVEL_LABELS = {beginner:"初級",shochukyu:"初中級",intermediate:"中級",advanced:"上級",super:"超上級"};
 const YEAR_LEVELS = {
   "2013":["intermediate","advanced"],"2014":["intermediate","advanced"],"2015":["intermediate","advanced"],
