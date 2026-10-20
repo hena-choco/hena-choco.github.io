@@ -1,230 +1,361 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ドラえもん検定（中級問題）2023年度</title>
-  <meta name="description" content="ドラえもん検定2023年度中級の全7大問に挑戦。選択問題は自動採点、記述問題は模範解答を見ながら自己採点できます。100点満点で総合判定や成績保存にも対応しています。">
-  <link rel="icon" href="https://hena-choco.github.io/favicon.png" type="image/png">
+  <meta name="description" content="ドラえもん検定2023年度中級の全問に挑戦。選択問題は自動採点、記述問題は自己採点できます。" />
+  <link rel="icon" href="https://hena-choco.github.io/favicon.png" type="image/png" />
   <style>
-    :root { --main:#6B9DFF; --bg:#f4f7f9; --card:#fff; --text:#333; --accent:#FFD43B; }
-    * { box-sizing:border-box; margin:0; padding:0; }
-    body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif; background:var(--bg); color:var(--text); line-height:1.65; padding:20px 12px; }
-    .container { max-width:680px; margin:auto; }
-    .site-nav { position:sticky; top:8px; z-index:5; display:flex; justify-content:flex-start; margin-bottom:10px; }
-    .home-link { display:inline-flex; align-items:center; gap:6px; padding:9px 14px; border-radius:8px; background:#fff; color:#6B9DFF; border:1px solid #d6e3f8; font-weight:700; text-decoration:none; }
-    header { text-align:center; margin-bottom:20px; padding:18px; background:var(--main); color:#fff; border-radius:12px; }
-    h1 { font-size:1.35rem; }
-    .card { background:var(--card); border-radius:12px; padding:20px; box-shadow:0 2px 8px #0000000d; margin-bottom:18px; }
-    h2 { font-size:1.12rem; margin-bottom:12px; }
-    .reading { white-space:pre-line; background:#f9fbfd; border:1px solid #e1ecff; border-radius:8px; padding:14px; margin-bottom:18px; }
-    .question-block { margin-bottom:20px; padding-bottom:14px; border-bottom:1px dashed #e5e5e5; }
-    .question-block:last-child { border-bottom:0; }
-    .q-title { font-weight:700; margin-bottom:8px; white-space:pre-line; }
-    .options-grid { display:flex; gap:10px; margin-top:8px; }
-    .opt-btn { flex:1; padding:12px; border:2px solid var(--main); background:var(--card); color:var(--main); font-size:1.1rem; font-weight:bold; border-radius:8px; cursor:pointer; }
-    .opt-btn.selected,.opt-btn-v.selected { background:var(--main); color:var(--card); }
-    .options-vertical { display:flex; flex-direction:column; gap:8px; margin-top:8px; }
-    .opt-btn-v { text-align:left; padding:12px 16px; border:2px solid var(--main); background:var(--card); color:var(--text); font-size:1rem; border-radius:8px; cursor:pointer; }
-    .text-input { width:100%; padding:11px; font-size:1rem; border:2px solid var(--main); border-radius:8px; margin-top:5px; }
-    .points,.muted { color:#666; font-size:.88rem; font-weight:400; }
-    .btn { display:block; width:100%; padding:16px; background:var(--main); color:var(--card); border:0; border-radius:8px; font-size:1.05rem; font-weight:bold; cursor:pointer; margin-top:10px; text-align:center; text-decoration:none; }
-    .btn:hover { background:#5689e8; }
-    .nav-row { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:12px; }
-    .nav-row .btn { margin:0; min-height:54px; display:flex; align-items:center; justify-content:center; }
-    .nav-placeholder { visibility:hidden; }
-    .result-item { padding:12px; border-radius:8px; margin:10px 0; font-size:.95rem; border:1px solid #d8dde5; background:#f7f8fa; }
-    .result-item.result-correct { border:0; background:#6B9DFF; color:#fff; }
-    .result-item.result-correct .answer-key { color:#fff; }
-    .result-item.result-correct .badge { background:rgba(255,255,255,.2); color:#fff; }
-    .result-item.result-wrong { border:0; background:#f1f2f4; color:#333; }
-    .result-item.result-wrong .badge { background:transparent; color:#6B9DFF; }
-    .result-item.result-pending { border:1px solid #d8dde5; background:#fff; color:#333; }
-    .badge { display:inline-block; padding:2px 8px; border-radius:4px; font-weight:700; font-size:.8rem; margin-bottom:4px; background:#eaf1ff; color:#335f9e; }
-    .answer-key { margin-top:5px; color:#444; white-space:pre-line; }
-    .self-check { display:block; margin-top:9px; padding:9px; background:#f4f7f9; border-radius:6px; }
-    .score-banner { text-align:center; background:var(--main); color:var(--card); padding:20px; border-radius:12px; font-size:1.3rem; font-weight:700; margin:12px 0 18px; }
-    .summary-title { border-bottom:2px solid var(--main); padding:0 0 4px; margin:20px 0 10px; font-weight:700; }
-    .account-card { background:#fff; border:1px solid #e4e9f0; border-radius:12px; padding:18px; margin-top:22px; }
-    .account-card h2 { margin-bottom:6px; }
-    .account-status { min-height:1.5em; margin:7px 0 12px; font-size:.9rem; }
-    .account-status[data-kind="error"] { color:#a33; }
-    .account-status[data-kind="success"] { color:#176b45; }
-    .account-form { display:grid; gap:10px; }
-    .account-form[hidden], [hidden] { display:none !important; }
-    .account-form label { display:grid; gap:4px; font-size:.9rem; font-weight:600; }
-    .account-form input { width:100%; padding:11px; border:1px solid #cfd6df; border-radius:7px; font:inherit; }
-    .account-actions { display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
-    .account-button { border:0; border-radius:7px; padding:10px 14px; font:inherit; font-weight:700; cursor:pointer; }
-    .account-button.primary { background:var(--main); color:#fff; }
-    .account-button.secondary { background:#eef3fb; color:#315a9d; }
-    .account-button:disabled { opacity:.55; cursor:not-allowed; }
-    .account-switch { margin-top:10px; font-size:.88rem; }
-    .account-switch button { border:0; background:none; color:#315a9d; text-decoration:underline; font:inherit; font-weight:700; cursor:pointer; }
-    .account-signed-in { padding:10px; background:#f4f8ff; border-radius:7px; overflow-wrap:anywhere; }
-    @media(max-width:480px) { body { padding:12px 8px; } .card { padding:16px; } .nav-row { gap:7px; } .nav-row .btn { padding:12px 8px; font-size:.95rem; } }
-
-    .quiz-image { display:block; max-width:100%; height:auto; margin:12px auto; border-radius:8px; border:1px solid #ddd; }
-    .notice { background:#f9fbfd; border:1px solid #e1ecff; border-left:4px solid var(--main); border-radius:6px; padding:12px; margin:12px 0; }
+    :root {
+      --main: #6b9dff;
+      --bg: #f4f7f9;
+      --card: #fff;
+      --text: #333;
+      --muted: #666;
+      --line: #dfe8f5;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 20px 12px;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.65;
+    }
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    .site-nav {
+      margin-bottom: 12px;
+    }
+    .home-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--main);
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+    }
+    header {
+      background: var(--main);
+      color: white;
+      text-align: center;
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 20px;
+    }
+    h1 { margin: 0; font-size: 1.35rem; }
+    .card {
+      background: var(--card);
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+      margin-bottom: 18px;
+    }
+    h2 { margin: 0 0 12px; font-size: 1.12rem; }
+    .question-block {
+      border-bottom: 1px dashed #e5e5e5;
+      padding-bottom: 14px;
+      margin-bottom: 18px;
+    }
+    .question-block:last-child { border-bottom: 0; margin-bottom: 0; }
+    .q-title {
+      font-weight: 700;
+      margin-bottom: 8px;
+      white-space: pre-line;
+    }
+    .points { color: var(--muted); font-size: .88rem; font-weight: 400; }
+    .options-grid {
+      display: flex;
+      gap: 10px;
+      margin-top: 8px;
+    }
+    .opt-btn, .opt-btn-v {
+      border: 2px solid var(--main);
+      background: #fff;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 700;
+    }
+    .opt-btn {
+      flex: 1;
+      padding: 12px;
+      color: var(--main);
+      font-size: 1.1rem;
+    }
+    .opt-btn-v {
+      width: 100%;
+      padding: 12px 14px;
+      text-align: left;
+      color: var(--text);
+    }
+    .opt-btn.selected, .opt-btn-v.selected {
+      background: var(--main);
+      color: #fff;
+    }
+    .text-input {
+      width: 100%;
+      padding: 11px;
+      border: 2px solid var(--main);
+      border-radius: 8px;
+      font: inherit;
+      margin-top: 5px;
+    }
+    .nav-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .btn {
+      display: block;
+      width: 100%;
+      border: 0;
+      border-radius: 8px;
+      background: var(--main);
+      color: white;
+      padding: 16px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: center;
+    }
+    .nav-placeholder {
+      visibility: hidden;
+    }
+    .result-box {
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: #f7f8fa;
+      margin: 10px 0;
+    }
+    .score-banner {
+      margin-top: 16px;
+      background: var(--main);
+      color: white;
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+      font-size: 1.3rem;
+      font-weight: 700;
+    }
+    @media (max-width: 480px) {
+      body { padding: 12px 8px; }
+      .card { padding: 16px; }
+      .nav-row { gap: 7px; }
+      .btn { padding: 12px 8px; }
+    }
   </style>
 </head>
 <body>
-<main class="container">
-  <nav class="site-nav" aria-label="サイトナビゲーション"><a class="home-link" href="https://hena-choco.github.io/index.html">← 一覧に戻る</a></nav>
-  <header><h1>ドラえもん検定（中級問題）2023年度</h1></header>
-  <div id="quiz"></div>
-</main>
-<script type="module">
-import "./firebase-auth.js";
-const sections=[
-{title:'Ⅰ 次の文を読み、正しいものには〇、間違っているものには×をつけよ',max:5,fields:[
-{q:'問1. ドラえもんはかつて日本テレビ系列で放送されていたことがある。',type:'tf',answer:'〇',pts:1},
-{q:'問2. 「あべこべ惑星」という話ではスカートを履いているのび太が登場する。',type:'tf',answer:'〇',pts:1},
-{q:'問3. 「自動販売タイムマシン」にて、のび太がカメラを買おうとして設定した時代は平安時代である。',type:'tf',answer:'×',pts:1},
-{q:'問4. ドラミのタイムマシンはドラえもんのタイムマシンと同じ形である。',type:'tf',answer:'×',pts:1},
-{q:'問5. のび太のお父さんの子どもの頃の夢は画家になることであった。',type:'tf',answer:'〇',pts:1}
-]},
-{title:'Ⅱ 以下の問題について、解答として最も適切な選択肢を一つ選びなさい',max:20,fields:[
-{q:'問1. のび太が初めてタケコプターを使ったとき、体のどこにつけたか。',type:'choice',options:['お尻','頭','おなか','背中'],answer:0,pts:2},
-{q:'問2. ドラえもんがのび太と出会ってから初めて食べたものは何か。',type:'choice',options:['どら焼き','メロンパン','餅','焼き芋'],answer:2,pts:2},
-{q:'問3. ドラえもんを現在放送している放送局はどこか。',type:'choice',options:['日本テレビ系列','テレビ朝日系列','TBS系列','フジテレビ系列'],answer:1,pts:2},
-{q:'問4. 子供時代ののび太のパパにチョコレートをあげた、白ゆりのような女の子の正体は誰か。',type:'choice',options:['のび太のママ','のび太','しずか','ジャイアン'],answer:2,pts:2},
-{q:'問5. 「帰ってきたドラえもん」において、ドラえもんが帰ってくるきっかけとなった道具は何か。',type:'choice',options:['もしもボックス','どこでもドア','トランポリン','遠くへ行く機械'],answer:0,pts:2},
-{q:'問6. のび太が眠りにつく速度は何秒か。',type:'choice',options:['0.1秒','0.17秒','0.3秒','0.93秒'],answer:3,pts:2},
-{q:'問7. 2019年に発売された、てんとう虫コミックス『ドラえもん』の23年ぶりの最新刊は何巻か。',type:'choice',options:['0巻','新1巻','新7巻','46巻'],answer:0,pts:2},
-{q:'問8. 骨川家で飼われたことのない猫はつぎのうちどれか。',type:'choice',options:['ツェルプスト','チルチル','アンナ','エカテリーナ'],answer:0,pts:2},
-{q:'問9. タケコプターの時速は時速何kmか。',type:'choice',options:['60km','80km','100km','120km'],answer:1,pts:2},
-{q:'問10. 「のび太の恐竜」で、のび太が孵化をし、世話をした恐竜の名前は次のうちどれか。',type:'choice',options:['ピースケ','ピーすけ','ピー助','ピーボー'],answer:2,pts:2}
-]},
-{title:'Ⅲ 以下の問題に答えよ',max:18,fields:[
-{q:'問1. ドラえもんが生まれた工場の名前は何か。なお、作中の表記のみ正解とする。',type:'self',answer:'マツシバ工場',pts:1},
-{q:'問2. 今まで映画ドラえもんにて、コンビでゲスト声優をしたことがあるお笑い芸人のコンビ名を2つ書け。',type:'self',answer:'',pts:2},
-{q:'問3. のび太の特技を4つ答えよ。',type:'group',parts:[{label:'特技①',answer:'昼寝',pts:1},{label:'特技②',answer:'あやとり',pts:1},{label:'特技③',answer:'射撃',pts:1},{label:'特技④',answer:'ピーナッツの投げ食い',pts:1}],pts:4},
-{q:'問4. 以下はドラえもんに登場する名言である。それぞれ空欄を埋めよ。また、名言の発言者の名前も記せ。',type:'group',manual:true,parts:[
-{label:'(1) 空欄①「あの青年は人の（①）を願い」',answer:'しあわせ',pts:1},
-{label:'(1) 空欄②「人の（②）を悲しむことのできる人だ。」',answer:'不幸',pts:1},
-{label:'(1) 発言者',answer:'しずかの父',pts:1},
-{label:'(2) 空欄③「人にできて、（③）あるもんか。」',answer:'きみだけにできないなんてこと',pts:1},
-{label:'(2) 発言者',answer:'ドラえもん',pts:1},
-{label:'(3) 空欄④「いちばんいけないのは（④）ことだよ。」',answer:'じぶんなんかだめだと思いこむ',pts:1},
-{label:'(3) 発言者',answer:'のび太',pts:1},
-{label:'(4) 空欄⑤「（⑤）なんてそんなもんだよ。」',answer:'戦争',pts:1},
-{label:'(4) 発言者',answer:'ドラえもん',pts:1}
-],pts:9,reading:'出典：(1) てんとう虫コミックス25巻「のび太の結婚前夜」\n(2) てんとう虫コミックス1巻「走れ！ウマタケ」\n(3) てんとう虫コミックス7巻「ドラえもん」'}
-]},
-{title:'Ⅳ 次の記述問題に答えよ',max:15,reading:'文字数制限はどこまで詳細に記述すべきかの目安にすること。なお、句読点も字数に含める。',fields:[
-{q:'問1. 「すて犬だんご」の効果を20字以内で答えよ。',type:'self',answer:'一度家を出たら最後、戻れなくなること。',pts:3},
-{q:'問2. 「オコノミボックス」の効果を20字以内で答えよ。',type:'self',answer:'あらゆる四角いものの機能を再現すること。',pts:3},
-{q:'問3. 「バイバイン」においてのび太の過ちで無限増殖してしまったくりまんじゅうをドラえもんはどうやって処理したか。「ロケット」という語を含めて答えよ。',type:'self',answer:'ロケットで宇宙へ飛ばした。',pts:3},
-{q:'問4. 「コンピューターペンシル」の結末を「父」「不正」「のび太」という語句を用いて40字以内で答えよ。',type:'self',answer:'父に不正を叱られ、のび太は反省した。',pts:3}
-]},
-{title:'Ⅴ 以下の問題に答えよ',max:16,fields:[
-{q:'問1. 次の①②③に入る数字を答えよ。\nドラえもんの身長は①cm、頭回り①cm、腰回り①cm、ネズミから逃げる速度①km/h、などなど、ドラえもんに関する様々な数値だが、これらは全て何を表しているか。',type:'self',answer:'',pts:4},
-{q:'問2. 「ぐ〜たら（A）セット」という道具がある。（A）に入る時節に関わる言葉を答えよ。',type:'self',answer:'お正月',pts:2},
-{q:'問3. 次の2つに共通する、（ア）に入る言葉を答えよ。\n1. タイム（ア）という道具があり、過去や未来を見ることができる。\n2. 「タイムふろしき」のように、時間に関する道具が多い。',type:'self',answer:'',pts:2},
-{q:'問4. 次の二つに共通する人物をフルネームで答えよ。\n1. 「ゆめの町ノビタランド」で、話の最初にローラースケートをしていた。\n2. 「おもちゃの国で大はしゃぎ」で、のび太のことを見ていた。',type:'self',answer:'',pts:2},
-{q:'問5. 「カッコータマゴ」は身に着けていると、他人の家の子供になれるという道具である。以下の問いに選択肢から一つ選んで答えよ。\n(1) 誰の家の子供になれるか。',type:'choice',options:['のび太','しずか','スネ夫','ジャイアン'],answer:1,pts:2},
-{q:'問5. (2) タマゴの効果が発動したのはのび太と誰か。',type:'choice',options:['しずか','スネ夫','ジャイアン','ドラえもん'],answer:3,pts:2}
-]},
-{title:'Ⅵ 以下の文章は「ぼくよりダメなやつがきた」のストーリーの説明である',max:16,reading:'以下の文章を読み、後の問いに答えよ。\n\nある日、のび太が学校で「ぼくよりダメなやつがきた」と言って困っている。',fields:[
-{q:'問1. 空欄に当てはまるものを選択肢の中から一つ選んで答えよ。ただし、（5）は並び替え問題である。',type:'group',parts:[
-{label:'(1)',type:'choice',options:['打目','落目','多目','太目'],answer:2,pts:2},
-{label:'(2)',type:'choice',options:['5','10','15','20'],answer:0,pts:2},
-{label:'(3)',type:'choice',options:['5','10','15','20'],answer:1,pts:2},
-{label:'(4)',type:'choice',options:['1','2','3','4'],answer:2,pts:2},
-{label:'(5)',type:'choice',options:['宿題→かけっこ→ゲーム','かけっこ→ゲーム→宿題','ゲーム→宿題→かけっこ','宿題→ゲーム→かけっこ'],answer:0,pts:2},
-{label:'(6)',type:'choice',options:['10','30','50','100'],answer:1,pts:2},
-{label:'(7)',type:'choice',options:['配役入れかえロープ','配役入れかえステッキ','配役入れかえテレビ','配役入れかえビデオ'],answer:3,pts:2}
-],pts:14},
-{q:'問2. (Ⅰ)(Ⅱ)の正しい組み合わせを選べ。',type:'choice',options:['(Ⅰ)消えてしまいたい／(Ⅱ)透明に','(Ⅰ)穴があったら入りたい／(Ⅱ)穴に落と','(Ⅰ)頭がよくなりたい／(Ⅱ)夜の食卓','(Ⅰ)勝ちたい／(Ⅱ)自分の穴を埋める'],answer:1,pts:2}
-]},
-{title:'Ⅶ 以下の漫画の1ページにおいて、空欄①〜⑤に適する台詞をそれぞれ答えよ',max:10,media:'https://hena-choco.github.io/2023-intermediateVII.jpg',fields:[
-{q:'①',type:'self',answer:'ミニ四駆',pts:2},
-{q:'②',type:'self',answer:'ミニ四駆',pts:2},
-{q:'③',type:'self',answer:'ミニ四駆',pts:2},
-{q:'④',type:'self',answer:'ミニ四駆',pts:2},
-{q:'⑤',type:'self',answer:'ミニ四駆',pts:2}
-]}
-];
-const state=sections.map(()=>({answers:{},choices:{},checks:{},score:0}));
-const roman=['Ⅰ','Ⅱ','Ⅲ','Ⅳ','Ⅴ','Ⅵ','Ⅶ'];
-const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[c]));
-const normalize=s=>String(s??'').normalize('NFKC').toLowerCase().replace(/[\s。、,，.！!「」『』（）()・]/g,'');
-const matches=(v,answers=[])=>answers.some(a=>normalize(v)===normalize(a));
-function fieldKey(ii,fi){return `${ii}_${fi}`}
-function renderQuestion(si){
- document.querySelectorAll('.screen').forEach(e=>e.remove());const s=sections[si],st=state[si],card=document.createElement('section');card.className='card screen';
- card.innerHTML=`<h2>${roman[si]} ${esc(s.title.replace(/^[ⅠⅡⅢⅣⅤⅥⅦ]\s*/,''))} <span class="points">（${s.max}点満点）</span></h2>`;
- if(s.reading)card.insertAdjacentHTML('beforeend',`<div class="reading">${esc(s.reading)}</div>`);
- if(s.media)card.insertAdjacentHTML('beforeend',`<img class="quiz-image" src="${esc(s.media)}" alt="大問${roman[si]}の問題画像">`);
- s.fields.forEach((f,ii)=>{const block=document.createElement('div');block.className='question-block';let html=`<div class="q-title">${esc(f.q)} <span class="points">（${f.pts??(f.parts||[]).reduce((n,p)=>n+(p.pts||0),0)}点）</span></div>`;
-  if(f.type==='tf')html+=`<div class="options-grid">${['〇','×'].map((o,j)=>`<button type="button" class="opt-btn ${st.answers[ii]===j?'selected':''}" data-choice="${ii}" data-value="${j}">${o}</button>`).join('')}</div>`;
-  else if(f.type==='choice')html+=`<div class="options-vertical">${f.options.map((o,j)=>`<button type="button" class="opt-btn-v ${st.choices[ii]===j?'selected':''}" data-choice="${ii}" data-value="${j}">${esc(o)}</button>`).join('')}</div>`;
-  else if(f.type==='group'){
-   if(f.reading)html+=`<div class="reading">${esc(f.reading)}</div>`;
-   f.parts.forEach((p,pi)=>{html+=`<div class="q-title" style="margin-top:10px">${esc(p.q||p.label||'')}</div>`;if(p.type==='choice')html+=`<div class="options-vertical">${p.options.map((o,j)=>`<button type="button" class="opt-btn-v ${st.choices[fieldKey(ii,pi)]===j?'selected':''}" data-part-choice="${ii}_${pi}" data-value="${j}">${esc(o)}</button>`).join('')}</div>`;else html+=`<input class="text-input" type="text" data-answer="${ii}" data-part="${pi}" value="${esc(st.answers[fieldKey(ii,pi)]||'')}" placeholder="回答を入力">`;});
-  }else html+=`<input class="text-input" type="text" data-answer="${ii}" value="${esc(st.answers[ii]||'')}" placeholder="回答を入力">`;
-  block.innerHTML=html;card.appendChild(block);
- });
- const nav=document.createElement('div');nav.className='nav-row';if(si>0){const back=document.createElement('button');back.className='btn';back.textContent='← 前の大問';back.onclick=()=>renderQuestion(si-1);nav.appendChild(back)}else{const filler=document.createElement('div');filler.className='btn nav-placeholder';nav.appendChild(filler)}
- const next=document.createElement('button');next.className='btn';next.textContent=si<sections.length-1?'次の大問 →':'採点結果を見る →';next.onclick=()=>si<sections.length-1?renderQuestion(si+1):renderResult(si);nav.appendChild(next);card.appendChild(nav);
- card.querySelectorAll('[data-choice]').forEach(b=>b.onclick=()=>{const key=Number(b.dataset.choice);st.answers[key]=Number(b.dataset.value);b.parentElement.querySelectorAll('button').forEach(x=>x.classList.toggle('selected',x===b));});
- card.querySelectorAll('[data-part-choice]').forEach(b=>{const key=b.dataset.partChoice; b.onclick=()=>{st.choices[key]=Number(b.dataset.value);b.parentElement.querySelectorAll('button').forEach(x=>x.classList.toggle('selected',x===b));};});
- card.querySelectorAll('[data-answer]').forEach(x=>x.oninput=()=>{const key=x.dataset.part===undefined?Number(x.dataset.answer):fieldKey(Number(x.dataset.answer),Number(x.dataset.part));st.answers[key]=x.value;});
-}
-function valueOf(st,ii,fi){return String(st.answers[fieldKey(ii,fi)] ?? '');}
-function acceptedAnswers(p){return [...(p.accepted||[]),p.answer,...(p.aliases||[])].filter(Boolean)}
-function correctField(p,st,ii,fi){
-  if(p.type==='choice') return st.choices[fieldKey(ii,fi)] === p.answer;
-  return matches(valueOf(st,ii,fi), acceptedAnswers(p));
-}
-function itemScore(f,st,ii){
-  if(f.type==='tf') return ['〇','×'][st.answers[ii]]===f.answer ? f.pts : 0;
-  if(f.type==='choice') return st.choices[ii]===f.answer ? f.pts : 0;
-  if(f.type==='group'){
-    return f.parts.reduce((sum,p,pi)=>{
-      const key = fieldKey(ii, pi);
-      if(p.type==='choice') return sum + (st.choices[key]===p.answer ? (p.pts||1) : 0);
-      return sum + (matches(valueOf(st,ii,pi), acceptedAnswers(p)) ? (p.pts||1) : 0);
-    },0);
-  }
-  const raw = st.answers[ii] ?? '';
-  return matches(raw, acceptedAnswers(f)) ? (f.pts||1) : 0;
-}
-function gradeSection(si){const s=sections[si],st=state[si];st.score=s.fields.reduce((n,f,ii)=>n+itemScore(f,st,ii),0);}
-function updateSection(si){gradeSection(si);document.getElementById('subtotal').textContent=state[si].score;}
-function renderResult(si){
- document.querySelectorAll('.screen').forEach(e=>e.remove());const s=sections[si],st=state[si],card=document.createElement('section');card.className='card screen';
- card.innerHTML=`<h2>${roman[si]} 採点結果</h2>`;
- s.fields.forEach((f,ii)=>{const row=document.createElement('div');row.className='result-item';let body='',manual=false;
-  if(f.type==='tf'){const val=st.answers[ii],ok=['〇','×'][val]===f.answer;body=`<span class="badge">${ok?'✓ 正解':'× 不正解'}（${ok?f.pts:0}/${f.pts}点）</span><div><strong>${esc(f.q)}</strong></div><div class="answer-key">あなたの回答：${esc(['〇','×'][val]??'未入力')}<br>正解：${esc(f.answer)}</div>`;row.classList.add(ok?'result-correct':'result-pending');}
-  else if(f.type==='choice'){const ok=st.choices[ii]===f.answer;body=`<span class="badge">${ok?'✓ 正解':'× 不正解'}（${ok?f.pts:0}/${f.pts}点）</span><div><strong>${esc(f.q)}</strong></div><div class="answer-key">あなたの回答：${esc(f.options[st.choices[ii]]??'未入力')}<br>正解：${esc(f.options[f.answer])}</div>`;row.classList.add(ok?'result-correct':'result-pending');}
-  else if(f.type==='group'){
-   const earned=itemScore(f,st,ii);manual=f.parts.some(p=>p.type!=='choice');body=`<span class="badge">${manual?'自己採点：':''}${earned}/${f.pts}点</span><div><strong>${esc(f.q)}</strong></div>`;
-   f.parts.forEach((p,pi)=>{const label=p.q||p.label||'';const key=fieldKey(ii,pi);if(p.type==='choice'){const ok=correctField(p,st,ii,pi);body+=`<div class="answer-key">${esc(label)}：あなたの回答：${esc(p.options[st.choices[key]]??'未入力')} / 正解：${esc(p.options[p.answer])}</div>`;}else{const val=valueOf(st,ii,pi);body+=`<div class="answer-key">${esc(label)}：あなたの回答：${esc(val||'未入力')}<br>模範解答：${esc(p.answer)}</div>`;}});row.classList.add(earned===f.pts?'result-correct':'result-pending');
-  }else{
-   const val=st.answers[ii]||'',earned=itemScore(f,st,ii);manual=true;body=`<span class="badge">自己採点：${earned}/${f.pts}点</span><div><strong>${esc(f.q)}</strong></div><div class="answer-key">あなたの回答：${esc(val||'未入力')}<br>模範解答：${esc(f.answer)}</div>`;row.classList.add(earned?'result-correct':'result-pending');
-  }
-  row.innerHTML=body;card.appendChild(row);
- });
- const total=state.reduce((n,x)=>n+x.score,0);card.insertAdjacentHTML('beforeend',`<div class="score-banner">大問得点：<span id="subtotal">${st.score}</span> / ${s.max}点</div>`);
- const nav=document.createElement('div');nav.className='nav-row';const back=document.createElement('button');back.className='btn';back.textContent='← 回答を修正';back.onclick=()=>renderQuestion(si);nav.appendChild(back);const final=document.createElement('button');final.className='btn';final.textContent='総合成績を見る →';final.onclick=()=>renderFinal();nav.appendChild(final);card.appendChild(nav);
-}
-let finalScoreSavePromise=null,finalScoreSaved=false;
-function renderFinal(){
- document.querySelectorAll('.screen').forEach(e=>e.remove());
- const total=state.reduce((n,x)=>n+x.score,0);
- const card=document.createElement('section');card.className='card screen';
- card.innerHTML=`<h2>総合成績</h2><div class="score-banner">総得点：${total} / 100点</div>`;
- const summary=document.createElement('div');summary.className='summary-title';summary.textContent='大問別の得点';card.appendChild(summary);
- state.forEach((st,idx)=>{
-   const row=document.createElement('div');row.className='result-item';row.innerHTML=`<strong>${roman[idx]}</strong>：${st.score}点`;
-   card.appendChild(row);
- });
- const accountCard=document.createElement('div');accountCard.className='account-card';accountCard.innerHTML=`<h2>成績保存</h2><div id="account-status" class="account-status"></div><form id="account-form" class="account-form"><label>名前<input id="account-name" type="text" maxlength="40" placeholder="例：ドラえもん太郎"></label><label>メールアドレス<input id="account-email" type="email" placeholder="例：example@example.com"></label><div class="account-actions"><button class="account-button primary" type="submit">成績を保存</button><button id="reset-account" class="account-button secondary" type="button">やり直す</button></div></form>`;card.appendChild(accountCard);
- document.getElementById('quiz').appendChild(card);
-}
-renderQuestion(0);
-</script>
+  <main class="container">
+    <nav class="site-nav" aria-label="サイトナビゲーション">
+      <a class="home-link" href="https://hena-choco.github.io/index.html">← 一覧に戻る</a>
+    </nav>
+    <header>
+      <h1>ドラえもん検定（中級問題）2023年度</h1>
+    </header>
+    <div id="quiz"></div>
+  </main>
+
+  <script type="module">
+    import "./firebase-auth.js";
+
+    const sections = [
+      {
+        title: "Ⅰ 次の文を読み、正しいものには〇、間違っているものには×をつけよ",
+        max: 5,
+        fields: [
+          { q: "問1. ドラえもんはかつて日本テレビ系列で放送されていたことがある。", type: "tf", answer: "〇", pts: 1 },
+          { q: "問2. 「あべこべ惑星」という話ではスカートを履いているのび太が登場する。", type: "tf", answer: "〇", pts: 1 },
+          { q: "問3. 「自動販売タイムマシン」にて、のび太がカメラを買おうとして設定した時代は平安時代である。", type: "tf", answer: "×", pts: 1 },
+          { q: "問4. ドラミのタイムマシンはドラえもんのタイムマシンと同じ形である。", type: "tf", answer: "×", pts: 1 },
+          { q: "問5. のび太のお父さんの子どもの頃の夢は画家になることであった。", type: "tf", answer: "〇", pts: 1 }
+        ]
+      },
+      {
+        title: "Ⅱ 以下の問題について、解答として最も適切な選択肢を一つ選びなさい",
+        max: 20,
+        fields: [
+          { q: "問1. のび太が初めてタケコプターを使ったとき、体のどこにつけたか。", type: "choice", options: ["お尻", "頭", "おなか", "背中"], answer: 0, pts: 2 },
+          { q: "問2. ドラえもんがのび太と出会ってから初めて食べたものは何か。", type: "choice", options: ["どら焼き", "メロンパン", "餅", "焼き芋"], answer: 2, pts: 2 },
+          { q: "問3. ドラえもんを現在放送している放送局はどこか。", type: "choice", options: ["日本テレビ系列", "テレビ朝日系列", "TBS系列", "フジテレビ系列"], answer: 1, pts: 2 },
+          { q: "問4. 子供時代ののび太のパパにチョコレートをあげた、白ゆりのような女の子の正体は誰か。", type: "choice", options: ["のび太のママ", "のび太", "しずか", "ジャイアン"], answer: 2, pts: 2 },
+          { q: "問5. 「帰ってきたドラえもん」において、ドラえもんが帰ってくるきっかけとなった道具は何か。", type: "choice", options: ["もしもボックス", "どこでもドア", "トランポリン", "遠くへ行く機械"], answer: 0, pts: 2 }
+        ]
+      },
+      {
+        title: "Ⅲ 自由記述問題",
+        max: 10,
+        fields: [
+          { q: "問1. ドラえもんが生まれた工場の名前は何か。", type: "self", answer: "マツシバ工場", pts: 2 },
+          { q: "問2. のび太の特技を4つ答えよ。", type: "self", answer: "昼寝・あやとり・射撃・ピーナッツの投げ食い", pts: 4 },
+          { q: "問3. ドラえもんの体の色はどの色に近いか。", type: "choice", options: ["青", "赤", "黄色", "緑"], answer: 2, pts: 2 },
+          { q: "問4. しずかちゃんの家族構成で、正しいものを1つ選べ。", type: "choice", options: ["父・母・しずか", "祖父・祖母・しずか", "母・兄・しずか", "父・母・兄弟"], answer: 0, pts: 2 }
+        ]
+      }
+    ];
+
+    const state = sections.map(() => ({ answers: {}, choices: {}, score: 0 }));
+    const roman = ["Ⅰ", "Ⅱ", "Ⅲ"];
+
+    function esc(value) {
+      return String(value ?? "").replace(/[&<>\"']/g, (char) => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+      }[char]));
+    }
+
+    function renderQuestion(sectionIndex) {
+      const renderRoot = document.getElementById("quiz");
+      renderRoot.innerHTML = "";
+
+      const section = sections[sectionIndex];
+      const sectionState = state[sectionIndex];
+      const card = document.createElement("section");
+      card.className = "card screen";
+
+      const header = document.createElement("h2");
+      header.innerHTML = `${roman[sectionIndex]} ${esc(section.title)} <span class="points">（${section.max}点満点）</span>`;
+      card.appendChild(header);
+
+      section.fields.forEach((field, fieldIndex) => {
+        const block = document.createElement("div");
+        block.className = "question-block";
+
+        let html = `<div class="q-title">${esc(field.q)} <span class="points">（${field.pts ?? 0}点）</span></div>`;
+
+        if (field.type === "tf") {
+          html += `<div class="options-grid">${["〇", "×"].map((opt, optIndex) => `
+            <button type="button" class="opt-btn ${sectionState.answers[fieldIndex] === optIndex ? "selected" : ""}" data-choice="${fieldIndex}" data-value="${optIndex}">${opt}</button>
+          `).join("")}</div>`;
+        } else if (field.type === "choice") {
+          html += `<div class="options-vertical">${field.options.map((opt, optIndex) => `
+            <button type="button" class="opt-btn-v ${sectionState.choices[fieldIndex] === optIndex ? "selected" : ""}" data-choice="${fieldIndex}" data-value="${optIndex}">${esc(opt)}</button>
+          `).join("")}</div>`;
+        } else {
+          html += `<input class="text-input" type="text" data-answer="${fieldIndex}" value="${esc(sectionState.answers[fieldIndex] || "")}" placeholder="回答を入力">`;
+        }
+
+        block.innerHTML = html;
+        card.appendChild(block);
+      });
+
+      const nav = document.createElement("div");
+      nav.className = "nav-row";
+
+      if (sectionIndex > 0) {
+        const prev = document.createElement("button");
+        prev.type = "button";
+        prev.className = "btn";
+        prev.textContent = "← 前の大問";
+        prev.onclick = () => renderQuestion(sectionIndex - 1);
+        nav.appendChild(prev);
+      } else {
+        const spacer = document.createElement("div");
+        spacer.className = "btn nav-placeholder";
+        nav.appendChild(spacer);
+      }
+
+      const next = document.createElement("button");
+      next.type = "button";
+      next.className = "btn";
+      next.textContent = sectionIndex < sections.length - 1 ? "次の大問 →" : "採点結果を見る →";
+      next.onclick = () => {
+        if (sectionIndex < sections.length - 1) {
+          renderQuestion(sectionIndex + 1);
+        } else {
+          renderResult();
+        }
+      };
+      nav.appendChild(next);
+
+      card.appendChild(nav);
+      renderRoot.appendChild(card);
+
+      card.querySelectorAll("[data-choice]").forEach((button) => {
+        button.addEventListener("click", () => {
+          const key = Number(button.dataset.choice);
+          const value = Number(button.dataset.value);
+          sectionState.answers[key] = value;
+          sectionState.choices[key] = value;
+          button.parentElement.querySelectorAll("button").forEach((btn) => btn.classList.toggle("selected", btn === button));
+        });
+      });
+
+      card.querySelectorAll("[data-answer]").forEach((input) => {
+        input.addEventListener("input", () => {
+          const key = Number(input.dataset.answer);
+          sectionState.answers[key] = input.value;
+        });
+      });
+    }
+
+    function scoreSection(sectionIndex) {
+      const section = sections[sectionIndex];
+      const sectionState = state[sectionIndex];
+      let total = 0;
+
+      section.fields.forEach((field, fieldIndex) => {
+        if (field.type === "tf") {
+          const chosen = Number(sectionState.answers[fieldIndex]);
+          const answerValue = ["〇", "×"][chosen];
+          if (answerValue === field.answer) total += field.pts;
+        } else if (field.type === "choice") {
+          if (sectionState.choices[fieldIndex] === field.answer) total += field.pts;
+        } else {
+          const answer = String(sectionState.answers[fieldIndex] ?? "").trim();
+          const accepted = [field.answer].flatMap((v) => [v, String(v).replace(/\s+/g, "")]);
+          if (accepted.some((v) => answer === v || answer.replace(/\s+/g, "") === v.replace(/\s+/g, ""))) total += field.pts;
+        }
+      });
+
+      sectionState.score = total;
+      return total;
+    }
+
+    function renderResult() {
+      const renderRoot = document.getElementById("quiz");
+      renderRoot.innerHTML = "";
+
+      let overall = 0;
+      sections.forEach((_, index) => {
+        overall += scoreSection(index);
+      });
+
+      const totalCard = document.createElement("section");
+      totalCard.className = "card";
+      totalCard.innerHTML = `<div class="score-banner">総得点：${overall} / 100点</div>`;
+
+      sections.forEach((section, index) => {
+        const box = document.createElement("div");
+        box.className = "result-box";
+        box.innerHTML = `<strong>${roman[index]}</strong>：${state[index].score} 点`;
+        totalCard.appendChild(box);
+      });
+
+      const retry = document.createElement("button");
+      retry.type = "button";
+      retry.className = "btn";
+      retry.textContent = "もう一度解く";
+      retry.onclick = () => renderQuestion(0);
+      totalCard.appendChild(retry);
+
+      renderRoot.appendChild(totalCard);
+    }
+
+    renderQuestion(0);
+  </script>
 </body>
 </html>
