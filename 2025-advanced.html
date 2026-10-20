@@ -270,6 +270,18 @@ function separateReadingAndQuestions(block){
   const questions=starts.map((start,i)=>block.slice(start,starts[i+1]??block.length).trim().split(/[\r\n\u2028\u2029]+(?=(?:[1-4][.．]|①|A[.．]))/)[0].trim());
   return{reading,questions};
 }
+// 長い説明文を話題ごとに段落分けする（問題文の文言は変更しない）。
+sourceBlocks[1]=sourceBlocks[1]
+  .replace('重要である。 現在まで','重要である。\n\n現在まで')
+  .replace('建設しようとする。 現実世界でも','建設しようとする。\n\n現実世界でも')
+  .replace('4種類である。鉄道においても','4種類である。\n\n鉄道においても')
+  .replace('走っている。飛行機や空港とも','走っている。\n\n飛行機や空港とも')
+  .replace('制作された。また、ラッピング車両','制作された。\n\nまた、ラッピング車両');
+sourceBlocks[2]=sourceBlocks[2]
+  .replace('道具を出していた。この道具を使うと','道具を出していた。\n\nこの道具を使うと')
+  .replace('を交換した。のび太は','を交換した。\n\nのび太は')
+  .replace('混乱】してしまう。オチのコマ','混乱】してしまう。\n\nオチのコマ')
+  .replace('追いかけまわしている絵がある。また、','追いかけまわしている絵がある。\n\nまた、');
 const separated=sourceBlocks.map(separateReadingAndQuestions);
 sections.forEach((section,si)=>{section.reading=separated[si].reading});
 sections[0].items.forEach((item,i)=>item.q=separated[0].questions[i]);
@@ -290,7 +302,7 @@ sections[3].items.forEach((item,i)=>item.q=separated[3].questions[i]);
 sections[4].items.forEach((item,i)=>item.q=separated[4].questions[i]);
 sections[5].reading='Ⅵ 画像のコマ割り問題。画像を見て、各コマ・場面に当てはまる作品名またはひみつ道具を答えよ。';
 sections[5].items.forEach((item,i)=>item.q=`問${i+1}. 画像の場面に当てはまる作品名またはひみつ道具を答えよ。`);
-sections[6].reading='Ⅶ てんとう虫コミックス『ドラえもん』第1〜45巻に収録されているエピソードのうち、「のび太のおよめさん」のように、タイトルが「のび太の」から始まるものをできるだけ多く答えなさい。各1作品2点（最大30点）。「のび太の」の表記は省略できます。「のび太のおよめさん」は例示のため採点対象外です。';
+sections[6].reading='Ⅶ てんとう虫コミックス『ドラえもん』第1〜45巻に収録されているエピソードのうち、「のび太のおよめさん」のように、タイトルが「のび太の」から始まるものをできるだけ多く答えなさい。\n\n各1作品2点（最大30点）。「のび太の」の表記は省略できます。\n\n「のび太のおよめさん」は例示のため採点対象外です。';
 sections[6].items[0].q='該当するエピソード名を入力してください（複数ある場合は、読点・カンマ・改行で区切ってください）。';
 const state=sections.map(()=>({answers:{},choices:{},manual:{},score:0}));
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
