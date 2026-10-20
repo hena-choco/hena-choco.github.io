@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ドラえもん検定 2020年度 上級</title>
+  <meta name="description" content="ドラえもん検定2020年度上級の全8大問に挑戦。正誤・選択問題は自動採点、記述問題は模範解答を見ながら自己採点できます。100点満点・合格点60点です。">
+  <link rel="icon" href="https://hena-choco.github.io/favicon.png" type="image/png">
+  <style>
+    :root { --main:#6B9DFF; --bg:#f4f7f9; --card:#fff; --text:#333; --accent:#FFD43B; }
+    * { box-sizing:border-box; margin:0; padding:0; }
+    body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif; background:var(--bg); color:var(--text); line-height:1.65; padding:20px 12px; }
+    .container { max-width:680px; margin:auto; }
+    .site-nav { position:sticky; top:8px; z-index:5; display:flex; justify-content:flex-start; margin-bottom:10px; }
+    .home-link { display:inline-flex; align-items:center; gap:6px; padding:9px 14px; border-radius:8px; background:#fff; color:#6B9DFF; border:1px solid #d6e3f8; font-weight:700; text-decoration:none; box-shadow:0 2px 8px #0000000d; }
+    header { text-align:center; margin-bottom:20px; padding:18px; background:var(--main); color:#fff; border-radius:12px; }
+    h1 { font-size:1.35rem; }
+    .card { background:var(--card); border-radius:12px; padding:20px; box-shadow:0 2px 8px #0000000d; margin-bottom:18px; }
+    h2 { font-size:1.12rem; margin-bottom:12px; }
+    .reading { white-space:pre-line; background:#f9fbfd; border:1px solid #e1ecff; border-radius:8px; padding:14px; margin-bottom:18px; }
+    .question-block { margin-bottom:20px; padding-bottom:14px; border-bottom:1px dashed #e5e5e5; }
+    .question-block:last-child { border-bottom:0; }
+    .q-title { font-weight:700; margin-bottom:8px; white-space:pre-line; }
+    .options-grid { display:flex; gap:10px; margin-top:8px; }
+    .opt-btn { flex:1; padding:12px; border:2px solid var(--main); background:var(--card); color:var(--main); font-size:1.1rem; font-weight:bold; border-radius:8px; cursor:pointer; }
+    .opt-btn.selected,.opt-btn-v.selected { background:var(--main); color:var(--card); }
+    .options-vertical { display:flex; flex-direction:column; gap:8px; margin-top:8px; }
+    .opt-btn-v { text-align:left; padding:12px 16px; border:2px solid var(--main); background:var(--card); color:var(--text); font-size:1rem; border-radius:8px; cursor:pointer; }
+    .text-input { width:100%; padding:11px; font-size:1rem; border:2px solid var(--main); border-radius:8px; margin-top:5px; }
+    .points,.muted { color:#666; font-size:.88rem; font-weight:400; }
+    .btn { display:block; width:100%; padding:16px; background:var(--main); color:var(--card); border:0; border-radius:8px; font-size:1.05rem; font-weight:bold; cursor:pointer; margin-top:10px; text-align:center; text-decoration:none; }
+    .btn:hover { background:#5689e8; }
+    .nav-row { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:12px; }
+    .nav-row .btn { margin:0; min-height:54px; display:flex; align-items:center; justify-content:center; }
+    .nav-placeholder { visibility:hidden; }
+    .result-item { padding:12px; border-radius:8px; margin:10px 0; font-size:.95rem; border:1px solid #d8dde5; background:#f7f8fa; }
+    .result-item.result-correct { border:0; background:#6B9DFF; color:#fff; }
+    .result-item.result-correct .answer-key { color:#fff; }
+    .result-item.result-correct .badge { background:rgba(255,255,255,.2); color:#fff; }
+    .result-item.result-wrong { border:0; background:#f1f2f4; color:#333; }
+    .result-item.result-wrong .badge { background:transparent; color:#6B9DFF; }
+    .result-item.result-pending { border:1px solid #d8dde5; background:#fff; color:#333; }
+    .badge { display:inline-block; padding:2px 8px; border-radius:4px; font-weight:700; font-size:.8rem; margin-bottom:4px; background:#eaf1ff; color:#335f9e; }
+    .answer-key { margin-top:5px; color:#444; white-space:pre-line; }
+    .self-check { display:block; margin-top:9px; padding:9px; background:#f4f7f9; border-radius:6px; }
+    .score-banner { text-align:center; background:var(--main); color:var(--card); padding:20px; border-radius:12px; font-size:1.3rem; font-weight:700; margin:12px 0 18px; }
+    .summary-title { border-bottom:2px solid var(--main); padding:0 0 4px; margin:20px 0 10px; font-weight:700; }
+    .account-card { background:#fff; border:1px solid #e4e9f0; border-radius:12px; padding:18px; margin-top:22px; }
+    .account-card h2 { margin-bottom:6px; }
+    .account-status { min-height:1.5em; margin:7px 0 12px; font-size:.9rem; }
+    .account-status[data-kind="error"] { color:#a33; }
+    .account-status[data-kind="success"] { color:#176b45; }
+    .account-form { display:grid; gap:10px; }
+    .account-form[hidden], [hidden] { display:none !important; }
+    .account-form label { display:grid; gap:4px; font-size:.9rem; font-weight:600; }
+    .account-form input { width:100%; padding:11px; border:1px solid #cfd6df; border-radius:7px; font:inherit; }
+    .account-actions { display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
+    .account-button { border:0; border-radius:7px; padding:10px 14px; font:inherit; font-weight:700; cursor:pointer; }
+    .account-button.primary { background:var(--main); color:#fff; }
+    .account-button.secondary { background:#eef3fb; color:#315a9d; }
+    .account-button:disabled { opacity:.55; cursor:not-allowed; }
+    .account-switch { margin-top:10px; font-size:.88rem; }
+    .account-switch button { border:0; background:none; color:#315a9d; text-decoration:underline; font:inherit; font-weight:700; cursor:pointer; }
+    .account-signed-in { padding:10px; background:#f4f8ff; border-radius:7px; overflow-wrap:anywhere; }
+    @media(max-width:480px) { body { padding:12px 8px; } .card { padding:16px; } .nav-row { gap:7px; } .nav-row .btn { padding:12px 8px; font-size:.95rem; } }
+  
+    .quiz-image { display:block; width:100%; max-width:100%; max-height:70vh; height:auto; object-fit:contain; margin:12px auto; border-radius:8px; }
+  </style>
+</head>
+<body>
+<main class="container">
+  <nav class="site-nav" aria-label="サイトナビゲーション"><a class="home-link" href="https://hena-choco.github.io/index.html">← 一覧に戻る</a></nav>
+  <header><h1>ドラえもん検定 2020年度 上級</h1></header>
+  <div id="quiz"></div>
+</main>
+<script type="module">
+import "./firebase-auth.js";
+const passMark=60,totalPoints=100;
+const sections=[
+  {title:'1',max:5,reading:'1 以下の文章が正しい場合は〇を、誤っている場合は×を書きなさい。',fields:[
+    {q:'(1) のび太には漫画を見る目がない。',type:'tf',answer:'×',pts:1},
+    {q:'(2) 花賀さき子さんはのび太の高校でのクラスメートである。',type:'tf',answer:'×',pts:1},
+    {q:'(3) のび吉はのび太の曽祖父である。',type:'tf',answer:'〇',pts:1},
+    {q:'(4) しずかわちゃんの叔父は画家である。',type:'tf',answer:'×',pts:1},
+    {q:'(5) スネ夫には野球が得意ないとこがいる。',type:'tf',answer:'〇',pts:1}
+  ]},
+  {title:'2',max:5,reading:'2 以下の問いに答えよ。',fields:[
+    {q:'(1) てんコミ27巻「しあわせトランプの恐怖」に登場した他の藤子作品のガキ大将は次のうち誰？',type:'choice',options:['A. ゴジラ','B. ブタゴリラ','C. タイガー','D. カバ夫'],answer:0,pts:1},
+    {q:'(2) 地球ではありふれているがハルカ星ではダイヤモンド以上の価値があるものは何か？',type:'choice',options:['A. アルミ','B. 鉄','C. ガラス','D. 銅'],answer:2,pts:1},
+    {q:'(3) 巻末にドラえもん百科が載っているのは何巻か？',type:'choice',options:['A. 3巻','B. 6巻','C. 11巻','D. 21巻'],answer:1,pts:1},
+    {q:'(4) 「無人島に家出」でのび太が無人島に家出していた期間は？',type:'choice',options:['A. 5年','B. 10年','C. 15年','D. 20年'],answer:1,pts:1},
+    {q:'(5) 「拳銃王コンテスト」でのび太が最初に倒したのは誰？',type:'choice',options:['A. ジャイアン','B. スネ夫','C. はる夫','D. 安雄'],answer:2,pts:1}
+  ]},
+  {title:'3',max:20,reading:'3 以下の問いに答えよ。',fields:[
+    {q:'(1) 「天井裏の宇宙戦争」でアカンベーダーが基地を作っていたのは誰の家？',type:'self',answer:'ジャイアン',aliases:['ジャイアン','剛田家'],pts:2},
+    {q:'(2) 「な、なんと!!のび太が百点取った」でのび太が百点をとったテストの科目はなに？',type:'self',answer:'算数',aliases:['算数'],pts:2},
+    {q:'(3) 「大ピンチ！スネ夫の答案」で「思ってたより良かった」と語ったのび太のテストの点数は何点？',type:'self',answer:'10点',aliases:['10点','10','十点'],pts:2},
+    {q:'(4) ころばし屋のとりけし料はいくら？',type:'self',answer:'100円',aliases:['100円','100','百円'],pts:2},
+    {q:'(5) メルヘンランドでしずかちゃんが変身した動物は？',type:'self',answer:'ウサギ',aliases:['ウサギ','うさぎ','兎'],pts:2},
+    {q:'(6) 夏休みにどこへも遊びに行けないセワシが公園でしていたゲームの名前は？',type:'self',answer:'立体インベーダーゲーム',aliases:['立体インベーダーゲーム','立体インベーダー'],pts:2},
+    {q:'(7) のび太が発明した新作あやとりの名前は？',type:'self',answer:'おどるチョウ',aliases:['おどるチョウ','踊るチョウ','おどる蝶','踊る蝶'],pts:2},
+    {q:'(8) 税金鳥から49000円も徴税されてしまった出木杉。彼は何のためにお金を貯金していた？',type:'self',answer:'顕微鏡購入',aliases:['顕微鏡購入','顕微鏡を買うため','顕微鏡を購入するため'],pts:2},
+    {q:'(9) 「のび太と竜の騎士」でバンホーたちと戦うため、ドラえもんたちが作った城の名前は？',type:'self',answer:'風雲ドラえもん城',aliases:['風雲ドラえもん城'],pts:2},
+    {q:'(10) 「のび太とアニマル惑星」でジャイアンはゴリ郎と何回間違えられた？',type:'self',answer:'3回',aliases:['3回','3','三回'],pts:2}
+  ]},
+  {title:'4',max:14,reading:`4 次の文章を読んで以下の問いに答えなさい。
+
+「ドラえもん」の第1話「未来の国からはるばると」で就職に失敗し会社を立ち上げたことが明かされたのび太。就職に失敗してのこととはいえ、そこで見せた起業するという行動力は意外に思われるかもしれない。
+
+しかし、「ドラえもん」作中でもそのような商魂のたくましさを見せることがしばしばある。ここではそんなのび太の商売通歴を振り返っていこう。1てんとう虫コミックス10巻の「夜を売ります」ではつけると暗くなる電球を使い時間（A）円で夜を販売している。また、17巻「驚音波発振機」では（ア）を使い、一回（B）円で害虫駆除会社を始めたこともある。特に前者はドラえもんが捨てようとしていたひみつ道具だった。のび太の発想力はドラえもん以上ということができるだろう。
+
+しばしば（主にジャイアンによって）無理矢理セールスをさせられる場合もある。39巻2「虹のビオレッタ」ではジャイ子が出費出版した漫画を一冊（C）円で販売させられたほか、41巻「恐怖のディナーショー」ではマツ席（D）円、タケ席（E）円でディナーショーの席の販売を押し付けられている。
+
+ドラえもんが来て変わった未来ではのび太は普通のサラリーマンになったようである。しかし、以上のような経験を積んだのび太はサラリーマンにしておくには惜しい、経営者向きの人材だったのかもしれない。`,fields:[
+    {q:'(1) (A)〜(E)に入る語句を記入しなさい。\n(A)',type:'self',answer:'10',aliases:['10','10円'],pts:1},
+    {q:'(B)',type:'self',answer:'100',aliases:['100','100円'],pts:1},
+    {q:'(C)',type:'self',answer:'500',aliases:['500','500円'],pts:1},
+    {q:'(D)',type:'self',answer:'100',aliases:['100','100円'],pts:1},
+    {q:'(E)',type:'self',answer:'50',aliases:['50','50円'],pts:1},
+    {q:'(2) (ア)に入るひみつ道具の名前を書きなさい。',type:'self',answer:'驚音波発振式ネズミ・ゴキブリ・南京虫・家ダニ・白アリ退治機',aliases:['驚音波発振式ネズミ・ゴキブリ・南京虫・家ダニ・白アリ退治機','狂音波発振式ネズミ・ゴキブリ・南京虫・家ダニ・白アリ退治機'],pts:3},
+    {q:'(3) 下線部1の表紙に描かれているキャラクターを全て書きなさい。',type:'self',answer:'ドラえもん',aliases:['ドラえもん'],pts:2},
+    {q:'(4) 下線部2の漫画を読んだマンガコレクターは将来この漫画がいくらぐらいの値打ちが出ると予想したか書きなさい。',type:'self',answer:'10万円',aliases:['10万円','10万','十万円'],pts:2},
+    {q:'(5) 下線部3のキャラクターのペンネームを次のうちから選びなさい。',type:'choice',options:['A. ソルボンヌ剛田','B. クリスチーネ剛田','C. ハロルド剛田','D. ジャイアン剛田'],answer:1,pts:2}
+  ]},
+  {title:'5',max:20,reading:`5 次の文章を読んで以下の問いに答えなさい。
+
+ドラえもんのレギュラーキャラクターと言えばドラえもん、のび太、しずか、スネ夫、ジャイアンの5人だろう。だが、ドラえもんにはその5人につぐ準レギュラーともいうべきキャラクターがいる。ここではそんな準レギュラーキャラクターの代表格である1出木杉について見ていこう。
+
+出木杉の学力は高く、しずかが30分、スネ夫が3時間、のび太が朝までかかる宿題を10分で終わらせてしまう。また、2「のび太の創世日記」では（A）の水源から海までを辿り、いくつかのポイントで川の様子や水質を調べ、（A）絵巻を作るという小学生とは思えない自由研究をしており、のび太からは「りっぱすぎてなんの参考にもならん」と評されている。
+
+学力が高いだけでなく多彩な趣味も持つ。「超大作特撮映画『宇宙大魔神』」では8ミリでアニメを撮影したいと考え、宇宙大魔神と（B）部隊との冒険物語3「宇宙大魔神」の脚本を書いていた。また、この話では（C）を使い、大魔王の宇宙戦艦を作るなど工作の才能を見せている。
+
+また、出木杉は能力が高いだけでなく大変な人格者でもある。「恐怖のディナーショー」では、誰もが理由をつけ4ジャイアンのディナーショーのチケットを買わず、チケット販売を押し付けられたのび太たちが困っている中で出木杉だけがチケットを購入している。
+
+そんな完璧超人の出木杉だが「しずちゃんをとりもどせ」では未来でものび太と家族ぐるみの付き合いがあり、火星出張中には野比家に5息子を預けていることが分かる。実は出木杉の一番の友達はのび太なのかもしれない。`,fields:[
+    {q:'(1) (A)〜(C)に入る語句を記入しなさい。\n(A)',type:'self',answer:'多摩川',aliases:['多摩川'],pts:2},
+    {q:'(B)',type:'self',answer:'少年レインジャー',aliases:['少年レインジャー','少年レンジャー'],pts:2},
+    {q:'(C)',type:'self',answer:'ラジコンねんど',aliases:['ラジコンねんど','ラジコン粘土'],pts:2},
+    {q:'(2) 下線部1の人物の下の名前を漢字で書きなさい。',type:'self',answer:'英才',aliases:['英才','太郎'],pts:2},
+    {q:'(3) のび太の結婚式前夜祭の参加者は下線部1の人物とのび太と誰か？すべて記述しなさい。',type:'self',answer:'ジャイアン・スネ夫',aliases:['ジャイアン・スネ夫','ジャイアン、スネ夫','ジャイアンとスネ夫'],complete:true,pts:2},
+    {q:'(4) 次のうち、下線部1の人物が登場していない映画作品を選びなさい。',type:'choice',options:['A. のび太と奇跡の島','B. のび太の大魔境','C. のび太の恐竜','D. のび太のパラレル西遊記'],answer:2,pts:2},
+    {q:'(5) 大長編ドラえもんにおける下線部2の作品の次回作を答えなさい。',type:'self',answer:'のび太と銀河超特急',aliases:['のび太と銀河超特急'],pts:2},
+    {q:'(6) 下線部3の作品で宇宙大魔王を演じたのは誰か答えなさい。',type:'self',answer:'ジャイアン',aliases:['ジャイアン'],pts:2},
+    {q:'(7) 下線部4はジャイアンが倒れたため中止された。なぜジャイアンが倒れたか記述しなさい。',type:'self',answer:'自分自身のつくった料理を味見したため',aliases:['自分自身のつくった料理を味見したため','自分で作った料理を味見したため','自分が作った料理を味見したため'],pts:2},
+    {q:'(8) 下線部5の人物の下の名前を書きなさい。',type:'self',answer:'ヒデヨ',aliases:['ヒデヨ'],pts:2}
+  ]},
+  {title:'6',max:20,reading:'6 次のドラえもん劇中の台詞を埋めなさい。',fields:[
+    {q:'(1) のびちゃんの（A）のすがたをみたら、（B）が出ちゃったよ。あんたの（C）を、ひと目見たいねぇ。（おばあちゃんのおもいで）\n（A）',type:'self',answer:'小学生',aliases:['小学生'],pts:2},
+    {q:'（B）',type:'self',answer:'よく',aliases:['よく'],pts:2},
+    {q:'（C）',type:'self',answer:'およめさん',aliases:['およめさん','お嫁さん'],pts:2},
+    {q:'(2) いちばんいけないのは（A）思いこむことだよ。（好きでたまらニャい）\n（A）',type:'self',answer:'自分なんかだめだと',aliases:['自分なんかだめだと'],pts:2},
+    {q:'(3) ドラえもんがいるわけ無いでしょ。ドラえもんは（A）んだから。もう二度と、（B）んだから。（帰ってきたドラえもん）\n（A）',type:'self',answer:'帰ってこない',aliases:['帰ってこない'],pts:2},
+    {q:'（B）',type:'self',answer:'あえない',aliases:['あえない','会えない'],pts:2},
+    {q:'(4) （A）なんて面白いもんじゃないからね。（B）やると、このまんがの人気がおちる。いいや（C）ほどやる！！（くろうみそ）\n（A）',type:'self',answer:'お説教',aliases:['お説教','おせっきょう'],pts:2},
+    {q:'（B）',type:'self',answer:'長なが',aliases:['長なが','ながなが','長々'],pts:2},
+    {q:'（C）',type:'self',answer:'二ページ',aliases:['二ページ','2ページ'],pts:2},
+    {q:'(5) のび太はだいじょうぶだった？あたりまえさ！（A）だったよ。（ドラえもんに休日を）\n（A）',type:'self',answer:'平和な一日',aliases:['平和な一日','平和な１日','平和な1日'],pts:2}
+  ]},
+  {title:'7',max:6,reading:'7 次のことを叶えるのに必要な行動を答えなさい。必要に応じてひみつ道具を使っても良い。',fields:[
+    {q:'(1) 日本が真冬の時に30時間連続で日光カメラに日光を当て続ける。',type:'self',answer:'どこでもドアで南極に行く。',aliases:['どこでもドアで南極に行く','どこでもドアで南極へ行く'],pts:2},
+    {q:'(2) 目の前の大根をパソコンに変える。',type:'self',answer:'物体変換銃を使う。',aliases:['物体変換銃を使う','物体変換銃'],pts:2},
+    {q:'(3) 富士山より高くジャンプする。',type:'self',answer:'その場で飛ぶだけで良い／タケコプターを使う',aliases:['その場で飛ぶだけで良い','その場で飛ぶだけでいい','タケコプターを使う','タケコプター'],pts:2}
+  ]},
+  {title:'8',max:10,reading:'8 以下の問いに答えよ。',fields:[
+    {q:'(1) 次の映画作品を公開順に並びかえなさい。\nA. のび太と雲の王国　B. のび太のパラレル西遊記　C. のび太とブリキの迷宮　D. のび太と竜の騎士',type:'self',answer:'D→B→A→C',aliases:['D→B→A→C','DBAC'],pts:2},
+    {q:'(2) 次のキャラクターを映画初登場順に並び替えなさい。\nA. スネ夫のママ　B. ドラミ　C. 出木杉　D. パオパオ',type:'self',answer:'A→D→C→B',aliases:['A→D→C→B','ADCB'],pts:2},
+    {q:'(3) 次のキャラクターを原作での登場が遅い順に並び替えなさい。\nA. 出木杉　B. ドラミ　C. しずか　D. のび太の先生',type:'self',answer:'A→B→D→C',aliases:['A→B→D→C','ABDC'],pts:2},
+    {q:'(4) 次のキャラクターの生まれた年代を過去から未来へ順に並び替えよ。\nA. ヒャッコイ博士　B. ハチ　C. クルト　D. ペティ',type:'self',answer:'A→D→B→C',aliases:['A→D→B→C','ADBC'],pts:2},
+    {q:'(5) 以下の出来事を、日付順に並べ替えよ。\nA. ドラミの誕生日　B. のび太の誕生日　C. のび太のパパとママの結婚記念日　D. ぐうたら感謝の日',type:'self',answer:'D→B→C→A',aliases:['D→B→C→A','DBCA'],pts:2}
+  ]}
+];
+const state=sections.map(()=>({answers:{},checks:{},score:0}));let finalScoreSavePromise=null,finalScoreSaved=false;
+const roman=['1','2','3','4'];
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const normalize=s=>String(s??'').normalize('NFKC').toLowerCase().replace(/[\u3041-\u3096]/g,c=>String.fromCharCode(c.charCodeAt(0)+0x60)).replace(/[\s。、,，.！!「」『』（）()・]/g,'');
+const matches=(v,a=[])=>a.some(x=>normalize(v)===normalize(x));
+function scoreField(f,st,i){if(f.type==='tf')return ['〇','×'][st.answers[i]]===f.answer?f.pts:0;if(f.type==='choice')return st.answers[i]===f.answer?f.pts:0;return st.checks[i]?f.pts:0}
+function sectionScore(si){return sections[si].fields.reduce((n,f,i)=>n+scoreField(f,state[si],i),0)}
+function renderQuestion(si){document.querySelectorAll('.screen').forEach(e=>e.remove());const s=sections[si],st=state[si],card=document.createElement('section');card.className='card screen';card.innerHTML=`<h2>大問 ${esc(s.title)} <span class="points">（${s.max}点満点）</span></h2>${s.reading?`<div class="reading">${esc(s.reading)}</div>`:''}`;if(s.media)card.insertAdjacentHTML('beforeend',`<img class="quiz-image" src="${esc(s.media)}" alt="大問3のひみつ道具の写真">`);s.fields.forEach((f,i)=>{const b=document.createElement('div');b.className='question-block';let control='';if(f.type==='tf')control=`<div class="options-grid">${['〇','×'].map((o,j)=>`<button type="button" class="opt-btn ${st.answers[i]===j?'selected':''}" data-choice="${i}" data-value="${j}">${o}</button>`).join('')}</div>`;else if(f.type==='choice')control=`<div class="options-vertical">${f.options.map((o,j)=>`<button type="button" class="opt-btn-v ${st.answers[i]===j?'selected':''}" data-choice="${i}" data-value="${j}">${esc(o)}</button>`).join('')}</div>`;else control=`<input class="text-input" type="text" data-answer="${i}" value="${esc(st.answers[i]||'')}" placeholder="回答を入力">`;b.innerHTML=`<div class="q-title">${esc(f.q)} <span class="points">（${f.pts}点）</span></div>${control}`;card.appendChild(b)});const nav=document.createElement('div');nav.className='nav-row';if(si){const back=document.createElement('button');back.className='btn';back.textContent='← 前の大問';back.onclick=()=>renderQuestion(si-1);nav.appendChild(back)}else{const spacer=document.createElement('span');spacer.className='nav-placeholder';nav.appendChild(spacer)}const submit=document.createElement('button');submit.className='btn';submit.textContent='回答を採点する →';submit.onclick=()=>gradeSection(si);nav.appendChild(submit);card.appendChild(nav);document.getElementById('quiz').appendChild(card);card.querySelectorAll('[data-choice]').forEach(x=>x.onclick=()=>{st.answers[+x.dataset.choice]=+x.dataset.value;x.parentElement.querySelectorAll('button').forEach(y=>y.classList.toggle('selected',y===x))});card.querySelectorAll('[data-answer]').forEach(x=>x.oninput=()=>st.answers[+x.dataset.answer]=x.value)}
+function gradeSection(si){const s=sections[si],st=state[si];document.querySelectorAll('.screen [data-answer]').forEach(x=>st.answers[+x.dataset.answer]=x.value);s.fields.forEach((f,i)=>{if(f.type==='self'&&matches(st.answers[i],[f.answer,...(f.aliases||[])]))st.checks[i]=true});st.score=sectionScore(si);renderResult(si)}
+function updateSubtotal(si){state[si].score=sectionScore(si);document.getElementById('subtotal').textContent=state[si].score}
+function renderResult(si){document.querySelectorAll('.screen').forEach(e=>e.remove());const s=sections[si],st=state[si],card=document.createElement('section');card.className='card screen';card.innerHTML=`<h2>${si+1} 採点結果</h2>`;s.fields.forEach((f,i)=>{const row=document.createElement('div');row.className='result-item';const manual=f.type==='self',correct=manual?false:scoreField(f,st,i)>0,user=manual?(st.answers[i]||'未入力'):(st.answers[i]===undefined?'未選択':f.type==='tf'?['〇','×'][st.answers[i]]:f.options[st.answers[i]]),answer=manual?f.answer:f.type==='tf'?f.answer:f.options[f.answer],earned=scoreField(f,st,i);row.classList.add(manual?(st.checks[i]?'result-correct':'result-pending'):(correct?'result-correct':'result-wrong'));row.innerHTML=`<span class="badge">${manual?'自己採点':correct?'✓ 正解':'× 不正解'}（${earned}/${f.pts}点）</span><div><strong>${esc(f.q)}</strong></div><div class="answer-key">あなたの回答：${esc(user)}<br>${manual?'模範解答':'正解'}：${esc(answer)}</div>${manual?`<label class="self-check"><input type="checkbox" data-check="${i}" ${st.checks[i]?'checked':''}> 模範解答と同等の内容を書けていた（${f.pts}点）</label>`:''}`;card.appendChild(row);const c=row.querySelector('[data-check]');if(c)c.onchange=()=>{st.checks[i]=c.checked;row.classList.toggle('result-correct',c.checked);row.classList.toggle('result-pending',!c.checked);row.querySelector('.badge').textContent=`自己採点（${c.checked?f.pts:0}/${f.pts}点）`;updateSubtotal(si)}});card.insertAdjacentHTML('beforeend',`<div class="score-banner">大問得点：<span id="subtotal">${st.score}</span> / ${s.max}点</div>`);const nav=document.createElement('div');nav.className='nav-row';const back=document.createElement('button');back.className='btn';back.textContent='← 回答を修正';back.onclick=()=>renderQuestion(si);nav.appendChild(back);if(si<sections.length-1){const next=document.createElement('button');next.className='btn';next.textContent='次の大問 →';next.onclick=()=>renderQuestion(si+1);nav.appendChild(next)}else{const final=document.createElement('button');final.className='btn';final.textContent='最終結果を見る →';final.onclick=renderFinal;nav.appendChild(final)}card.appendChild(nav);document.getElementById('quiz').appendChild(card)}
+function renderFinal(){document.querySelectorAll('.screen').forEach(e=>e.remove());const total=state.reduce((n,_,i)=>n+sectionScore(i),0),card=document.createElement('section');card.className='card screen';card.innerHTML=`<h2>最終結果</h2><div class="score-banner">総合得点：${total} / ${totalPoints}点<br><span style="font-size:1rem">${total>=passMark?'合格':'不合格'}（合格ライン：${passMark}点以上）</span></div>`;sections.forEach((s,i)=>{const d=document.createElement('div');d.className='summary-title';d.textContent=`大問 ${i+1}：${sectionScore(i)} / ${s.max}点`;card.appendChild(d)});const account=document.createElement('section');account.className='account-card';account.setAttribute('aria-labelledby','account-heading');account.innerHTML=`<h2 id="account-heading">ログイン・新規登録</h2><p id="account-status" class="account-status" role="status" aria-live="polite">ログイン状態を確認しています…</p><div id="signed-out-panel" hidden><form id="account-form" class="account-form" novalidate><label for="account-email">メールアドレス<input id="account-email" name="email" type="email" autocomplete="email" required></label><label for="account-password">パスワード（6文字以上）<input id="account-password" name="password" type="password" autocomplete="current-password" minlength="6" required></label><div class="account-actions"><button id="submit-account" class="account-button primary" type="submit">ログイン</button></div></form><p class="account-switch"><span id="switch-prompt">初めての方はこちら：</span><button id="switch-mode" type="button">新規アカウント作成</button></p></div><div id="signed-in-panel" class="account-signed-in" hidden><p>ログイン中：<strong id="account-user-email"></strong></p><div class="account-actions"><button id="logout-button" class="account-button secondary" type="button">ログアウト</button></div></div><p id="score-save-status" class="account-status" role="status" aria-live="polite">ログインすると、この検定の点数を自動で記録します。</p><button id="retry-score-save" class="account-button secondary" type="button" hidden>保存を再試行</button>`;card.appendChild(account);const home=document.createElement('a');home.className='btn';home.href='https://hena-choco.github.io/index.html';home.textContent='問題一覧へ戻る';card.appendChild(home);document.getElementById('quiz').appendChild(card);setupFinalAccount(total)}
+function setupFinalAccount(total){const $=id=>document.getElementById(id),status=$('account-status'),saveStatus=$('score-save-status'),form=$('account-form'),submit=$('submit-account'),retry=$('retry-score-save');let mode='login';const setStatus=(m,k='')=>{status.textContent=m;status.dataset.kind=k};const save=async()=>{if(finalScoreSaved){saveStatus.textContent='この検定の点数は保存済みです。';saveStatus.dataset.kind='success';return}if(finalScoreSavePromise)return finalScoreSavePromise;saveStatus.textContent='点数を自動保存しています…';finalScoreSavePromise=window.DoraemonAuth.saveScore({quizId:'2020-advanced',quizTitle:'ドラえもん検定 2020年度 上級',score:total,total:totalPoints,passThreshold:passMark}).then(()=>{finalScoreSaved=true;retry.hidden=true;saveStatus.textContent='点数を保存しました。';saveStatus.dataset.kind='success'}).catch(error=>{finalScoreSavePromise=null;retry.hidden=false;saveStatus.textContent='点数を保存できませんでした。通信状態やFirestoreの設定を確認してください。';saveStatus.dataset.kind='error';console.error('Score save failed',error)});return finalScoreSavePromise};const setMode=m=>{mode=m;const reg=m==='register';submit.textContent=reg?'アカウントを作成':'ログイン';$('switch-prompt').textContent=reg?'すでにアカウントをお持ちの方はこちら：':'初めての方はこちら：';$('switch-mode').textContent=reg?'ログイン':'新規アカウント作成';$('account-password').autocomplete=reg?'new-password':'current-password';setStatus(reg?'メールアドレスと6文字以上のパスワードで登録できます。':'ログインすると点数を保存できます。')};$('switch-mode').onclick=()=>setMode(mode==='login'?'register':'login');form.onsubmit=async e=>{e.preventDefault();if(!form.reportValidity())return;submit.disabled=true;setStatus(mode==='register'?'アカウントを作成しています…':'ログインしています…');try{if(mode==='register')await window.DoraemonAuth.register($('account-email').value.trim(),$('account-password').value);else await window.DoraemonAuth.login($('account-email').value.trim(),$('account-password').value);form.reset();setStatus(mode==='register'?'登録してログインしました。':'ログインしました。','success')}catch(error){const m={'auth/email-already-in-use':'このメールアドレスはすでに登録されています。ログインをお試しください。','auth/invalid-email':'メールアドレスの形式を確認してください。','auth/weak-password':'パスワードは6文字以上で入力してください。','auth/invalid-credential':'メールアドレスまたはパスワードを確認してください。','auth/too-many-requests':'試行回数が多いため一時的に制限されています。時間をおいて再度お試しください。'};setStatus(m[error.code]||'処理に失敗しました。入力内容とFirebaseの設定を確認してください。','error')}finally{submit.disabled=false}};$('logout-button').onclick=async()=>{try{await window.DoraemonAuth.logout();setStatus('ログアウトしました。','success')}catch{setStatus('ログアウトできませんでした。','error')}};retry.onclick=save;window.DoraemonAuth.onAuthStateChanged(user=>{$('signed-out-panel').hidden=Boolean(user);$('signed-in-panel').hidden=!user;$('account-user-email').textContent=user?.email||'';if(user){setStatus('ログイン中です。','success');save()}else{setMode(mode);saveStatus.textContent='ログインすると、この検定の点数を自動で記録します。';saveStatus.dataset.kind=''}},error=>{console.error(error);setStatus('ログイン状態を確認できません。ページを再読み込みしてください。','error')})}
+renderQuestion(0);
+</script>
+</body>
+</html>
