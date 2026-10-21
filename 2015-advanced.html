@@ -233,6 +233,7 @@ function renderFinal(){
   setupFinalAccount(total);
 }
 
+
 function setupFinalAccount(total){
   const $=id=>document.getElementById(id),status=$('account-status'),saveStatus=$('score-save-status'),form=$('account-form'),submit=$('submit-account'),retry=$('retry-score-save');
   let mode='login';
@@ -241,7 +242,7 @@ function setupFinalAccount(total){
     if(finalScoreSaved){saveStatus.textContent='この検定の点数は保存済みです。';saveStatus.dataset.kind='success';return}
     if(finalScoreSavePromise)return finalScoreSavePromise;
     saveStatus.textContent='点数を自動保存しています…';saveStatus.dataset.kind='';
-    finalScoreSavePromise=window.DoraemonAuth.saveScore({quizId:'2015-advanced',quizTitle:'ドラえもん検定 2015 上級',score:total,total:100,passThreshold:70})
+    finalScoreSavePromise=window.DoraemonAuth.saveScore({quizId:'2015-advanced',quizTitle:'ドラえもん検定 2015 上級',score:total,total:100,passThreshold:70,answers:window.DoraemonAuth.captureAnswers(sections,state)})
       .then(()=>{finalScoreSaved=true;retry.hidden=true;saveStatus.textContent='点数を保存しました。';saveStatus.dataset.kind='success'})
       .catch(error=>{finalScoreSavePromise=null;retry.hidden=false;saveStatus.textContent='点数を保存できませんでした。通信状態やFirestoreの設定を確認してください。';saveStatus.dataset.kind='error';console.error('Score save failed',error)});
     return finalScoreSavePromise;

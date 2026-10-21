@@ -47,6 +47,66 @@ export function getQuizMetadata(quizId) {
   return Object.freeze({ year, level: levelKey, levelLabel: QUIZ_CATALOG[year].levels[levelKey], color: QUIZ_CATALOG[year].color });
 }
 
+export function captureAnswers(sections, state) {
+  const read=(source,key)=>source&&Object.prototype.hasOwnProperty.call(source,key)?source[key]:undefined;
+  const has=value=>value!==undefined&&value!==null;
+  const display=(field,value)=>{
+    if(!has(value))return '未回答';
+    if(Array.isArray(value))return value.map(v=>display(field,v)).join(' → ');
+    if(field?.type==='tf'&&typeof value==='number')return ['〇','×'][value]??String(value);
+    if(typeof value==='number'&&Array.isArray(field?.options))return field.options[value]??String(value);
+    if(value&&typeof value==='object')return Object.entries(value).map(([k,v])=>`${k}: ${display(null,v)}`).join(' / ');
+    return String(value);
+  };
+  const same=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
+  return sections.map((section,si)=>{
+    const st=state?.[si]||{},fields=section.fields||section.items||[];
+    const answers=fields.map((field,fi)=>{
+      const question=field.q||field.question||field.prompt||`設問 ${fi+1}`;
+      const paired=Array.isArray(field.parts)?field.parts:(['pair','triple'].includes(field.type)?(field.labels||field.answer||[]).map((label,pi)=>({label:field.labels?.[pi]||`(${pi+1})`,options:field.options,answer:Array.isArray(field.answer)?field.answer[pi]:undefined})):null);
+      let answer,correctAnswer,correct=null,selfCheck=false;
+      if(Array.isArray(paired)){
+        const userParts=[],keyParts=[];let allKnown=true,allCorrect=true,hasManualPart=false,allManualPartsChecked=true;
+        paired.forEach((part,pi)=>{
+          const key=`${fi}_${pi}`,userRaw=read(st.answers,key)??read(st.choices,key),keyRaw=part.answer;
+          userParts.push(`${part.label||`(${pi+1})`}: ${display(part,userRaw)}`);
+          keyParts.push(`${part.label||`(${pi+1})`}: ${display(part,keyRaw)}`);
+          if(part.type==='self'||part.type==='manual'){
+            hasManualPart=true;
+            const checked=read(st.checks,key)??read(st.manual,key);
+            if(checked!==true&&checked!=='true')allManualPartsChecked=false;
+          }else if(!has(userRaw)||!has(keyRaw))allKnown=false;
+          else if(!same(userRaw,keyRaw))allCorrect=false;
+        });
+        answer=userParts.join(' / ');correctAnswer=keyParts.join(' / ');
+        selfCheck=hasManualPart&&allManualPartsChecked;
+        if(!hasManualPart&&allKnown)correct=allCorrect;
+      }else{
+        let raw=read(st.answers,fi);
+        if(!has(raw))raw=read(st.choices,fi);
+        if(!has(raw))raw=read(st.manual,fi);
+        const keyRaw=field.answer;
+        answer=display(field,raw);correctAnswer=display(field,keyRaw);
+        const manual=field.type==='self'||field.type==='manual'||field.manual===true;
+        if(manual){
+          const check=read(st.checks,fi)??read(st.manual,fi);
+          selfCheck=check===true||check==='true';
+        }else if(has(raw)&&has(keyRaw)){
+          if(Array.isArray(raw)&&Array.isArray(keyRaw)){
+            const a=field.type==='multi'?[...raw].sort():raw,b=field.type==='multi'?[...keyRaw].sort():keyRaw;
+            correct=same(a,b);
+          }else if(typeof raw===typeof keyRaw)correct=same(raw,keyRaw);
+          else if(field.type==='tf')correct=answer===correctAnswer;
+        }
+      }
+      const points=Number.isFinite(field.pts)?field.pts:Number.isFinite(field.points)?field.points:null;
+      return {question,answer,correctAnswer,correct,selfCheck,...(points!==null?{maxPoints:points,earned:selfCheck?points:correct===true?points:0}:{})};
+    });
+    const score=Number.isFinite(st.weighted)?st.weighted:Number.isFinite(st.score)?st.score:null;
+    return {section:section.title||section.name||`大問 ${si+1}`,...(score!==null?{score}:{}),answers};
+  });
+}
+
 export async function saveScore({ quizId, quizTitle, score, total, passThreshold = null, answers = null }) {
   const user = auth.currentUser;
   if (!user) throw new Error("点数を保存するにはログインしてください。");
@@ -79,6 +139,7 @@ window.DoraemonAuth = Object.freeze({
   login: (email, password) => signInWithEmailAndPassword(auth, email, password),
   logout: () => signOut(auth),
   saveScore,
+  captureAnswers,
   listScores,
   getQuizMetadata,
   quizCatalog: QUIZ_CATALOG
