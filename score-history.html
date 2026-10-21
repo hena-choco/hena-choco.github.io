@@ -136,7 +136,7 @@ function renderRecords(records) {
   holder.innerHTML=valid.map(record=>{
     const meta=quizMeta(record),title=meta?`ドラえもん検定 ${meta.year} ${LEVEL_LABELS[meta.level]}`:record.quizTitle||record.quizId||"ドラえもん検定";
     const passed=record.score>=passLine(record),details=answerDetails(record);
-    const detailsBlock=record.answers&&(!Array.isArray(record.answers)||record.answers.length)?`<details><summary>解答・採点内容を見る</summary><div class="detail-content">${details}</div></details>`:"";
+    const detailsBlock=`<details><summary>解答・採点内容を見る</summary><div class="detail-content">${details}</div></details>`;
     return `<article class="record"><div class="record-title">${esc(title)}</div><div class="record-date">${esc(dateText(record.createdAt))}</div><div class="record-score">${esc(record.score)} / ${esc(record.total)}点</div><div class="record-result">${passed?"合格":"不合格"}（合格基準 ${esc(passLine(record))}点）</div>${detailsBlock}</article>`;
   }).join("");
 }
