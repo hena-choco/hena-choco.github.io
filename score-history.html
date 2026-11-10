@@ -67,10 +67,10 @@ import { auth, onAuthStateChanged, signOut, listScores } from "./firebase-auth.j
 const $ = id => document.getElementById(id);
 const esc = value => String(value ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const YEAR_COLORS = {"2013":"#FEF3C7","2014":"#D2DAB4","2015":"#C9BCE8","2016":"#FED7AA","2017":"#CFFAFE","2018":"#FCA5A5","2019":"#BFDBFE","2020":"#A7F3D0","2021":"#CBD5E1","2022":"#D8B4FE","2023":"#86C1B2","2024":"#E0E7FF","2025":"#EADCC9"};
-const LEVEL_LABELS = {beginner:"初級",shochukyu:"初中級",intermediate:"中級",advanced:"上級",super:"超上級"};
+const LEVEL_LABELS = {beginner:"初級",shochukyu:"初中級",intermediate:"中級",advanced:"上級",super:"超上級",english:"英語版",chinese:"中国語版"};
 const YEAR_LEVELS = {
   "2013":["intermediate","advanced"],"2014":["intermediate","advanced"],"2015":["intermediate","advanced"],
-  "2016":["intermediate","advanced"],"2017":["intermediate","advanced"],"2018":["intermediate","advanced","super"],
+  "2016":["intermediate","advanced"],"2017":["intermediate","advanced"],"2018":["intermediate","advanced","super","english","chinese"],
   "2019":["intermediate","advanced","super"],"2020":["beginner","intermediate","advanced"],
   "2021":["beginner","intermediate","advanced"],"2022":["beginner","intermediate","advanced"],
   "2023":["beginner","intermediate","advanced"],"2024":["beginner","intermediate","advanced"],
@@ -79,7 +79,7 @@ const YEAR_LEVELS = {
 function quizMeta(record) {
   const id=String(record.quizId||"").toLowerCase(), title=String(record.quizTitle||"");
   const year=(id.match(/20\d{2}/)||title.match(/20\d{2}/)||[])[0];
-  const level=/super-advanced|超上級/i.test(id+" "+title)?"super":/shochukyu|初中級/i.test(id+" "+title)?"shochukyu":/advanced|上級/i.test(id+" "+title)?"advanced":/intermediate|中級/i.test(id+" "+title)?"intermediate":/beginner|初級/i.test(id+" "+title)?"beginner":null;
+  const level=/english|英語版/i.test(id+" "+title)?"english":/chinese|中文|中国語版/i.test(id+" "+title)?"chinese":/super-advanced|超上級/i.test(id+" "+title)?"super":/shochukyu|初中級/i.test(id+" "+title)?"shochukyu":/advanced|上級/i.test(id+" "+title)?"advanced":/intermediate|中級/i.test(id+" "+title)?"intermediate":/beginner|初級/i.test(id+" "+title)?"beginner":null;
   return year&&level?{year,level}:null;
 }
 function dateText(value) {

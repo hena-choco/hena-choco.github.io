@@ -29,7 +29,7 @@ export const QUIZ_CATALOG = Object.freeze({
   "2021": { color: "#CBD5E1", levels: { beginner: "初級", intermediate: "中級", advanced: "上級" } },
   "2020": { color: "#A7F3D0", levels: { beginner: "初級", intermediate: "中級", advanced: "上級" } },
   "2019": { color: "#BFDBFE", levels: { intermediate: "中級", advanced: "上級", "super-advanced": "超上級" } },
-  "2018": { color: "#FCA5A5", levels: { intermediate: "中級", advanced: "上級", "super-advanced": "超上級" } },
+  "2018": { color: "#FCA5A5", levels: { intermediate: "中級", advanced: "上級", "super-advanced": "超上級", english: "英語版", chinese: "中国語版" } },
   "2017": { color: "#CFFAFE", levels: { intermediate: "中級", advanced: "上級" } },
   "2016": { color: "#FED7AA", levels: { intermediate: "中級", advanced: "上級" } },
   "2015": { color: "#C9BCE8", levels: { intermediate: "中級", advanced: "上級" } },

@@ -55,6 +55,18 @@
     </image:image>
   </url>
   <url>
+    <loc>https://hena-choco.github.io/2018-english.html</loc>
+    <image:image>
+      <image:loc>https://hena-choco.github.io/share-images/doraemon-kentei-2018.png</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://hena-choco.github.io/2018-chinese.html</loc>
+    <image:image>
+      <image:loc>https://hena-choco.github.io/share-images/doraemon-kentei-2018.png</image:loc>
+    </image:image>
+  </url>
+  <url>
     <loc>https://hena-choco.github.io/2019-advanced.html</loc>
     <image:image>
       <image:loc>https://hena-choco.github.io/share-images/doraemon-kentei-2019.png</image:loc>
