@@ -107,7 +107,7 @@
       <p class="history-link-wrap"><a class="history-link" href="./score-history.html">得点履歴を見る →</a></p>
     </section>
     
-    <footer><p>へなちょこ / Hazel Nuts Chocolate</p></footer>
+    <footer><p>累計 <span id="visitor-total">—</span> 人 ／ 本日 <span id="visitor-today">—</span> 人</p></footer>
   </div>
 
   <script>
@@ -185,6 +185,43 @@
       setStatus("ログイン状態を確認できません。ページを再読み込みしてください。", "error");
     });
 
+  </script>
+  <script>
+    (() => {
+      const numberFormat = new Intl.NumberFormat("ja-JP");
+      const getJapanDate = () => {
+        const parts = new Intl.DateTimeFormat("en-CA", {
+          timeZone: "Asia/Tokyo",
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit"
+        }).formatToParts(new Date());
+        const part = (type) => parts.find((item) => item.type === type)?.value || "00";
+        return `${part("year")}-${part("month")}-${part("day")}`;
+      };
+
+      function loadVisitorCount(key, elementId) {
+        const callbackName = `visitorCounter_${elementId}_${Date.now()}`;
+        const script = document.createElement("script");
+        const target = document.getElementById(elementId);
+        const finish = (value) => {
+          if (value !== null && value !== undefined && Number.isFinite(Number(value)) && target) {
+            target.textContent = numberFormat.format(Number(value));
+          }
+          delete window[callbackName];
+          script.remove();
+        };
+
+        window[callbackName] = (response) => finish(response?.value);
+        script.onerror = () => finish(null);
+        script.src = `https://counterapi.com/api/hena-choco.github.io/view/${encodeURIComponent(key)}?unique=true&callback=${callbackName}`;
+        document.head.append(script);
+        window.setTimeout(() => finish(null), 10000);
+      }
+
+      loadVisitorCount("homepage-total", "visitor-total");
+      loadVisitorCount(`homepage-${getJapanDate()}`, "visitor-today");
+    })();
   </script>
 </body>
 </html>
