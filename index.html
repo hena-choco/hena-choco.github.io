@@ -186,41 +186,35 @@
     });
 
   </script>
+  <script src="https://www.stats4u.net/s4u.js" data-id="4616854826" data-style="981" async></script>
   <script>
     (() => {
       const numberFormat = new Intl.NumberFormat("ja-JP");
-      const getJapanDate = () => {
-        const parts = new Intl.DateTimeFormat("en-CA", {
-          timeZone: "Asia/Tokyo",
-          year: "numeric",
-          month: "2-digit",
-          day: "2-digit"
-        }).formatToParts(new Date());
-        const part = (type) => parts.find((item) => item.type === type)?.value || "00";
-        return `${part("year")}-${part("month")}-${part("day")}`;
-      };
+      const total = document.getElementById("visitor-total");
+      const today = document.getElementById("visitor-today");
 
-      function loadVisitorCount(key, elementId) {
-        const callbackName = `visitorCounter_${elementId}_${Date.now()}`;
-        const script = document.createElement("script");
-        const target = document.getElementById(elementId);
-        const finish = (value) => {
-          if (value !== null && value !== undefined && Number.isFinite(Number(value)) && target) {
-            target.textContent = numberFormat.format(Number(value));
+      async function loadVisitorCounts() {
+        try {
+          const response = await fetch("https://www.stats4u.net/live/4616854826/stats.json", {
+            cache: "no-store"
+          });
+          if (!response.ok) throw new Error(`Stats4U returned ${response.status}`);
+          const data = await response.json();
+          const allTimeCount = Number(data.totals?.all);
+          const todayCount = Number(data.totals?.today);
+
+          if (Number.isFinite(allTimeCount) && total) {
+            total.textContent = numberFormat.format(allTimeCount);
           }
-          delete window[callbackName];
-          script.remove();
-        };
-
-        window[callbackName] = (response) => finish(response?.value);
-        script.onerror = () => finish(null);
-        script.src = `https://counterapi.com/api/hena-choco.github.io/view/${encodeURIComponent(key)}?unique=true&callback=${callbackName}`;
-        document.head.append(script);
-        window.setTimeout(() => finish(null), 10000);
+          if (Number.isFinite(todayCount) && today) {
+            today.textContent = numberFormat.format(todayCount);
+          }
+        } catch (error) {
+          console.error("Visitor count could not be loaded", error);
+        }
       }
 
-      loadVisitorCount("homepage-total", "visitor-total");
-      loadVisitorCount(`homepage-${getJapanDate()}`, "visitor-today");
+      loadVisitorCounts();
     })();
   </script>
 </body>
